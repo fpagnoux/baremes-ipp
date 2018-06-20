@@ -9,49 +9,6 @@ import isString from 'lodash.isstring';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
-// function isParameter(object) {
-//   return object.id && object.values
-// }
-
-// function renderSimpleParam(node) {
-//   return (
-//     <table>
-//       <tbody>
-//         <tr>
-//           <th>Date d'effet</th>
-//           <th>{ node.description }</th>
-//         </tr>
-//         {map(node.values, (value, date) =>
-//           <tr key={ date }>
-//             <td>{ date }</td>
-//             <td>{ value }</td>
-//           </tr>
-//         )}
-//       </tbody>
-//     </table>
-//   )
-// }
-
-// function renderComplexParam(node) {
-//   const
-//   return (
-//     <table>
-//       <tbody>
-//         <tr>
-//           <th>Date d'effet</th>
-//           <th>{ node.description }</th>
-//         </tr>
-//         {map(node.values, (value, date) =>
-//           <tr key={ date }>
-//             <td>{ date }</td>
-//             <td>{ value }</td>
-//           </tr>
-//         )}
-//       </tbody>
-//     </table>
-//   )
-// }
-
 function preprocess(tableData) {
   const nbRows = size(values(tableData)[0].values)
 
@@ -65,34 +22,31 @@ function preprocess(tableData) {
   })
 }
 
+function buildSimpleColumn(openfiscaKey, description) {
+  return [{
+    Header: description,
+    accessor: item => item[openfiscaKey],
+    id: openfiscaKey
+  }]
+}
 
-function getColumns(tableDesc, tableData) {
+function buildColumns(tableDesc, tableData) {
   if (isString(tableDesc)) {
-    const nodeKey = tableDesc
-    return [{
-      Header: tableData[nodeKey].description,
-      accessor: item => item[nodeKey],
-      id: nodeKey
-    }]
+    return buildSimpleColumn(tableDesc, tableData[tableDesc].description)
   }
-  return map(tableDesc, (node, description) => {
-    if (isString(node)) {
-      // console.log(node)
-      return {
-        Header: description,
-        accessor: item => {console.log(item[node]); return item[node]},
-        id: node
-      }
+  return map(tableDesc, (nodeDesc, description) => {
+    if (isString(nodeDesc)) {
+      return buildSimpleColumn(nodeDesc, description)
     }
     return {
       Header: description,
-      columns: getColumns(node, tableData)
+      columns: buildColumns(nodeDesc, tableData)
     }})
 }
 
 const Table = ({desc, data}) => {
   const preprocessedData = preprocess(data)
-  const columns = getColumns(desc, data)
+  const columns = buildColumns(desc, data)
   debugger
   return <ReactTable
     data={preprocessedData}
@@ -101,11 +55,6 @@ const Table = ({desc, data}) => {
     defaultPageSize={preprocessedData.length}
     className="-striped -highlight"
     />
-  // if (isParameter(node)) {
-  //   return <br/>
-  // } else {
-  //   return (<pre>{JSON.stringify(node)}</pre>)
-  // }
 }
 
 export default Table

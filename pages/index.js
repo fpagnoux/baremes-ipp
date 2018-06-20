@@ -17,17 +17,8 @@ const Index = withRouter(({tableDesc, tableData}) => (
 Index.getInitialProps = async function({ query }) {
   const tableDesc = tables[query.table]
   const tableData = await fetchTableData(tableDesc)
-  // const node = await fetchTableData(tableDesc)
-  // return {node: node}
-  // const allParametersResponse = await fetch('http://localhost:5000/parameters')
-  // const allParameters = await allParametersResponse.json()
-  // const pickByedParameters = pickBy(allParameters, (value, key) =>{
-  //   return key.startsWith(node)
-  // })
-  // console.log(pickByedParameters)
   return {tableDesc, tableData}
 }
-
 
 async function fetchTableData(tableDesc) {
   const nodesToFetch = {}
@@ -44,11 +35,9 @@ async function fetchTableData(tableDesc) {
   return await Promise.props(mapValues(nodesToFetch, (value, key) => fecthParam(key)))
 }
 
-
 async function fecthParam(key) {
   const response = await fetch(`http://localhost:5000/parameter/${key}`)
   return await response.json()
 }
-
 
 export default Index
