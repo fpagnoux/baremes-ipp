@@ -1,0 +1,28 @@
+{
+  "name": "ipp-views",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@zeit/next-css": "^0.2.0",
+    "bluebird": "^3.5.1",
+    "isomorphic-unfetch": "^2.0.0",
+    "js-yaml-loader": "^0.1.0",
+    "lodash": "^4.17.10",
+    "lodash.frompairs": "^4.0.1",
+    "lodash.isstring": "^4.0.1",
+    "lodash.map": "^4.6.0",
+    "lodash.mapvalues": "^4.6.0",
+    "lodash.pickby": "^4.6.0",
+    "lodash.range": "^3.2.0",
+    "lodash.size": "^4.2.0",
+    "lodash.values": "^4.3.0",
+    "next": "^6.0.3",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-table": "^6.8.6"
+  },
+  "scripts": {
+    "dev": "next"
+  }
+}
