@@ -25,16 +25,16 @@ function preprocess(tableData) {
 }
 
 function buildSimpleColumn(openfiscaKey, description) {
-  return [{
+  return {
     Header: description,
     accessor: item => item[openfiscaKey],
     id: openfiscaKey
-  }]
+  }
 }
 
 function buildColumns(tableDesc, tableData) {
   if (isString(tableDesc)) {
-    return buildSimpleColumn(tableDesc, tableData[tableDesc].description)
+    return [buildSimpleColumn(tableDesc, tableData[tableDesc].description)]
   }
   return map(tableDesc, (nodeDesc, description) => {
     if (isString(nodeDesc)) {
@@ -48,8 +48,13 @@ function buildColumns(tableDesc, tableData) {
 
 const Table = ({desc, data}) => {
   const preprocessedData = preprocess(data)
-  const columns = buildColumns(desc, data)
-  console.log(preprocessedData)
+  const dateColumn = {
+      Header: 'Date d’effet',
+      accessor: 'date',
+    }
+  const columns = [dateColumn].concat(buildColumns(desc, data))
+  console.log(columns)
+  // console.log(preprocessedData)
   return <ReactTable
     data={preprocessedData}
     columns={columns}
