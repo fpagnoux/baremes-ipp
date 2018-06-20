@@ -2,6 +2,7 @@ import fetch from 'isomorphic-unfetch'
 import map from 'lodash.map';
 import size from 'lodash.size';
 import values from 'lodash.values';
+import keys from 'lodash.keys';
 import range from 'lodash.range';
 import fromPairs from 'lodash.frompairs';
 import isString from 'lodash.isstring';
@@ -10,15 +11,16 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 
 function preprocess(tableData) {
-  const nbRows = size(values(tableData)[0].values)
-
-  return range(nbRows).map(index => {
-    return fromPairs(
-      map(tableData, (value, key) => {
-        // console.log(values(value.values))
-        return [key, values(value.values)[index]] // TODO: Needs sorting!
-      })
-    )
+  const dates = keys(values(tableData)[0].values)
+  return dates.map(date => {
+    return Object.assign({},
+      fromPairs(
+        map(tableData, (param, paramKey) => {
+          return [paramKey, param.values[date]]
+        })
+      ),
+      {date}
+      )
   })
 }
 
@@ -47,7 +49,7 @@ function buildColumns(tableDesc, tableData) {
 const Table = ({desc, data}) => {
   const preprocessedData = preprocess(data)
   const columns = buildColumns(desc, data)
-  debugger
+  console.log(preprocessedData)
   return <ReactTable
     data={preprocessedData}
     columns={columns}
