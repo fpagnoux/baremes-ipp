@@ -5,8 +5,9 @@ import isString from 'lodash.isstring';
 import mapValues from 'lodash.mapvalues';
 import Promise from 'bluebird'
 
-import css from "../style.css"
 
+import "react-table/react-table.css";
+import "../style.css"
 import Table from "../components/Table"
 import tables from "../tables.yml"
 

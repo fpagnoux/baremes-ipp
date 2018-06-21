@@ -11,7 +11,6 @@ import merge from 'lodash.merge';
 import last from 'lodash.last';
 
 import ReactTable from "react-table";
-import "react-table/react-table.css";
 
 function preprocess(tableData) {
   const dates = union(...map(tableData, param => keys(param.values))).sort()
