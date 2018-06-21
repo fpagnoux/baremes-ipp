@@ -1,16 +1,12 @@
-import fetch from 'isomorphic-unfetch'
-import map from 'lodash.map';
-import size from 'lodash.size';
-import values from 'lodash.values';
-import keys from 'lodash.keys';
-import range from 'lodash.range';
-import fromPairs from 'lodash.frompairs';
-import isString from 'lodash.isstring';
-import union from 'lodash.union';
-import merge from 'lodash.merge';
-import last from 'lodash.last';
+import map from 'lodash.map'
+import keys from 'lodash.keys'
+import fromPairs from 'lodash.frompairs'
+import isString from 'lodash.isstring'
+import union from 'lodash.union'
+import merge from 'lodash.merge'
+import last from 'lodash.last'
 
-import ReactTable from "react-table";
+import ReactTable from 'react-table'
 
 function preprocess(tableData) {
   const dates = union(...map(tableData, param => keys(param.values))).sort()
@@ -53,9 +49,9 @@ function buildColumns(tableDesc, tableData) {
 const Table = ({desc, data}) => {
   const preprocessedData = preprocess(data)
   const dateColumn = {
-      Header: 'Date d’effet',
-      accessor: 'date',
-    }
+    Header: 'Date d’effet',
+    accessor: 'date',
+  }
   const columns = [dateColumn].concat(buildColumns(desc, data))
   return <ReactTable
     data={preprocessedData}
@@ -64,7 +60,7 @@ const Table = ({desc, data}) => {
     defaultPageSize={preprocessedData.length}
     className="-striped -highlight"
     defaultSorted={[{id: 'date', desc: true}]}
-    />
+  />
 }
 
 export default Table
