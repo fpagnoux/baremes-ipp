@@ -22,6 +22,8 @@
     "react-table": "^6.8.6"
   },
   "scripts": {
-    "dev": "next"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   }
 }
