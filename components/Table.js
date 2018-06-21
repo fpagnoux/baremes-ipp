@@ -6,22 +6,27 @@ import keys from 'lodash.keys';
 import range from 'lodash.range';
 import fromPairs from 'lodash.frompairs';
 import isString from 'lodash.isstring';
+import union from 'lodash.union';
+import merge from 'lodash.merge';
+import last from 'lodash.last';
 
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
 function preprocess(tableData) {
-  const dates = keys(values(tableData)[0].values)
-  return dates.map(date => {
-    return Object.assign({},
+  const dates = union(...map(tableData, param => keys(param.values))).sort()
+  return dates.reduce((data, date) => {
+    return data.concat([merge(
+      {},
+      last(data),
+      {date},
       fromPairs(
         map(tableData, (param, paramKey) => {
           return [paramKey, param.values[date]]
         })
-      ),
-      {date}
       )
-  })
+    )])
+  }, [])
 }
 
 function buildSimpleColumn(openfiscaKey, description) {
@@ -53,14 +58,13 @@ const Table = ({desc, data}) => {
       accessor: 'date',
     }
   const columns = [dateColumn].concat(buildColumns(desc, data))
-  console.log(columns)
-  // console.log(preprocessedData)
   return <ReactTable
     data={preprocessedData}
     columns={columns}
     showPagination={false}
     defaultPageSize={preprocessedData.length}
     className="-striped -highlight"
+    defaultSorted={[{id: 'date', desc: true}]}
     />
 }
 
