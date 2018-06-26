@@ -1,3 +1,7 @@
 .ReactTable .rt-th {
   white-space: normal;
 }
+
+.full-width {
+  max-width: none;
+}
