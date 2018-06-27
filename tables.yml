@@ -1,9 +1,5 @@
 rsa_montant: prestations.minima_sociaux.rsa.montant_de_base_du_rsa
-rsa_forfait_logement:
-  "Forfait logement (en % du montant forfaitaire du RSA)":
-    "1 personne": prestations.minima_sociaux.rsa.forfait_logement.taux_1_personne
-    "2 personne": prestations.minima_sociaux.rsa.forfait_logement.taux_2_personnes
-    "3 personnes ou plus": prestations.minima_sociaux.rsa.forfait_logement.taux_3_personnes_ou_plus
+rsa_forfait_logement: prestations.minima_sociaux.rsa.forfait_logement
 rsa_majoration:
   "Majoration montant maximal (en % de la base RSA)":
     "Couples ou célibataire avec un enfant": prestations.minima_sociaux.rsa.majoration_rsa.taux_deuxieme_personne

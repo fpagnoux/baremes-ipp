@@ -12,15 +12,15 @@ import { FormattedDate, IntlProvider, addLocaleData, FormattedNumber} from 'reac
 import fr from 'react-intl/locale-data/fr'
 addLocaleData(fr)
 
-function preprocess(tableData) {
-  const dates = union(...map(tableData, param => keys(param.values))).sort()
+function preprocess(parameterNode) {
+  const dates = union(...map(parameterNode, param => keys(param.values))).sort()
   return dates.reduce((data, date) => {
     return data.concat([merge(
       {},
       last(data),
       {date},
       fromPairs(
-        map(tableData, (param, paramKey) => {
+        map(parameterNode, (param, paramKey) => {
           return [paramKey, param.values[date]]
         })
       )
@@ -42,34 +42,36 @@ function buildSimpleColumn(openfiscaKey, parameter) {
   }
 }
 
-function buildColumns(tableDesc, tableData) {
+function buildColumns(tableDesc, parameterNode) {
   if (isString(tableDesc)) {
-    return [buildSimpleColumn(tableDesc, tableData[tableDesc])]
+    return [buildSimpleColumn(tableDesc, parameterNode[tableDesc])]
   }
   return map(tableDesc, (nodeDesc, description) => {
     if (isString(nodeDesc)) {
-      return buildSimpleColumn(nodeDesc, Object.assign({}, tableData[nodeDesc], {description}))
+      return buildSimpleColumn(nodeDesc, Object.assign({}, parameterNode[nodeDesc], {description}))
     }
     return {
       Header: description,
-      columns: buildColumns(nodeDesc, tableData)
+      columns: buildColumns(nodeDesc, parameterNode)
     }})
 }
 
-const Table = ({desc, data}) => {
-  const preprocessedData = preprocess(data)
+const Table = ({parameterNode}) => {
+  const data = preprocess(parameterNode)
+  console.log(data)
   const dateColumn = {
     Header: 'Date d’effet',
     accessor: 'date',
     Cell: props => <FormattedDate value={props.value}/>
   }
+  return <br/>
   const columns = [dateColumn].concat(buildColumns(desc, data))
   return (<IntlProvider locale="fr">
       <ReactTable
-        data={preprocessedData}
+        data={data}
         columns={columns}
         showPagination={false}
-        defaultPageSize={preprocessedData.length}
+        defaultPageSize={data.length}
         className="-striped -highlight"
         defaultSorted={[{id: 'date', desc: true}]}
       />
