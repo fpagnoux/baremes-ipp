@@ -1,0 +1,28 @@
+{
+  "children": {
+    "taux_1_personne": {
+      "description": "1 personne",
+      "id": "prestations.minima_sociaux.rsa.forfait_logement.taux_1_personne",
+      "values": {
+        "2009-06-01": 0.12
+      }
+    },
+    "taux_2_personnes": {
+      "description": "2 personne",
+      "id": "prestations.minima_sociaux.rsa.forfait_logement.taux_2_personnes",
+      "values": {
+        "2009-06-01": 0.16
+      }
+    },
+    "taux_3_personnes_ou_plus": {
+      "description": "3 personnes ou plus",
+      "id": "prestations.minima_sociaux.rsa.forfait_logement.taux_3_personnes_ou_plus",
+      "references": ["ipp"],
+      "values": {
+        "2009-06-01": 0.165
+      }
+    }
+  },
+  "description": "Forfait logement (en % du montant forfaitaire du RSA)",
+  "id": "prestations.minima_sociaux.rsa.forfait_logement"
+}

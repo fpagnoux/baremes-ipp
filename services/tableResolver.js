@@ -1,3 +1,5 @@
+/** Reads a table description from the configuration files and fetch the relevant data from the OpenFisca API */
+
 import fetch from 'isomorphic-unfetch'
 import isString from 'lodash.isstring';
 import mapValues from 'lodash.mapvalues';

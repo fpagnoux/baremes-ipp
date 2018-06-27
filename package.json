@@ -8,6 +8,7 @@
     "bluebird": "^3.5.1",
     "isomorphic-unfetch": "^2.0.0",
     "js-yaml-loader": "^0.1.0",
+    "lodash.flow": "^3.5.0",
     "lodash.frompairs": "^4.0.1",
     "lodash.isstring": "^4.0.1",
     "lodash.keys": "^4.2.0",
@@ -22,9 +23,19 @@
     "react-intl": "^2.4.0",
     "react-table": "^6.8.6"
   },
+  "devDependencies": {
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "22.4.3",
+    "enzyme": "3.2.0",
+    "enzyme-adapter-react-16": "1.1.1",
+    "jest": "22.0.1",
+    "react-addons-test-utils": "15.6.2",
+    "react-test-renderer": "16.2.0"
+  },
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "NODE_ENV=test jest"
   }
 }
