@@ -15,7 +15,7 @@ const cellFormatter = {
 
 function buildSimpleColumn(parameter) {
   return {
-    Header: parameter.description,
+    Header: <span className="edit-link">{parameter.description}<br/><a target="_blank" href={parameter.source}>Edit</a></span>,
     accessor: item => item[parameter.id],
     id: parameter.id,
     Cell: cellFormatter[parameter.unit]
@@ -67,6 +67,7 @@ const Table = ({parameterNode}) => {
         defaultPageSize={data.length}
         className="-striped -highlight"
         defaultSorted={[{id: 'date', desc: true}]}
+        sortable={false}
       />
     </IntlProvider>
   )
