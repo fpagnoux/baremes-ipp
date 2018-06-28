@@ -1,6 +1,3 @@
-import "react-table/react-table.css";
-import "../style.css"
-
 import Layout from '../components/Layout'
 
 
