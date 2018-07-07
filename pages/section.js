@@ -9,7 +9,7 @@ function renderItem(item, key, path) {
     </li>
   }
   if (item.table) {
-    return <li key={key}><a href={`${path}${key}`}>{item.description || item.table.description || 'No description'}</a></li>
+    return <li key={key}><a href={`${path}${key}`}>{item.title || item.table.description || 'No description'}</a></li>
   }
 }
 

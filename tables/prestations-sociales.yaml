@@ -8,7 +8,7 @@ children:
       rsa_forfait_logement:
         table: prestations.minima_sociaux.rsa.forfait_logement
       rsa_majoration:
-        description: "Revenu de solidarité active (RSA) : majorations (montant de base et revenus) et montant minimum versé"
+        title: "Revenu de solidarité active (RSA) : majorations (montant de base et revenus) et montant minimum versé"
         table:
           "Majoration montant maximal (en % de la base RSA)":
             "Couples ou célibataire avec un enfant": prestations.minima_sociaux.rsa.majoration_rsa.taux_deuxieme_personne
