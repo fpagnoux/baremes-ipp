@@ -1,20 +1,13 @@
 import {withRouter} from 'next/router'
 
-import {resolveTableDesc} from "../services/tableResolver"
 import Table from "../components/Table"
 import Layout from '../components/Layout'
-import tables from "../tables.yml"
 
-const TablePage = withRouter(({parameterNode}) => (
-  <Layout fullWidth={ true }>
-    <Table parameterNode={parameterNode}/>
+const TablePage = (props) => {
+  const table = props.router.query
+  return <Layout fullWidth={ true }>
+    <Table parameterNode={table}/>
   </Layout>
-  ))
+  }
 
-TablePage.getInitialProps = async function({ query }) {
-  const tableDesc = tables[query.table]
-  const parameterNode = await resolveTableDesc(tableDesc)
-  return {parameterNode}
-}
-
-export default TablePage
+export default withRouter(TablePage)
