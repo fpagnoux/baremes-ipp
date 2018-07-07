@@ -10,8 +10,8 @@ const fs = require('fs')
 const yaml = require('js-yaml');
 const flatten = require('lodash.flatten')
 
-const tableResolver = require('./services/tableResolver')
-const routeBuilder = require('./services/routeBuilder')
+const tableResolver = require('./tableResolver')
+const routeBuilder = require('./routeBuilder')
 
 
 async function loadSectionFile(file) {

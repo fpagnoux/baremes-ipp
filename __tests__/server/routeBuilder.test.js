@@ -1,4 +1,4 @@
-import routeBuilder from '../../services/routeBuilder'
+import routeBuilder from '../../server/routeBuilder'
 
 const extractRoutes = routeBuilder.extractRoutes
 
