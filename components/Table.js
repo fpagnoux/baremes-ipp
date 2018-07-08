@@ -7,6 +7,7 @@ import { FormattedDate, IntlProvider, addLocaleData, FormattedNumber} from 'reac
 import fr from 'react-intl/locale-data/fr'
 
 import extractData from '../services/dataPreprocesser'
+import CustomTable from '../components/customTable'
 
 addLocaleData(fr)
 
@@ -80,8 +81,10 @@ const Table = ({parameterNode}) => {
     Cell: props => <FormattedDate value={props.value}/>
   }
   const columns = [dateColumn].concat(buildColumns(parameterNode))
+  console.log(columns)
   return (
     <IntlProvider locale="fr">
+      <div>
       <ReactTable
         data={data}
         columns={columns}
@@ -91,6 +94,11 @@ const Table = ({parameterNode}) => {
         defaultSorted={[{id: 'date', desc: true}]}
         sortable={false}
       />
+      <CustomTable
+        columns={columns}
+        data={data}
+      />
+      </div>
     </IntlProvider>
   )
 }
