@@ -1,0 +1,8 @@
+title: Prélèvements sociaux
+_:
+  plafond_securite_sociale:
+    table: cotsoc.gen.plafond_securite_sociale
+  contributions:
+    subsection: prelevements_sociaux.contributions
+  cositations_sociales:
+    subsection: prelevements_sociaux.cotisations_sociales
