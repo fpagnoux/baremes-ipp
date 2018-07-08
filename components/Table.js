@@ -1,4 +1,6 @@
 import map from 'lodash.map'
+import range from 'lodash.range'
+import size from 'lodash.size'
 import isString from 'lodash.isstring'
 import ReactTable from 'react-table'
 import { FormattedDate, IntlProvider, addLocaleData, FormattedNumber} from 'react-intl'
@@ -25,6 +27,26 @@ function buildSimpleColumn(parameter) {
 function buildColumns(parameterNode) {
   if (parameterNode.values) {
     return [buildSimpleColumn(parameterNode)]
+  }
+  if (parameterNode.brackets) {
+    const maxNbTranche = Math.max(...map(parameterNode.brackets, bracket => size(bracket)))
+    return {
+      Header: parameterNode.description,
+      columns: map(range(maxNbTranche), index => {
+        return {
+          Header: `Tranche ${index}`,
+          columns: [{
+            Header: 'Seuil',
+            accessor: item => item[`${parameterNode.id}.${index}.thresold`],
+            id: `${parameterNode.id}.${index}.thresold`
+          }, {
+            Header: 'Valeur',
+            accessor: item => item[`${parameterNode.id}.${index}.value`],
+            id: `${parameterNode.id}.${index}.value`
+          }]
+        }
+      })
+    }
   }
   if (parameterNode.children) {
     return {

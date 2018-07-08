@@ -1,6 +1,8 @@
 /** Process a parameterNode so that the data it contains are easily exploitable by React-Table */
 
-import map from 'lodash/map';
+import map from 'lodash.map';
+import mapValues from 'lodash.mapvalues';
+import flatten from 'lodash.flatten';
 import flow from 'lodash.flow';
 import merge from 'lodash.merge';
 import union from 'lodash.union';
@@ -26,11 +28,35 @@ export default function extractData(parameterNode) {
   }, [])
 }
 
+export function extractValuesFromScale(scale) {
+  return flow([
+    x => map(x, (scaleAtInstant, date) => {
+      const thresolds = keys(scaleAtInstant).sort((x, y) => Number(x) - Number(y))
+      return thresolds.map((thresold, index) => {
+        const prefix = `${scale.id}.${index}`
+        const thresoldKey = `${prefix}.thresold`
+        const valueKey = `${prefix}.value`
+        const data = {}
+        data[thresoldKey] = {}
+        data[valueKey] = {}
+        data[thresoldKey][date] = thresold
+        data[valueKey][date] = scaleAtInstant[thresold]
+        return data
+      })
+    }),
+    x => flatten(x),
+    x => merge({}, ...x),
+  ])(scale.brackets)
+}
+
 export function extractValues(parameterNode) {
   if (parameterNode.values) {
     const data = {}
     data[parameterNode.id] = parameterNode.values
     return data
+  }
+  if (parameterNode.brackets) {
+    return extractValuesFromScale(parameterNode)
   }
   return flow([
     x => map(x, extractValues),

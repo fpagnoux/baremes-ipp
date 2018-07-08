@@ -2,6 +2,7 @@ import extractData from '../../services/dataPreprocesser'
 import {extractValues} from '../../services/dataPreprocesser'
 import rsaForFaitLogement from './rsa_forfait_logement.json'
 import rsaMajoration from './rsa_majoration.json'
+import bareme from './bareme.json'
 
 it('extractValues can extract dates from a simple parameter', () => {
   const parameter = {
@@ -22,6 +23,11 @@ it('extractValues can extract dates from a simple parameter', () => {
       "2018-04-01": 550.93
     }})
 });
+
+it('extractValues can extract dates from a scale', () => {
+  const data = extractValues(bareme)
+  expect(data['impot_revenu.bareme.2.thresold']).toEqual({"2002-01-01":"9500.0","2014-01-01":"26764.0","2015-01-01":"26791.0"})
+})
 
 it('extractValues can extract dates from a parameter node', () => {
   const data = extractValues(rsaForFaitLogement)
