@@ -58,15 +58,13 @@ function flattenColumns(columns) {
 // Rendering
 
 function renderHeader(columns, index) {
-  return <div key={index} className="rt-thead -headerGroups">
-    <div className="rt-tr" role="row">
-      {columns.map((column, index2) => (
-        <div key={index2} className="rt-th" role="columnheader" tabIndex="-1" style={{flex:`${column.size * 100} 0 auto`, width:`${column.size * 100}px`}}>
-          {column.Header}
-        </div>
-      ))}
-    </div>
-  </div>
+  return <tr>
+    {columns.map((column, index2) => (
+      <th key={index2} tabIndex="-1" colspan={column.size} style={{flex:`${column.size * 100} 0 auto`, width:`${column.size * 100}px`}}>
+        {column.Header}
+      </th>
+    ))}
+  </tr>
 }
 
 function renderDatum(datum, column) {
@@ -78,31 +76,29 @@ function renderDatum(datum, column) {
 }
 
 function renderData(data, dataColumns) {
-  return <div className="rt-tbody">
-    {data.map((datum, index) => {
-      return  <div key={index} className="rt-tr-group" role="rowgroup">
-        <div className="rt-tr" role="row">
-          {dataColumns.map((column, index2) => {
-            return <div key={index2} className="rt-td" role="gridcell" style={{flex: '100 0 auto', width:'100px'}}>
-              <span>{renderDatum(datum, column)}</span>
-            </div>
-          })}
-        </div>
-      </div>
-    })}
-  </div>
+  return data.map((datum, index) => {
+    return <tr>
+        {dataColumns.map((column, index2) => {
+          return <td key={index2} style={{flex: '100 0 auto', width:'100px'}}>
+            <span>{renderDatum(datum, column)}</span>
+          </td>
+        })}
+      </tr>
+  })
 }
 
 
 const CustomTable = ({columns, data}) => {
   const flattenedColumns =  flattenColumns(columns)
   const dataColumns = last(flattenedColumns)
-  return <div className="ReactTable -striped -highlight">
-    <div className="rt-table" role="grid">
+  return <table>
+    <thead>
       {flattenedColumns.map(renderHeader)}
+    </thead>
+    <tbody>
       {renderData(data, dataColumns)}
-    </div>
-  </div>
+    </tbody>
+  </table>
 }
 
 export default CustomTable

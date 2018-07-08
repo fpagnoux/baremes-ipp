@@ -2,7 +2,6 @@ import map from 'lodash.map'
 import range from 'lodash.range'
 import size from 'lodash.size'
 import isString from 'lodash.isstring'
-import ReactTable from 'react-table'
 import { FormattedDate, IntlProvider, addLocaleData, FormattedNumber} from 'react-intl'
 import fr from 'react-intl/locale-data/fr'
 

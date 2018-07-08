@@ -1,10 +1,8 @@
-import tableStylesheet from 'react-table/react-table.css'
 import stylesheet from '../styles/style.css'
 
 
 const Layout = ({children, fullWidth}) => (
   <div>
-    <style dangerouslySetInnerHTML={{ __html: tableStylesheet }} />
     <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
     <header id="main-header" className="main-header" role="banner">
       <div className="inner">

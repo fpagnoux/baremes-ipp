@@ -1,7 +1,31 @@
-.ReactTable .rt-th {
-  white-space: normal;
-}
-
 .full-width {
   max-width: none;
+}
+
+#main-col {
+  overflow-x: scroll;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: center;
+}
+
+
+td, th {
+  border: 1px solid rgba(0,0,0,.02);
+  padding: 5px;
+}
+
+
+tr:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.03)
+}
+
+thead {
+  border-bottom: 2px solid rgba(0,0,0,0.2);
 }
