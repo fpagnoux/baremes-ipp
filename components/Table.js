@@ -77,28 +77,17 @@ const Table = ({parameterNode}) => {
   const data = extractData(parameterNode)
   const dateColumn = {
     Header: 'Date d’effet',
-    accessor: 'date',
+    accessor: item => item.date,
+    id: 'date',
     Cell: props => <FormattedDate value={props.value}/>
   }
   const columns = [dateColumn].concat(buildColumns(parameterNode))
-  console.log(columns)
   return (
     <IntlProvider locale="fr">
-      <div>
-      <ReactTable
-        data={data}
-        columns={columns}
-        showPagination={false}
-        defaultPageSize={data.length}
-        className="-striped -highlight"
-        defaultSorted={[{id: 'date', desc: true}]}
-        sortable={false}
-      />
       <CustomTable
         columns={columns}
         data={data}
       />
-      </div>
     </IntlProvider>
   )
 }

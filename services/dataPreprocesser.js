@@ -13,7 +13,7 @@ import fromPairs from 'lodash.frompairs'
 
 export default function extractData(parameterNode) {
   const values = extractValues(parameterNode)
-  const dates = union(...map(values, keys)).sort()
+  const dates = union(...map(values, keys)).sort().reverse()
   return dates.reduce((data, date) => {
     return data.concat([merge(
       {},

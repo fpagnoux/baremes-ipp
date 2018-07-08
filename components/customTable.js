@@ -1,5 +1,6 @@
 import sum from 'lodash.sum'
 import max from 'lodash.max'
+import map from 'lodash.map'
 import last from 'lodash.last'
 import range from 'lodash.range'
 
@@ -44,7 +45,7 @@ function flattenColumns(columns) {
       } else {
         if (depth < maxDepth) {
           for (const i of range(depth + 1, maxDepth + 1)) {
-            flattenedColumns[i].push({Header: '', size: column.size})
+            flattenedColumns[i].push(Object.assign({}, column, {Header: ''}))
           }
         }
       }
@@ -68,15 +69,40 @@ function renderHeader(columns, index) {
   </div>
 }
 
+function renderDatum(datum, column) {
+  const value = column.accessor(datum)
+  if (column.Cell) {
+    return <column.Cell value={value}/>
+  }
+  return value
+}
+
+function renderData(data, dataColumns) {
+  return <div className="rt-tbody">
+    {data.map((datum, index) => {
+      return  <div key={index} className="rt-tr-group" role="rowgroup">
+        <div className="rt-tr" role="row">
+          {dataColumns.map((column, index2) => {
+            return <div key={index2} className="rt-td" role="gridcell" style={{flex: '100 0 auto', width:'100px'}}>
+              <span>{renderDatum(datum, column)}</span>
+            </div>
+          })}
+        </div>
+      </div>
+    })}
+  </div>
+}
+
 
 const CustomTable = ({columns, data}) => {
   const flattenedColumns =  flattenColumns(columns)
+  const dataColumns = last(flattenedColumns)
   return <div className="ReactTable -striped -highlight">
     <div className="rt-table" role="grid">
       {flattenedColumns.map(renderHeader)}
+      {renderData(data, dataColumns)}
     </div>
   </div>
-  return <p>Hello</p>
 }
 
 export default CustomTable
