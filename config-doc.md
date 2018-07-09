@@ -32,7 +32,7 @@ Notes:
 - Le `title` de premier niveau définit le titre de la section.
 - L'attribut `children` permet de définir des sous-sections, de manière arborescente.
 - Le mot clé `table` permet de référencer une table de paramètre. Voir [Configuration d'une table](#configuration-dune-table).
-- Il est possible de générer automatiquement le contenu d'une sous-section. Voir [Génération d'une sous-section](#génération-dune-sous-section)
+- Il est possible de générer automatiquement le contenu d'une sous-section. Voir [Génération d'une sous-section](#génération-dune-sous-section).
 
 ## Configuration d'une table
 
@@ -86,3 +86,39 @@ Note:
   - Dans ce cas, un `title` est nécessaire, car il ne peut pas être inféré d'OpenFisca.
 
 ## Génération d'une sous-section
+
+Les sous-sections d'une page peuvent être générés en se basant sur l'arbre des paramètres OpenFisca. Par exemple, 
+
+```YAML
+title: Prélèvements sociaux
+children:
+  plafond_securite_sociale:
+    table: cotsoc.gen.plafond_securite_sociale
+  contributions:
+    subsection: prelevements_sociaux.contributions
+```
+
+génère la page suivante:
+![image](https://user-images.githubusercontent.com/11834997/42473348-67ad987a-8392-11e8-93db-3cae17d552e1.png)
+
+La sous-section aura pour titre la description du noeud paramètre OpenFisca, et des tables seront générés à partir des "enfants" de ce noeud.
+
+### Paramètre `depth`
+
+Il est possible de générer des sous-sections du sommaire de plus grande profondeur. 
+
+Si l'on modifie légèrement l'exemple précédent pour y ajouter un paramètre `depth` valant `1`:
+
+```YAML
+title: Prélèvements sociaux
+children:
+  plafond_securite_sociale:
+    table: cotsoc.gen.plafond_securite_sociale
+  contributions:
+    subsection: prelevements_sociaux.contributions
+    depth: 1
+```
+
+On obtient la page suivante:
+
+![image](https://user-images.githubusercontent.com/11834997/42473662-3dd7d938-8393-11e8-890b-20134913f6d2.png)
