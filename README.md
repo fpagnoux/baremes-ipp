@@ -35,9 +35,31 @@ Ce fichier génére la section suivante:
 Notes:
 - Le `title` de premier niveau définit le titre de la section.
 - L'attribut `children` permet de définir des sous-sections, de manière arborescente.
-- Le mot clé `table` permet de référencer une table de paramètre. Voir [Configuration d'une table](#configuration-dune-table)
+- Le mot clé `table` permet de référencer une table de paramètre. Voir [Configuration d'une table](#configuration-dune-table).
 
 ## Configuration d'une table
+
+La manière la plus simple de définir une table est de référencer un paramètre OpenFisca:
+
+```yaml
+rsa_montant:
+    table: prestations.minima_sociaux.rsa.montant_de_base_du_rsa
+```
+
+génère un lien dans le sommaire:
+
+![image](https://user-images.githubusercontent.com/11834997/42472337-ebc0b4f2-838e-11e8-8296-e9f49f9147a9.png)
+
+ainsi qu'une page `./rsa/rsa_montant/`:
+
+![image](https://user-images.githubusercontent.com/11834997/42472364-08ffb126-838f-11e8-89ce-b244561f3bd3.png)
+
+Note:
+- Le titre dans le sommaire sera par défault la description OpenFisca du paramètre, sauf si un `title` est spécifié.
+- Le paramètre passé à `table:` peut être un noeud. Dans ce cas, une table complexe sera générée:
+
+![image](https://user-images.githubusercontent.com/11834997/42472504-7bfea15a-838f-11e8-93eb-8519b990f662.png)
+
 
 # Génération de l'app
 
