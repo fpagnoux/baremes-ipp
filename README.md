@@ -35,7 +35,7 @@ Ce fichier génére la section suivante:
 Notes:
 - Le `title` de premier niveau définit le titre de la section.
 - L'attribut `children` permet de définir des sous-sections, de manière arborescente.
-- Le mot clé `table` permet de référencer une table de paramètre. Voir [Configuration d'une table]()
+- Le mot clé `table` permet de référencer une table de paramètre. Voir [Configuration d'une table](#configuration-dune-table)
 
 ## Configuration d'une table
 
