@@ -10,7 +10,7 @@ const fs = require('fs')
 const yaml = require('js-yaml');
 const flatten = require('lodash.flatten')
 
-const tableResolver = require('./tableResolver')
+const resolver = require('./resolver')
 const routeBuilder = require('./routeBuilder')
 
 
@@ -18,7 +18,7 @@ async function loadSectionFile(file) {
   const fileName = file.replace('.yaml', '')
   const textContent = fs.readFileSync(`./tables/${file}`, 'utf8')
   const yamlContent = yaml.safeLoad(textContent)
-  const resolvedDesc = await tableResolver.resolveSectionDesc(yamlContent)
+  const resolvedDesc = await resolver.resolveSectionDesc(yamlContent)
   return routeBuilder.extractRoutes(resolvedDesc, `/${fileName}`)
 }
 

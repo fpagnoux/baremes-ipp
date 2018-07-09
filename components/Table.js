@@ -1,94 +1,100 @@
+import sum from 'lodash.sum'
+import max from 'lodash.max'
 import map from 'lodash.map'
+import last from 'lodash.last'
 import range from 'lodash.range'
-import size from 'lodash.size'
-import isString from 'lodash.isstring'
-import { FormattedDate, IntlProvider, addLocaleData, FormattedNumber} from 'react-intl'
-import fr from 'react-intl/locale-data/fr'
 
-import extractData from '../services/dataPreprocesser'
-import CustomTable from '../components/customTable'
+// Data and colmuns Preprocessing
 
-addLocaleData(fr)
-
-const cellFormatter = {
-  '/1': props => props.value !== undefined && <FormattedNumber value={props.value} style="percent" maximumFractionDigits={3}/>,
-  'EUR': props => props.value !== undefined && <FormattedNumber value={props.value} style="currency" maximumFractionDigits={3} currency="EUR"/>,
+function computeSize(column) {
+  if (! column.columns) {
+      column.size = 1
+      return column.size
+    }
+  column.size = sum(column.columns.map(computeSize))
+  return column.size
 }
 
-function buildSimpleColumn(parameter) {
-  return {
-    Header: <span className="edit-link">{parameter.description}<br/><a target="_blank" href={parameter.source}>Edit</a></span>,
-    accessor: item => item[parameter.id],
-    id: parameter.id,
-    Cell: cellFormatter[parameter.unit]
-  }
+function computeDepth(columns) {
+  return max(columns.map(column => {
+    if (column.columns) {
+      return 1 + computeDepth(column.columns)
+    }
+    return 0
+  }))
 }
 
-function buildColumns(parameterNode) {
-  if (parameterNode.values) {
-    return [buildSimpleColumn(parameterNode)]
+function flattenColumns(columns) {
+  columns.forEach(computeSize)
+  const maxDepth = computeDepth(columns)
+  const flattenedColumns = []
+
+  for (const i of range(maxDepth + 1)) {
+    flattenedColumns[i] = []
   }
-  if (parameterNode.brackets) {
-    const maxNbTranche = Math.max(...map(parameterNode.brackets, bracket => size(bracket)))
-    return {
-      Header: parameterNode.description,
-      columns: map(range(maxNbTranche), index => {
-        return {
-          Header: `Tranche ${index}`,
-          columns: [{
-            Header: 'Seuil',
-            accessor: item => item[`${parameterNode.id}.${index}.thresold`],
-            id: `${parameterNode.id}.${index}.thresold`
-          }, {
-            Header: 'Valeur',
-            accessor: item => item[`${parameterNode.id}.${index}.value`],
-            id: `${parameterNode.id}.${index}.value`
-          }]
+
+  function browse(columns, depth) {
+    for (const column of columns) {
+      column.depth = depth
+      flattenedColumns[depth].push(column)
+      if (column.columns) {
+        browse(column.columns, depth + 1)
+      } else {
+        if (depth < maxDepth) {
+          for (const i of range(depth + 1, maxDepth + 1)) {
+            flattenedColumns[i].push(Object.assign({}, column, {Header: ''}))
+          }
         }
-      })
+      }
     }
   }
-  if (parameterNode.children) {
-    return {
-      Header: parameterNode.description,
-      columns: map(parameterNode.children, subNode => {
-        if (subNode.values) {
-          return buildSimpleColumn(subNode)
-        }
-        return {
-          Header: subNode.description,
-          columns: buildColumns(subNode)
-        }
-      })
-    }
-  }
-  return map(parameterNode,(subNode, description) => {
-    if (subNode.values) {
-      return buildSimpleColumn(Object.assign({}, subNode, {description}))
-    }
-    return {
-      Header: description,
-      columns: buildColumns(subNode)
-    }})
+  browse(columns, 0)
+  return flattenedColumns
 }
 
-const Table = ({parameterNode}) => {
-  const data = extractData(parameterNode)
-  const dateColumn = {
-    Header: 'Date d’effet',
-    accessor: item => item.date,
-    id: 'date',
-    Cell: props => <FormattedDate value={props.value}/>
+// Rendering
+
+function renderHeader(columns, index) {
+  return <tr key={index}>
+    {columns.map((column, index2) => (
+      <th key={index2} tabIndex="-1" colSpan={column.size} style={{flex:`${column.size * 100} 0 auto`, width:`${column.size * 100}px`}}>
+        {column.Header}
+      </th>
+    ))}
+  </tr>
+}
+
+function renderDatum(datum, column) {
+  const value = column.accessor(datum)
+  if (column.Cell) {
+    return <column.Cell value={value}/>
   }
-  const columns = [dateColumn].concat(buildColumns(parameterNode))
-  return (
-    <IntlProvider locale="fr">
-      <CustomTable
-        columns={columns}
-        data={data}
-      />
-    </IntlProvider>
-  )
+  return value
+}
+
+function renderData(data, dataColumns) {
+  return data.map((datum, index) => {
+    return <tr key={index}>
+        {dataColumns.map((column, index2) => {
+          return <td key={index2} style={{flex: '100 0 auto', width:'100px'}}>
+            <span>{renderDatum(datum, column)}</span>
+          </td>
+        })}
+      </tr>
+  })
+}
+
+const Table = ({columns, data}) => {
+  const flattenedColumns = flattenColumns(columns)
+  const dataColumns = last(flattenedColumns)
+  return <table>
+    <thead>
+      {flattenedColumns.map(renderHeader)}
+    </thead>
+    <tbody>
+      {renderData(data, dataColumns)}
+    </tbody>
+  </table>
 }
 
 export default Table

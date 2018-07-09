@@ -29,7 +29,6 @@ it('should handle a section containing tables', () => {
 
 it('should handle a section containing sections', () => {
   const desc = {
-    "title": "Prestations sociales",
     "children": {
       "rsa": {"children": {}}
     }
@@ -39,5 +38,19 @@ it('should handle a section containing sections', () => {
   expect(routes[0].page).toEqual('/section')
 
   expect(routes[1].route).toEqual('/prestations/rsa')
+  expect(routes[1].page).toEqual('/section')
+});
+
+it('should handle a section containing subsections', () => {
+  const desc = {
+    "children": {
+      "contributions": {"children": {}}
+    }
+  }
+  const routes = extractRoutes(desc, '/prestations')
+  expect(routes[0].route).toEqual('/prestations')
+  expect(routes[0].page).toEqual('/section')
+
+  expect(routes[1].route).toEqual('/prestations/contributions')
   expect(routes[1].page).toEqual('/section')
 });

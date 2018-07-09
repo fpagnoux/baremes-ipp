@@ -1,5 +1,5 @@
 title: Prélèvements sociaux
-_:
+children:
   plafond_securite_sociale:
     table: cotsoc.gen.plafond_securite_sociale
   contributions:

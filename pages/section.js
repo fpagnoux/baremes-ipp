@@ -4,12 +4,12 @@ import map from 'lodash.map'
 
 function renderItem(item, key, path) {
   if (item.children) {
-    return <li key={key}>{item.title}
+    return <li key={key}>{item.title || item.description || item.id}
       <ol>{map(item.children, (child, childKey) => renderItem(child, childKey, `${path}${key}/`))}</ol>
     </li>
   }
   if (item.table) {
-    return <li key={key}><a href={`${path}${key}`}>{item.title || item.table.description || 'No description'}</a></li>
+    return <li key={key}><a href={`${path}${key}`}>{item.title || item.table.description || item.table.id}</a></li>
   }
 }
 

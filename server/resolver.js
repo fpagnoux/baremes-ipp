@@ -5,17 +5,30 @@ const isString = require('lodash.isstring')
 const mapValues = require('lodash.mapvalues')
 const Promise = require('bluebird')
 
-async function resolveTableDesc(tableDesc) {
+async function resolveTable(tableDesc) {
   if (!isString(tableDesc)) {
-    return await Promise.props(mapValues(tableDesc, (value) => resolveTableDesc(value)))
+    return await resolveCustomTable(tableDesc)
   }
   return await resolveParam(tableDesc)
 }
 
+async function resolveCustomTable(tableDesc) {
+  const tableWithResolvedChildren = await Promise.props(mapValues(tableDesc, (value) => resolveTable(value)))
+  const children = mapValues(tableWithResolvedChildren, (child, description) => {
+    return Object.assign({}, child, {description})
+  })
+  return {children}
+}
+
 async function resolveSectionDesc(sectionDesc) {
   if (sectionDesc.table) {
-    const table = await resolveTableDesc(sectionDesc.table)
+    const table = await resolveTable(sectionDesc.table)
     return Object.assign({}, sectionDesc, {table})
+  }
+  if (sectionDesc.subsection) {
+    const node = await resolveParam(sectionDesc.subsection)
+    node.children = mapValues(node.children, child => ({table: child}))
+    return Object.assign({}, sectionDesc, node)
   }
   const resolvedChildren = await Promise.props(mapValues(sectionDesc.children, (child) => resolveSectionDesc(child)))
   return Object.assign({}, sectionDesc, { children: resolvedChildren })
@@ -36,7 +49,7 @@ async function fetchParam(key) {
 }
 
 module.exports = {
-  resolveTableDesc,
+  resolveTable,
   resolveSectionDesc,
   resolveParam
 }
