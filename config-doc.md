@@ -4,7 +4,7 @@
 
 Chaque fichier représente une section des paramètres (qui correspond à un fichier Excel dans la version actuelle des paramètres).
 
-## Structure d'un fichier de conf YAML
+## Structure d'un fichier de configuration YAML
 
 Considérons le fichier de configuration suivant:
 
@@ -35,6 +35,8 @@ Notes:
 
 ## Configuration d'une table
 
+### À partir d'un paramètre OpenFisca
+
 La manière la plus simple de définir une table est de référencer un paramètre OpenFisca:
 
 ```yaml
@@ -56,3 +58,25 @@ Note:
 
 ![image](https://user-images.githubusercontent.com/11834997/42472504-7bfea15a-838f-11e8-93eb-8519b990f662.png)
 
+### Table sur-mesure
+
+Il est possible de définir de manière fine le contenu d'une table. 
+
+Par exemple:
+
+```yaml
+      rsa_majoration:
+        title: "Revenu de solidarité active (RSA) : majorations (montant de base et revenus) et montant minimum versé"
+        table:
+          "Majoration montant maximal (en % de la base RSA)":
+            "Couples ou célibataire avec un enfant": prestations.minima_sociaux.rsa.majoration_rsa.taux_deuxieme_personne
+            "Couple, 1 enfant - ou pour le deuxième enfant": prestations.minima_sociaux.rsa.majoration_rsa.taux_troisieme_personne
+            "Par enfant supplémentaire": prestations.minima_sociaux.rsa.majoration_rsa.taux_personne_supp
+          "Majoration isolement (en % de la base RSA) ":
+            "Femmes enceintes": prestations.minima_sociaux.rsa.majoration_parent_isole.femmes_enceintes
+            "Par enfant à charge": prestations.minima_sociaux.rsa.majoration_parent_isole.par_enfant_a_charge
+```
+
+génère la table suivante:
+
+![image](https://user-images.githubusercontent.com/11834997/42472709-4b6a3b70-8390-11e8-80a4-928e45b31c65.png)
