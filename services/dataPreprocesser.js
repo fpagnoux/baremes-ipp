@@ -29,7 +29,7 @@ export default function extractData(parameterNode) {
 }
 
 export function extractValuesFromScale(scale) {
-  return flow([
+  const bracketsValues = flow([
     x => map(x, (scaleAtInstant, date) => {
       const thresolds = keys(scaleAtInstant).sort((x, y) => Number(x) - Number(y))
       return thresolds.map((thresold, index) => {
@@ -47,6 +47,17 @@ export function extractValuesFromScale(scale) {
     x => flatten(x),
     x => merge({}, ...x),
   ])(scale.brackets)
+
+  const dates = union(...map(bracketsValues, keys))
+
+  return mapValues(bracketsValues, (bracketValues, bracketsName) => {
+    for (const date of dates) {
+      if (! bracketValues[date]) {
+        bracketValues[date] = null
+      }
+    }
+    return bracketValues
+  })
 }
 
 export function extractValues(parameterNode) {
