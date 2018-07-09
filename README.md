@@ -4,7 +4,7 @@ Application web permettant de générer des tables de paramètres à partir d'[O
 
 # Configuration des tables
 
-À l'exception de la page d'accueil, qui est définie dans le fichier [`index.js`](./index.js), toutes les pages sont générées à partir des fichiers de configuration au format YAML situés dans le dossier [`tables`](./tables/).
+À l'exception de la page d'accueil, qui est définie dans le fichier [`pages/index.js`](./index.js), toutes les pages sont générées à partir des fichiers de configuration au format YAML situés dans le dossier [`tables`](./tables/).
 
 Chaque fichier représente une section des paramètres (qui correspond à un fichier Excel dans la version actuelle des paramètres).
 
