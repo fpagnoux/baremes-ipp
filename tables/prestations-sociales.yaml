@@ -17,5 +17,3 @@ children:
           "Majoration isolement (en % de la base RSA) ":
             "Femmes enceintes": prestations.minima_sociaux.rsa.majoration_parent_isole.femmes_enceintes
             "Par enfant à charge": prestations.minima_sociaux.rsa.majoration_parent_isole.par_enfant_a_charge
-  ir:
-    table: impot_revenu.bareme
