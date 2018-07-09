@@ -1,4 +1,4 @@
-# Barèmes IPP
+# [Barèmes IPP](http://baremes-ipp.pagnoux.eu/)
 
 Application web permettant de générer des tables de paramètres à partir d'[OpenFisca-France](https://github.com/openfisca/openfisca-france).
 
