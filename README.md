@@ -4,7 +4,7 @@ Application web permettant de générer des tables de paramètres à partir d'[O
 
 # Configuration des tables
 
-Voir [documentation spécifique](./config-doc).
+Voir [documentation spécifique](./config-doc.md).
 
 # Génération de l'app
 
