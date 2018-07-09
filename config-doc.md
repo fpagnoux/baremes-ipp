@@ -122,3 +122,9 @@ children:
 On obtient la page suivante:
 
 ![image](https://user-images.githubusercontent.com/11834997/42473662-3dd7d938-8393-11e8-890b-20134913f6d2.png)
+
+Le méchanisme est le même que celui décrit à la partie précédente, avec deux différences totables:
+  - Le sommaire descend "plus en profodeur" dans le noeud de paramètre
+  - Inversement, les tables sont cette fois générées à partir des "petits-enfants" du noeud, et sont donc moins complexes.
+  
+Il est possible de spécifier un `depth` entier positif. Par défault, `depth` vaut `0`.
