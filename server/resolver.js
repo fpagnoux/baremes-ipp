@@ -20,17 +20,26 @@ async function resolveCustomTable(tableDesc) {
   return {children}
 }
 
-async function resolveSectionDesc(sectionDesc) {
+function makeSubsection(node, depth) {
+  node.children = mapValues(node.children, child => {
+    if (depth == 0 || ! child.children) {
+      return {table: child}
+    }
+    return makeSubsection(child, depth - 1)
+  })
+  return node
+}
+
+async function resolveSection(sectionDesc) {
   if (sectionDesc.table) {
     const table = await resolveTable(sectionDesc.table)
     return Object.assign({}, sectionDesc, {table})
   }
   if (sectionDesc.subsection) {
     const node = await resolveParam(sectionDesc.subsection)
-    node.children = mapValues(node.children, child => ({table: child}))
-    return Object.assign({}, sectionDesc, node)
+    return Object.assign({}, sectionDesc, makeSubsection(node, sectionDesc.depth || 0))
   }
-  const resolvedChildren = await Promise.props(mapValues(sectionDesc.children, (child) => resolveSectionDesc(child)))
+  const resolvedChildren = await Promise.props(mapValues(sectionDesc.children, (child) => resolveSection(child)))
   return Object.assign({}, sectionDesc, { children: resolvedChildren })
 }
 
@@ -50,6 +59,6 @@ async function fetchParam(key) {
 
 module.exports = {
   resolveTable,
-  resolveSectionDesc,
+  resolveSection,
   resolveParam
 }

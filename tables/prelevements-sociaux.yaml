@@ -6,3 +6,4 @@ children:
     subsection: prelevements_sociaux.contributions
   cositations_sociales:
     subsection: prelevements_sociaux.cotisations_sociales
+    depth: 1

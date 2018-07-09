@@ -18,7 +18,7 @@ async function loadSectionFile(file) {
   const fileName = file.replace('.yaml', '')
   const textContent = fs.readFileSync(`./tables/${file}`, 'utf8')
   const yamlContent = yaml.safeLoad(textContent)
-  const resolvedDesc = await resolver.resolveSectionDesc(yamlContent)
+  const resolvedDesc = await resolver.resolveSection(yamlContent)
   return routeBuilder.extractRoutes(resolvedDesc, `/${fileName}`)
 }
 

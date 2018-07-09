@@ -1,7 +1,7 @@
-import {resolveSectionDesc} from '../../server/resolver'
+import {resolveSection} from '../../server/resolver'
 
 it('should run', (done) => {
-  resolveSectionDesc({
+  resolveSection({
     "children": {
       "contributions": {
         "subsection": "prelevements_sociaux.contributions"
