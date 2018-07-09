@@ -32,6 +32,7 @@ Notes:
 - Le `title` de premier niveau définit le titre de la section.
 - L'attribut `children` permet de définir des sous-sections, de manière arborescente.
 - Le mot clé `table` permet de référencer une table de paramètre. Voir [Configuration d'une table](#configuration-dune-table).
+- Il est possible de générer automatiquement le contenu d'une sous-section. Voir [Génération d'une sous-section](#generation-dune-sous-section)
 
 ## Configuration d'une table
 
@@ -83,3 +84,5 @@ génère la table suivante:
 
 Note:
   - Dans ce cas, un `title` est nécessaire, car il ne peut pas être inféré d'OpenFisca.
+
+## Génération d'une sous-section
