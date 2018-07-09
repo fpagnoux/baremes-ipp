@@ -1,18 +1,17 @@
 import sum from 'lodash.sum'
 import max from 'lodash.max'
 import map from 'lodash.map'
-import last from 'lodash.last'
 import range from 'lodash.range'
 
 // Data and colmuns Preprocessing
 
-function computeSize(column) {
+function computeColSpan(column) {
   if (! column.columns) {
-      column.size = 1
-      return column.size
+      column.colSpan = 1
+      return column.colSpan
     }
-  column.size = sum(column.columns.map(computeSize))
-  return column.size
+  column.colSpan = sum(column.columns.map(computeColSpan))
+  return column.colSpan
 }
 
 function computeDepth(columns) {
@@ -20,36 +19,34 @@ function computeDepth(columns) {
     if (column.columns) {
       return 1 + computeDepth(column.columns)
     }
-    return 0
+    return 1
   }))
 }
 
-function flattenColumns(columns) {
-  columns.forEach(computeSize)
+function buildHeaders(columns) {
+  columns.forEach(computeColSpan)
   const maxDepth = computeDepth(columns)
-  const flattenedColumns = []
+  const headerRows = []
+  const dataColumns = []
 
-  for (const i of range(maxDepth + 1)) {
-    flattenedColumns[i] = []
+  for (const i of range(maxDepth)) {
+    headerRows[i] = []
   }
 
   function browse(columns, depth) {
     for (const column of columns) {
       column.depth = depth
-      flattenedColumns[depth].push(column)
+      headerRows[depth].push(column)
       if (column.columns) {
         browse(column.columns, depth + 1)
       } else {
-        if (depth < maxDepth) {
-          for (const i of range(depth + 1, maxDepth + 1)) {
-            flattenedColumns[i].push(Object.assign({}, column, {Header: ''}))
-          }
-        }
+        column.rowSpan = maxDepth - depth
+        dataColumns.push(column)
       }
     }
   }
   browse(columns, 0)
-  return flattenedColumns
+  return {headerRows, dataColumns}
 }
 
 // Rendering
@@ -57,7 +54,13 @@ function flattenColumns(columns) {
 function renderHeader(columns, index) {
   return <tr key={index}>
     {columns.map((column, index2) => (
-      <th key={index2} tabIndex="-1" colSpan={column.size} style={{flex:`${column.size * 100} 0 auto`, width:`${column.size * 100}px`}}>
+      <th
+        key={index2}
+        tabIndex="-1"
+        colSpan={column.colSpan}
+        rowSpan={column.rowSpan || 1}
+        style={{flex:`${column.colSpan * 100} 0 auto`, width:`${column.colSpan * 100}px`}}
+        >
         {column.Header}
       </th>
     ))}
@@ -85,11 +88,10 @@ function renderData(data, dataColumns) {
 }
 
 const Table = ({columns, data}) => {
-  const flattenedColumns = flattenColumns(columns)
-  const dataColumns = last(flattenedColumns)
+  const {headerRows, dataColumns} = buildHeaders(columns)
   return <table>
     <thead>
-      {flattenedColumns.map(renderHeader)}
+      {headerRows.map(renderHeader)}
     </thead>
     <tbody>
       {renderData(data, dataColumns)}
