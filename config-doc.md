@@ -127,4 +127,4 @@ Le méchanisme est le même que celui décrit à la partie précédente, avec de
   - Le sommaire descend "plus en profodeur" dans le noeud de paramètre
   - Inversement, les tables sont cette fois générées à partir des "petits-enfants" du noeud, et sont donc moins complexes.
   
-Il est possible de spécifier un `depth` entier positif. Par défault, `depth` vaut `0`.
+Il est possible de spécifier un `depth` > 1 pour un sommaire plus profondd. Par défault, `depth` vaut `0`.
