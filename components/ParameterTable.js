@@ -66,7 +66,7 @@ const ParameterTable = ({parameter}) => {
     Header: 'Date d’effet',
     accessor: item => item.date,
     id: 'date',
-    Cell: props => <FormattedDate value={props.value}/>
+    Cell: props => <FormattedDate value={props.value} timeZone="UTC"/> // Input is considered to be in UTC, so dates should be formatted for the same timezone.
   }
   const columns = [dateColumn, buildColumn(parameter)]
   return (
