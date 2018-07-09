@@ -8,15 +8,9 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 
 
-Promise.all([loader.loadRoutes(), app.prepare()])
-.then(([routes, _]) => {
+app.prepare()
+.then(() => {
   const server = express()
-
-  for (const route of routes) {
-    server.get(route.route, (req, res) => {
-      app.render(req, res, route.page, route.query)
-    })
-  }
 
   server.get('*', (req, res) => {
     return handle(req, res)
