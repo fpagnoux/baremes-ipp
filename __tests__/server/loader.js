@@ -1,6 +1,4 @@
-import routeBuilder from '../../server/routeBuilder'
-
-const extractRoutes = routeBuilder.extractRoutes
+import {extractRoutes} from '../../server/loader'
 
 it('should create a route towards a table', () => {
   const desc = { table: {}}
