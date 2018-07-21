@@ -3,6 +3,7 @@
 const fetch = require('isomorphic-unfetch')
 const isString = require('lodash.isstring')
 const mapValues = require('lodash.mapvalues')
+const isArray = require('lodash.isarray')
 const Promise = require('bluebird')
 
 async function resolveTable(tableDesc) {
@@ -39,7 +40,9 @@ async function resolveSection(sectionDesc) {
     const node = await resolveParam(sectionDesc.subsection)
     return Object.assign({}, sectionDesc, makeSubsection(node, sectionDesc.depth || 0))
   }
-  const resolvedChildren = await Promise.props(mapValues(sectionDesc.children, (child) => resolveSection(child)))
+  const resolvedChildren = isArray(sectionDesc.children)
+    ? await Promise.props(mapValues(sectionDesc.children, (child) => resolveSection(child)))
+    : await Promise.all(sectionDesc.children.map(resolveSection))
   return Object.assign({}, sectionDesc, { children: resolvedChildren })
 }
 

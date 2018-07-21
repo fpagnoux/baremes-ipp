@@ -52,3 +52,15 @@ it('should handle a section containing subsections', () => {
   expect(routes[1].route).toEqual('/prestations/contributions')
   expect(routes[1].page).toEqual('/section')
 });
+
+it('should handle a section containing a list', () => {
+  const desc = {
+    "children": [
+      {"table": {description: "Montant"}},
+      {"table": {description: "Forfait logement"}},
+    ]
+  }
+  const routes = extractRoutes(desc, '/prestations')
+  expect(routes[0].route).toEqual('/prestations')
+  expect(routes[0].page).toEqual('/section')
+});

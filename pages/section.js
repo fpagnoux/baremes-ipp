@@ -1,11 +1,25 @@
 import Layout from '../components/Layout'
 import { withRouter } from 'next/router'
 import map from 'lodash.map'
+import isArray from 'lodash.isarray'
+import contains from 'lodash.contains'
+
+function renderChildren(item, key, path) {
+  return map(item.children, (child, childKey) => {
+    if (item.exclude && contains(item.exclude, childKey)) {
+      return
+    }
+    return renderItem(child, childKey, `${path}${key}/`)
+  })
+}
 
 function renderItem(item, key, path) {
+  if (item.children && (isArray(item.children) || item.flat)) {
+    return renderChildren(item, key, path)
+  }
   if (item.children) {
     return <li key={key}>{item.title || item.description || item.id}
-      <ol>{map(item.children, (child, childKey) => renderItem(child, childKey, `${path}${key}/`))}</ol>
+      <ol>{renderChildren(item, key, path)}</ol>
     </li>
   }
   if (item.table) {
