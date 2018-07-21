@@ -43,6 +43,6 @@ it('extractValues can extract dates from a custom parameter node', () => {
 it('extractData can extract the data', () => {
   const data = extractData(rsaMajoration)
   expect(data).toHaveLength(3)
-  expect(data[2].date).toBe('2009-06-20')
-  expect(data[2]['prestations.minima_sociaux.rsa.majoration_parent_isole.femmes_enceintes']).toBe(1.28412)
+  expect(data[1].date).toBe('2009-06-01')
+  expect(data[1]['prestations.minima_sociaux.rsa.majoration_parent_isole.femmes_enceintes']).toBe(1.284)
 });

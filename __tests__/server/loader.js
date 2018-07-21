@@ -2,14 +2,14 @@ import {extractRoutes} from '../../server/loader'
 
 it('should create a route towards a table', () => {
   const desc = { table: {}}
-  expect(extractRoutes(desc, '/rsa_montant')).toEqual([{route: '/rsa_montant', page: '/table', params: {}}])
+  expect(extractRoutes(desc, '/rsa_montant')).toEqual([{route: '/rsa_montant', page: '/table', query: {}}])
 });
 
 it('should handle a section containing tables', () => {
   const desc = {
     "children": {
-      "rsa_montant": {"table": {decription: "Montant" }},
-      "rsa_forfait_logement": {"table": {decription: "Forfait logement"}},
+      "rsa_montant": {"table": {description: "Montant" }},
+      "rsa_forfait_logement": {"table": {description: "Forfait logement"}},
     }
   }
   const routes = extractRoutes(desc, '/rsa')
@@ -18,11 +18,11 @@ it('should handle a section containing tables', () => {
 
   expect(routes[1].route).toEqual('/rsa/rsa_montant')
   expect(routes[1].page).toEqual('/table')
-  expect(routes[1].params).toEqual({decription: "Montant" })
+  expect(routes[1].query).toEqual({description: "Montant" })
 
   expect(routes[2].route).toEqual('/rsa/rsa_forfait_logement')
   expect(routes[2].page).toEqual('/table')
-  expect(routes[2].params).toEqual({decription: "Forfait logement"})
+  expect(routes[2].query).toEqual({description: "Forfait logement"})
 });
 
 it('should handle a section containing sections', () => {
