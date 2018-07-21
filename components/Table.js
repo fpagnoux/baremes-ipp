@@ -56,7 +56,6 @@ function renderHeader(columns, index) {
     {columns.map((column, index2) => (
       <th
         key={index2}
-        tabIndex="-1"
         colSpan={column.colSpan}
         rowSpan={column.rowSpan || 1}
         style={{flex:`${column.colSpan * 100} 0 auto`, width:`${column.colSpan * 100}px`}}
