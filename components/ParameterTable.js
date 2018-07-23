@@ -11,8 +11,8 @@ import Table from '../components/Table'
 addLocaleData(fr)
 
 const cellFormatter = {
-  '/1': props => props.value !== undefined && <FormattedNumber value={props.value} style="percent" maximumFractionDigits={3}/>,
-  'EUR': props => props.value !== undefined && <FormattedNumber value={props.value} style="currency" maximumFractionDigits={3} currency="EUR"/>,
+  '/1': props => (props.value || props.value === 0) && <FormattedNumber value={props.value} style="percent" maximumFractionDigits={3}/>,
+  'currency-EUR': props => (props.value || props.value === 0) && <FormattedNumber value={props.value} style="currency" maximumFractionDigits={3} currency="EUR"/>,
 }
 
 function buildSimpleColumn(parameter) {
@@ -20,7 +20,7 @@ function buildSimpleColumn(parameter) {
     Header: <span className="edit-link">{parameter.description || parameter.id}<br/><a target="_blank" href={parameter.source}>Edit</a></span>,
     accessor: item => item[parameter.id],
     id: parameter.id,
-    Cell: cellFormatter[parameter.unit]
+    Cell: parameter.metadata && cellFormatter[parameter.metadata.unit]
   }
 }
 

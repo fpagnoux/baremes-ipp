@@ -51,7 +51,7 @@ async function resolveParam(key) {
   if (! param.children) {
     return param
   }
-  const resolvedChildren = await Promise.props(mapValues(param.children, (childParam) => resolveParam(childParam.id)))
+  const resolvedChildren = await Promise.props(mapValues(param.children, (childParam, childKey) => resolveParam(`${param.id}.${childKey}`)))
   return Object.assign({}, param, { children: resolvedChildren })
 }
 
