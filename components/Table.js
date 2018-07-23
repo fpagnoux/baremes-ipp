@@ -2,6 +2,7 @@ import sum from 'lodash.sum'
 import max from 'lodash.max'
 import map from 'lodash.map'
 import range from 'lodash.range'
+import isPlainObject from 'lodash.isplainobject'
 
 // Data and colmuns Preprocessing
 
@@ -68,10 +69,17 @@ function renderHeader(columns, index) {
 
 function renderDatum(datum, column) {
   const value = column.accessor(datum)
-  if (column.Cell) {
-    return <column.Cell value={value}/>
+
+  if (! isPlainObject(value)) {
+    if (column.Cell) {
+      return <column.Cell value={value}/>
+    }
+    return value
   }
-  return value
+  if (column.Cell) {
+    return <column.Cell value={value.value} metadata={value}/>
+  }
+  return value.value
 }
 
 function renderData(data, dataColumns) {

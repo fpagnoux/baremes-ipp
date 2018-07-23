@@ -4,7 +4,7 @@ it('should run', (done) => {
   resolveSection({
     "children": {
       "contributions": {
-        "subsection": "prelevements_sociaux.contributions"
+        "subsection": "prelevements_sociaux.contributions_sociales"
       }
     }
   }).then(section => {

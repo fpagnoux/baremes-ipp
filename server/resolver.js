@@ -41,8 +41,8 @@ async function resolveSection(sectionDesc) {
     return Object.assign({}, sectionDesc, makeSubsection(node, sectionDesc.depth || 0))
   }
   const resolvedChildren = isArray(sectionDesc.children)
-    ? await Promise.props(mapValues(sectionDesc.children, (child) => resolveSection(child)))
-    : await Promise.all(sectionDesc.children.map(resolveSection))
+    ? await Promise.all(sectionDesc.children.map(resolveSection))
+    : await Promise.props(mapValues(sectionDesc.children, (child) => resolveSection(child)))
   return Object.assign({}, sectionDesc, { children: resolvedChildren })
 }
 

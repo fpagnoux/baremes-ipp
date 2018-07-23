@@ -9,6 +9,7 @@ import union from 'lodash.union';
 import keys from 'lodash.keys'
 import last from 'lodash.last'
 import fromPairs from 'lodash.frompairs'
+import isPlainObject from 'lodash.isplainobject'
 
 
 export default function extractData(parameterNode) {
@@ -39,8 +40,8 @@ export function extractValuesFromScale(scale) {
         const data = {}
         data[thresoldKey] = {}
         data[valueKey] = {}
-        data[thresoldKey][date] = thresold
-        data[valueKey][date] = scaleAtInstant[thresold]
+        data[thresoldKey][date] = {value: Number(thresold)}
+        data[valueKey][date] = {value: scaleAtInstant[thresold]}
         return data
       })
     }),
@@ -60,10 +61,23 @@ export function extractValuesFromScale(scale) {
   })
 }
 
+function getUnitAtDate(units, date) {
+  if (! isPlainObject(units)) {
+    return units
+  }
+  const unitChangeDates = keys(units).sort().reverse()
+  return units[
+    unitChangeDates.find(unitChangeDate => date >= unitChangeDate)
+  ]
+}
+
 export function extractValues(parameterNode) {
   if (parameterNode.values) {
     const data = {}
-    data[parameterNode.id] = parameterNode.values
+    const unit = parameterNode.metadata && parameterNode.metadata.unit
+    data[parameterNode.id] = mapValues(parameterNode.values,
+      (value, date) => ({value, unit: getUnitAtDate(unit, date)})
+    )
     return data
   }
   if (parameterNode.brackets) {

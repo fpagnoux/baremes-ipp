@@ -10,9 +10,18 @@ import Table from '../components/Table'
 
 addLocaleData(fr)
 
-const cellFormatter = {
-  '/1': props => (props.value || props.value === 0) && <FormattedNumber value={props.value} style="percent" maximumFractionDigits={3}/>,
-  'currency-EUR': props => (props.value || props.value === 0) && <FormattedNumber value={props.value} style="currency" maximumFractionDigits={3} currency="EUR"/>,
+function cellFormatter({value, metadata}) {
+  if ((! value && ! value !== 0) || ! metadata || ! metadata.unit) {
+    return value
+  }
+  if (metadata.unit == '/1') {
+    return <FormattedNumber value={value} style="percent" maximumFractionDigits={3}/>
+  }
+  if (metadata.unit.startsWith('currency')) {
+    const currency = metadata.unit.split('-')[1]
+    return <FormattedNumber value={value} style="currency" maximumFractionDigits={3} currency={currency}/>
+  }
+  return value
 }
 
 function buildSimpleColumn(parameter) {
@@ -20,7 +29,7 @@ function buildSimpleColumn(parameter) {
     Header: <span className="edit-link">{parameter.description || parameter.id}<br/><a target="_blank" href={parameter.source}>Edit</a></span>,
     accessor: item => item[parameter.id],
     id: parameter.id,
-    Cell: parameter.metadata && cellFormatter[parameter.metadata.unit]
+    Cell: cellFormatter
   }
 }
 
