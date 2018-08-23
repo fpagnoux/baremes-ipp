@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0-rc.2",
     "@zeit/next-css": "^0.2.0",
     "bluebird": "^3.5.1",
     "express": "^4.16.3",
@@ -25,6 +26,7 @@
     "lodash.merge": "^4.6.1",
     "lodash.range": "^3.2.0",
     "lodash.size": "^4.2.0",
+    "lodash.sortby": "^4.7.0",
     "lodash.sum": "^4.0.2",
     "lodash.union": "^4.6.0",
     "next": "^6.0.3",

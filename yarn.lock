@@ -135,6 +135,10 @@
   version "7.0.0-beta.42"
   resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.0.0-beta.42.tgz#9aa8b3e5dc72abea6b4f686712a7363cb29ea057"
 
+"@babel/helper-plugin-utils@7.0.0-rc.2":
+  version "7.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.0.0-rc.2.tgz#95bc3225bf6aeda5a5ebc90af2546b5b9317c0b4"
+
 "@babel/helper-regex@7.0.0-beta.42":
   version "7.0.0-beta.42"
   resolved "https://registry.yarnpkg.com/@babel/helper-regex/-/helper-regex-7.0.0-beta.42.tgz#ba01d0cd94786561e2afeb8c8b0e544aa034a1e1"
@@ -237,6 +241,13 @@
     "@babel/helper-plugin-utils" "7.0.0-beta.42"
     "@babel/plugin-syntax-optional-catch-binding" "7.0.0-beta.42"
 
+"@babel/plugin-proposal-optional-chaining@^7.0.0-rc.2":
+  version "7.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-optional-chaining/-/plugin-proposal-optional-chaining-7.0.0-rc.2.tgz#690996cb6de16e14d1162539aff4f7b6389ebe0f"
+  dependencies:
+    "@babel/helper-plugin-utils" "7.0.0-rc.2"
+    "@babel/plugin-syntax-optional-chaining" "7.0.0-rc.2"
+
 "@babel/plugin-proposal-unicode-property-regex@7.0.0-beta.42":
   version "7.0.0-beta.42"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-unicode-property-regex/-/plugin-proposal-unicode-property-regex-7.0.0-beta.42.tgz#84f209398368c194c217edd8131420e0ddb79661"
@@ -280,6 +291,12 @@
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-optional-catch-binding/-/plugin-syntax-optional-catch-binding-7.0.0-beta.42.tgz#d3ebfaa463f42f5a35be5cbd2f27c1fc3bf96c1b"
   dependencies:
     "@babel/helper-plugin-utils" "7.0.0-beta.42"
+
+"@babel/plugin-syntax-optional-chaining@7.0.0-rc.2":
+  version "7.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-optional-chaining/-/plugin-syntax-optional-chaining-7.0.0-rc.2.tgz#bf8cba58f2a7b1a93fda8120a4d2d6d99be3152e"
+  dependencies:
+    "@babel/helper-plugin-utils" "7.0.0-rc.2"
 
 "@babel/plugin-transform-arrow-functions@7.0.0-beta.42":
   version "7.0.0-beta.42"
