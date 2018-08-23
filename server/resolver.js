@@ -15,15 +15,15 @@ async function resolveTable(tableDesc) {
 
 async function resolveCustomTable(tableDesc) {
   const tableWithResolvedChildren = await Promise.props(mapValues(tableDesc, (value) => resolveTable(value)))
-  const children = mapValues(tableWithResolvedChildren, (child, description) => {
+  const subparams = mapValues(tableWithResolvedChildren, (child, description) => {
     return Object.assign({}, child, {description})
   })
-  return {children}
+  return {subparams}
 }
 
 function makeSubsection(node, depth) {
-  node.children = mapValues(node.children, child => {
-    if (depth == 0 || ! child.children) {
+  node.subparams = mapValues(node.subparams, child => {
+    if (depth == 0 || ! child.subparams) {
       return {table: child}
     }
     return makeSubsection(child, depth - 1)
@@ -40,19 +40,19 @@ async function resolveSection(sectionDesc) {
     const node = await resolveParam(sectionDesc.subsection)
     return Object.assign({}, sectionDesc, makeSubsection(node, sectionDesc.depth || 0))
   }
-  const resolvedChildren = isArray(sectionDesc.children)
-    ? await Promise.all(sectionDesc.children.map(resolveSection))
-    : await Promise.props(mapValues(sectionDesc.children, (child) => resolveSection(child)))
-  return Object.assign({}, sectionDesc, { children: resolvedChildren })
+  const resolvedChildren = isArray(sectionDesc.subparams)
+    ? await Promise.all(sectionDesc.subparams.map(resolveSection))
+    : await Promise.props(mapValues(sectionDesc.subparams, (child) => resolveSection(child)))
+  return Object.assign({}, sectionDesc, { subparams: resolvedChildren })
 }
 
 async function resolveParam(key) {
   const param = await fetchParam(key)
-  if (! param.children) {
+  if (! param.subparams) {
     return param
   }
-  const resolvedChildren = await Promise.props(mapValues(param.children, (childParam, childKey) => resolveParam(`${param.id}.${childKey}`)))
-  return Object.assign({}, param, { children: resolvedChildren })
+  const resolvedChildren = await Promise.props(mapValues(param.subparams, (childParam, childKey) => resolveParam(`${param.id}.${childKey}`)))
+  return Object.assign({}, param, { subparams: resolvedChildren })
 }
 
 async function fetchParam(key) {

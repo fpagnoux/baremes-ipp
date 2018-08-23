@@ -61,10 +61,10 @@ function buildColumn(parameter) {
   if (parameter.brackets) {
     return buildScaleColumn(parameter)
   }
-  if (parameter.children) {
+  if (parameter.subparams) {
     return {
       Header: parameter.description || parameter.id,
-      columns: map(parameter.children, buildColumn)
+      columns: map(parameter.subparams, buildColumn)
     }
   }
 }

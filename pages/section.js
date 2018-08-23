@@ -4,8 +4,8 @@ import map from 'lodash.map'
 import isArray from 'lodash.isarray'
 import contains from 'lodash.contains'
 
-function renderChildren(item, key, path) {
-  return map(item.children, (child, childKey) => {
+function renderSubParams(item, key, path) {
+  return map(item.subparams, (child, childKey) => {
     if (item.exclude && contains(item.exclude, childKey)) {
       return
     }
@@ -14,12 +14,12 @@ function renderChildren(item, key, path) {
 }
 
 function renderItem(item, key, path) {
-  if (item.children && (isArray(item.children) || item.flat)) {
-    return renderChildren(item, key, path)
+  if (item.subparams && (isArray(item.subparams) || item.flat)) {
+    return renderSubParams(item, key, path)
   }
-  if (item.children) {
+  if (item.subparams) {
     return <li key={key}>{item.title || item.description || item.id}
-      <ol>{renderChildren(item, key, path)}</ol>
+      <ol>{renderSubParams(item, key, path)}</ol>
     </li>
   }
   if (item.table) {
@@ -35,7 +35,7 @@ const Section = (props) => {
     <div className="entry-content text">
       <h4>Sommaire</h4>
       <ol>
-        {map(section.children, (child, key) => renderItem(child, key, path))}
+        {map(section.subparams, (child, key) => renderItem(child, key, path))}
       </ol>
     </div>
     </Layout>

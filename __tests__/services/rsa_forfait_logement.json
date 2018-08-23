@@ -1,5 +1,5 @@
 {
-  "children": {
+  "subparams": {
     "taux_1_personne": {
       "description": "1 personne",
       "id": "prestations.minima_sociaux.rsa.forfait_logement.taux_1_personne",

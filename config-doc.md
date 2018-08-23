@@ -10,10 +10,10 @@ Considérons le fichier de configuration suivant:
 
 ```YAML
 title: Prestations sociales
-children:
+subparams:
   rsa:
     title: Revenu de solidarité active
-    children:
+    subparams:
       rsa_montant:
         table: prestations.minima_sociaux.rsa.montant_de_base_du_rsa
       rsa_forfait_logement:
@@ -30,7 +30,7 @@ Ce fichier génére la section suivante:
 
 Notes:
 - Le `title` de premier niveau définit le titre de la section.
-- L'attribut `children` permet de définir des sous-sections, de manière arborescente.
+- L'attribut `subparams` permet de définir des sous-sections, de manière arborescente.
 - Le mot clé `table` permet de référencer une table de paramètre. Voir [Configuration d'une table](#configuration-dune-table).
 - Il est possible de générer automatiquement le contenu d'une sous-section. Voir [Génération d'une sous-section](#génération-dune-sous-section).
 
@@ -61,7 +61,7 @@ Note:
 
 ### Table sur-mesure
 
-Il est possible de définir de manière fine le contenu d'une table. 
+Il est possible de définir de manière fine le contenu d'une table.
 
 Par exemple:
 
@@ -87,11 +87,11 @@ Note:
 
 ## Génération d'une sous-section
 
-Les sous-sections d'une page peuvent être générés en se basant sur l'arbre des paramètres OpenFisca. Par exemple, 
+Les sous-sections d'une page peuvent être générés en se basant sur l'arbre des paramètres OpenFisca. Par exemple,
 
 ```YAML
 title: Prélèvements sociaux
-children:
+subparams:
   plafond_securite_sociale:
     table: cotsoc.gen.plafond_securite_sociale
   contributions:
@@ -105,13 +105,13 @@ La sous-section aura pour titre la description du noeud paramètre OpenFisca, et
 
 ### Paramètre `depth`
 
-Il est possible de générer des sous-sections du sommaire de plus grande profondeur. 
+Il est possible de générer des sous-sections du sommaire de plus grande profondeur.
 
 Si l'on modifie légèrement l'exemple précédent pour y ajouter un paramètre `depth` valant `1`:
 
 ```YAML
 title: Prélèvements sociaux
-children:
+subparams:
   plafond_securite_sociale:
     table: cotsoc.gen.plafond_securite_sociale
   contributions:
@@ -126,5 +126,5 @@ On obtient la page suivante:
 Le méchanisme est le même que celui décrit à la partie précédente, avec deux différences totables:
   - Le sommaire descend "plus en profodeur" dans le noeud de paramètre
   - Inversement, les tables sont cette fois générées à partir des "petits-enfants" du noeud, et sont donc moins complexes.
-  
+
 Il est possible de spécifier un `depth` > 1 pour un sommaire plus profondd. Par défault, `depth` vaut `0`.

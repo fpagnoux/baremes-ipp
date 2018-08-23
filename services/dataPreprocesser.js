@@ -86,5 +86,5 @@ export function extractValues(parameterNode) {
   return flow([
     x => map(x, extractValues),
     x => merge({}, ...x)
-    ])(parameterNode.children || parameterNode)  // parameterNode.children for nodes coming straight for the Web API, parameterNode for custom nodes
+    ])(parameterNode.subparams || parameterNode)  // parameterNode.subparams for nodes coming straight for the Web API, parameterNode for custom nodes
 }

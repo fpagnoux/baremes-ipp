@@ -7,7 +7,7 @@ it('should create a route towards a table', () => {
 
 it('should handle a section containing tables', () => {
   const desc = {
-    "children": {
+    "subparams": {
       "rsa_montant": {"table": {description: "Montant" }},
       "rsa_forfait_logement": {"table": {description: "Forfait logement"}},
     }
@@ -27,8 +27,8 @@ it('should handle a section containing tables', () => {
 
 it('should handle a section containing sections', () => {
   const desc = {
-    "children": {
-      "rsa": {"children": {}}
+    "subparams": {
+      "rsa": {"subparams": {}}
     }
   }
   const routes = extractRoutes(desc, '/prestations')
@@ -41,8 +41,8 @@ it('should handle a section containing sections', () => {
 
 it('should handle a section containing subsections', () => {
   const desc = {
-    "children": {
-      "contributions": {"children": {}}
+    "subparams": {
+      "contributions": {"subparams": {}}
     }
   }
   const routes = extractRoutes(desc, '/prestations')
@@ -55,7 +55,7 @@ it('should handle a section containing subsections', () => {
 
 it('should handle a section containing a list', () => {
   const desc = {
-    "children": [
+    "subparams": [
       {"table": {description: "Montant"}},
       {"table": {description: "Forfait logement"}},
     ]
