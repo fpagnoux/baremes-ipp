@@ -56,8 +56,12 @@ async function resolveParam(key) {
 }
 
 async function fetchParam(key) {
-  const response = await fetch(`http://localhost:2000/parameter/${key}`)
-  return await response.json()
+  try {
+    const response = await fetch(`http://localhost:2000/parameter/${key}`)
+    return await response.json()
+  } catch (error) { // Try again, to deal with Mac race-conditions
+    return fetchParam(key)
+  }
 }
 
 module.exports = {
