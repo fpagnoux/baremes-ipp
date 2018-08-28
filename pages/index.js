@@ -10,6 +10,10 @@ const Index = () => (
         <li><a href="./prelevements-sociaux">Prélèvements sociaux</a></li>
         <li><a href="./taxation-capital">Taxation du capital</a></li>
       </ul>
+      <h4>Transferts et prestations</h4>
+      <ul>
+        <li><a href="./chomage">Chômage</a></li>
+      </ul>
     </div>
   </Layout>
   )
