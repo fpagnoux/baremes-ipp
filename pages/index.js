@@ -9,6 +9,7 @@ const Index = () => (
       <ul>
         <li><a href="./prelevements-sociaux">Prélèvements sociaux</a></li>
         <li><a href="./taxation-capital">Taxation du capital</a></li>
+        <li><a href="./taxation-indirecte">Taxation indirecte</a></li>
       </ul>
       <h4>Transferts et prestations</h4>
       <ul>
