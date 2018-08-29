@@ -15,6 +15,10 @@ const Index = () => (
         <li><a href="./chomage">Chômage</a></li>
         <li><a href="./retraite">Retraite</a></li>
       </ul>
+      <h4>Réglementations</h4>
+      <ul>
+        <li><a href="./marche-travail">Marché du travail</a></li>
+      </ul>
     </div>
   </Layout>
   )
