@@ -18,6 +18,7 @@ const Index = () => (
       <h4>Réglementations</h4>
       <ul>
         <li><a href="./marche-travail">Marché du travail</a></li>
+        <li><a href="./tarifs-energie">Tarifs réglementés de l’énergie</a></li>
       </ul>
     </div>
   </Layout>
