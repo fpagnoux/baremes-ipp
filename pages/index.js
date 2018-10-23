@@ -8,6 +8,7 @@ const Index = () => (
       <h4>Prélèvements obligatoires</h4>
       <ul>
         <li><a href="./prelevements-sociaux">Prélèvements sociaux</a></li>
+        <li><a href="./impot-revenu">Impôt sur le revenu</a></li>
         <li><a href="./taxation-capital">Taxation du capital</a></li>
         <li><a href="./taxation-indirecte">Taxation indirecte</a></li>
       </ul>

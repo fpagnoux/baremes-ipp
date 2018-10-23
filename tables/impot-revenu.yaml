@@ -1,0 +1,8 @@
+title: Impôt sur le revenu
+subparams:
+  - table: impot_revenu.bareme_ir
+  - subsection: impot_revenu
+    depth: 1
+    flat: true
+    exclude:
+      - bareme_ir
