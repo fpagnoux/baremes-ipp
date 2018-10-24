@@ -55,12 +55,16 @@ async function resolveParam(key) {
   return Object.assign({}, param, { subparams: resolvedChildren })
 }
 
-async function fetchParam(key) {
+async function fetchParam(key, previousTries = 0) {
   try {
     const response = await fetch(`http://localhost:2000/parameter/${key}`)
     return await response.json()
   } catch (error) { // Try again, to deal with Mac race-conditions
-    return fetchParam(key)
+    if (previousTries <= 2) {
+      return fetchParam(key, previousTries = previousTries + 1)
+    } else {
+      throw error
+    }
   }
 }
 
