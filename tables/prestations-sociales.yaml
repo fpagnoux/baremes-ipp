@@ -1,0 +1,17 @@
+title: Prestations sociales
+subparams:
+  - title: Prestations familiales
+    subparams:
+    - table: prestations_sociales.prestations_familiales.def_pac
+    - table: prestations_sociales.prestations_familiales.def_biactif
+    - table: prestations_sociales.prestations_familiales.bmaf
+    - subsection: prestations_sociales.prestations_familiales
+      depth: 1
+      flat: true
+      exclude:
+        - def_pac
+        - def_biactif
+        - bmaf
+  - subsection: prestations_sociales.allocations_logement
+  - subsection: prestations_sociales.solidarite_insertion
+    depth: 1

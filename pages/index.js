@@ -14,6 +14,7 @@ const Index = () => (
       </ul>
       <h4>Transferts et prestations</h4>
       <ul>
+        <li><a href="./prestations-sociales">Prestations sociales</a></li>
         <li><a href="./chomage">Chômage</a></li>
         <li><a href="./retraite">Retraite</a></li>
       </ul>

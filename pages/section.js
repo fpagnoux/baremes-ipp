@@ -21,7 +21,7 @@ function renderSubParams(item, key, path) {
 }
 
 function renderItem(item, key, path) {
-  if (item.subparams && (isArray(item.subparams) || item.flat)) {
+  if (item.subparams && item.flat) {
     return renderSubParams(item, key, path)
   }
   if (item.subparams) {
@@ -41,7 +41,6 @@ const Section = (props) => {
     x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
     x => sortBy(x, subParam => subParam.metadata && subParam.metadata.rank)
   ])(section.subparams)
-
 
   return <Layout>
     <h1 className="box"><span>{section.title}</span></h1>
