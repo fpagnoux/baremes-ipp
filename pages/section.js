@@ -9,7 +9,7 @@ import sortBy from 'lodash.sortby';
 function renderSubParams(item, key, path) {
   const subParams = isArray(item.subparams) ? item.subparams : flow([
     x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
-    x => sortBy(x, subParam => subParam?.metadata?.rank || subParam?.table?.metadata.rank)
+    x => sortBy(x, subParam => item?.metadata?.order.indexOf(subParam.name))
   ])(item.subparams)
 
   return map(subParams, subParam => {
@@ -39,7 +39,7 @@ const Section = (props) => {
   const path = props.router.asPath.endsWith('/') ? props.router.asPath : props.router.asPath + '/'
   const subParams = flow([
     x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
-    x => sortBy(x, subParam => subParam.metadata && subParam.metadata.rank)
+    x => sortBy(x, subParam => section?.metadata?.order.indexOf(subParam.name))
   ])(section.subparams)
 
   return <Layout>

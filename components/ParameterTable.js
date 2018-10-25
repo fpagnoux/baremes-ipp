@@ -2,6 +2,8 @@ import map from 'lodash.map'
 import range from 'lodash.range'
 import size from 'lodash.size'
 import isString from 'lodash.isstring'
+import sortBy from 'lodash.sortby'
+import flow from 'lodash.flow'
 import { FormattedDate, IntlProvider, addLocaleData, FormattedNumber} from 'react-intl'
 import fr from 'react-intl/locale-data/fr'
 
@@ -64,7 +66,11 @@ function buildColumn(parameter) {
   if (parameter.subparams) {
     return {
       Header: parameter.description || parameter.id,
-      columns: map(parameter.subparams, buildColumn)
+      columns: flow([
+        x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
+        x => sortBy(x, subParam => parameter?.metadata?.order.indexOf(subParam.name)),
+        x => map(x, buildColumn)
+      ])(parameter.subparams)
     }
   }
 }
