@@ -59,7 +59,7 @@ function renderHeader(columns, index) {
         key={index2}
         colSpan={column.colSpan}
         rowSpan={column.rowSpan || 1}
-        style={{flex:`${column.colSpan * 100} 0 auto`, width:`${column.colSpan * 100}px`}}
+        style={{flex: `${column.width || 1} 0 auto`, 'width': `${(column.width || 1) * 100}px`}}
         >
         {column.Header}
       </th>
@@ -86,7 +86,11 @@ function renderData(data, dataColumns) {
   return data.map((datum, index) => {
     return <tr key={index}>
         {dataColumns.map((column, index2) => {
-          return <td key={index2} style={{flex: '100 0 auto', width:'100px'}}>
+          return <td
+            key={index2}
+            colSpan={column.colSpan}
+            style={{flex: `${column.width || 1} 0 auto`, 'width': `100px`}}
+            >
             <span>{renderDatum(datum, column)}</span>
           </td>
         })}

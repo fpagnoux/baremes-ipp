@@ -2,7 +2,7 @@ import Layout from '../components/Layout'
 import { withRouter } from 'next/router'
 import map from 'lodash.map'
 import isArray from 'lodash.isarray'
-import contains from 'lodash.contains'
+import includes from 'lodash.includes'
 import flow from 'lodash.flow';
 import sortBy from 'lodash.sortby';
 
@@ -13,7 +13,7 @@ function renderSubParams(item, key, path) {
   ])(item.subparams)
 
   return map(subParams, subParam => {
-    if (item.exclude && contains(item.exclude, subParam.name)) {
+    if (item.exclude && includes(item.exclude, subParam.name)) {
       return
     }
     return renderItem(subParam, subParam.name, `${path}${key}/`)

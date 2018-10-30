@@ -40,6 +40,11 @@ it('extractValues can extract dates from a parameter node', () => {
   expect(data['prestations.minima_sociaux.rsa.forfait_logement.taux_2_personnes']).toEqual({"2009-06-01": {value: 0.16}})
 });
 
+it('extractValues can extract metadata from a parameter node', () => {
+  const data = extractValues(rsaForFaitLogement)
+  expect(data['date_parution_jo']).toEqual({"2009-06-01": "2009-05-01"})
+});
+
 it('extractValues can extract dates from a custom parameter node', () => {
   const data = extractValues(rsaMajoration)
   expect(data['prestations.minima_sociaux.rsa.majoration_rsa.taux_deuxieme_personne']).toEqual({"2009-06-01": {value: 0.5}})

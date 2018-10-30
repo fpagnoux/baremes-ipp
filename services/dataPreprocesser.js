@@ -1,15 +1,20 @@
 /** Process a parameterNode so that the data it contains are easily exploitable by React-Table */
 
-import map from 'lodash.map';
-import mapValues from 'lodash.mapvalues';
+import includes from 'lodash.includes'
 import flatten from 'lodash.flatten';
 import flow from 'lodash.flow';
-import merge from 'lodash.merge';
-import union from 'lodash.union';
-import keys from 'lodash.keys'
-import last from 'lodash.last'
 import fromPairs from 'lodash.frompairs'
 import isPlainObject from 'lodash.isplainobject'
+import keys from 'lodash.keys'
+import last from 'lodash.last'
+import map from 'lodash.map';
+import mapValues from 'lodash.mapvalues';
+import merge from 'lodash.merge';
+import pick from 'lodash.pick'
+import pickBy from 'lodash.pickby'
+import union from 'lodash.union';
+
+const METADATA_FIELD_NAMES = ['date_parution_jo', 'reference', 'notes']
 
 
 export default function extractData(parameterNode) {
@@ -18,7 +23,7 @@ export default function extractData(parameterNode) {
   return dates.reduce((data, date) => {
     return data.concat([merge(
       {},
-      last(data),
+      pickBy(last(data), (_, fieldName) => ! includes(METADATA_FIELD_NAMES, fieldName)),
       {date},
       fromPairs(
         map(values, (paramValues, paramKey) => {
@@ -83,8 +88,14 @@ export function extractValues(parameterNode) {
   if (parameterNode.brackets) {
     return extractValuesFromScale(parameterNode)
   }
-  return flow([
+  const data = flow([
     x => map(x, extractValues),
     x => merge({}, ...x)
     ])(parameterNode.subparams || parameterNode)  // parameterNode.subparams for nodes coming straight for the Web API, parameterNode for custom nodes
+
+  const metadata = flow([
+    x => pick(x, METADATA_FIELD_NAMES),
+    ])(parameterNode.metadata)
+
+  return merge({}, data, metadata)
 }

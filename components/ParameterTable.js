@@ -1,4 +1,5 @@
 import map from 'lodash.map'
+import filter from 'lodash.filter'
 import range from 'lodash.range'
 import size from 'lodash.size'
 import isString from 'lodash.isstring'
@@ -69,10 +70,29 @@ function buildColumn(parameter) {
       columns: flow([
         x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
         x => sortBy(x, subParam => parameter?.metadata?.order.indexOf(subParam.name)),
-        x => map(x, buildColumn)
+        x => map(x, buildColumn),
+        x => x.concat(buildMetaDataColumns(parameter))
       ])(parameter.subparams)
     }
   }
+}
+
+function buildMetaDataColumns(parameter) {
+  const metadata = {
+    reference: {title: 'Références législatives', width: 1.8},
+    date_parution_jo: {title: 'Parution au JO', width: 0.7},
+    notes: {title: 'Notes', width: 2},
+  }
+
+  return flow([
+    x => filter(x, fieldName => parameter.metadata[fieldName]),
+    x => map(x, fieldName => ({
+      Header: metadata[fieldName].title,
+      accessor: item => item[fieldName],
+      id: fieldName,
+      width: metadata[fieldName].width
+    }))
+  ])(Object.keys(metadata))
 }
 
 const ParameterTable = ({parameter}) => {
@@ -86,10 +106,13 @@ const ParameterTable = ({parameter}) => {
   const columns = [dateColumn, buildColumn(parameter)]
   return (
     <IntlProvider locale="fr">
-      <Table
-        columns={columns}
-        data={data}
-      />
+      <div>
+        <Table
+          columns={columns}
+          data={data}
+        />
+        <p className="table-doc">{parameter.documentation}</p>
+      </div>
     </IntlProvider>
   )
 }
