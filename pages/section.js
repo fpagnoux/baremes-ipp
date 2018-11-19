@@ -16,8 +16,7 @@ function renderSubParams(item, key, path) {
     if (item.exclude && includes(item.exclude, subParam.name)) {
       return
     }
-    const target = path ? `${path}/${key}` : key
-    return renderItem(subParam, subParam.name, target)
+    return renderItem(subParam, subParam.name, `${path}${key}/`)
   })
 }
 
@@ -31,13 +30,13 @@ function renderItem(item, key, path) {
     </li>
   }
   if (item.table) {
-    const target = path ? `${path}/${key}` : key
-    return <li key={key}><a href={target}>{item.title || item.table.description || item.table.id}</a></li>
+    return <li key={key}><a href={`${path}${key}`}>{item.title || item.table.description || item.table.id}</a></li>
   }
 }
 
 const Section = (props) => {
   const section = props.router.query
+  const path = props.router.asPath.endsWith('/') ? props.router.asPath : props.router.asPath + '/'
   const subParams = flow([
     x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
     x => sortBy(x, subParam => section?.metadata?.order.indexOf(subParam.name))
@@ -48,7 +47,7 @@ const Section = (props) => {
     <div className="entry-content text">
       <h4>Sommaire</h4>
       <ol>
-        {map(subParams, subParam => renderItem(subParam, subParam.name, ''))}
+        {map(subParams, subParam => renderItem(subParam, subParam.name, path))}
       </ol>
     </div>
     </Layout>
