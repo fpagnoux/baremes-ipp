@@ -37,6 +37,7 @@ function renderItem(item, key, path) {
 const Section = (props) => {
   const section = props.router.query
   const path = props.router.asPath.endsWith('/') ? props.router.asPath : props.router.asPath + '/'
+  const basename = process.env.BASENAME || ''
   const subParams = flow([
     x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
     x => sortBy(x, subParam => section?.metadata?.order.indexOf(subParam.name))
@@ -47,7 +48,7 @@ const Section = (props) => {
     <div className="entry-content text">
       <h4>Sommaire</h4>
       <ol>
-        {map(subParams, subParam => renderItem(subParam, subParam.name, path))}
+        {map(subParams, subParam => renderItem(subParam, subParam.name, `${basename}${path}`))}
       </ol>
     </div>
     </Layout>
