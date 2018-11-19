@@ -1,6 +1,8 @@
 const withCSS = require('@zeit/next-css')
 const loader = require('./server/loader')
 const keyBy = require('lodash.keyby')
+const webpack = require('webpack')
+const { parsed: localEnv } = require('dotenv').config()
 
 module.exports = withCSS({
   cssModules: false,
@@ -11,6 +13,7 @@ module.exports = withCSS({
         use: 'js-yaml-loader',
       },
     )
+    config.plugins.push(new webpack.EnvironmentPlugin(localEnv))
     return config
   },
   exportPathMap: () => {
@@ -21,5 +24,6 @@ module.exports = withCSS({
         keyBy(routes, 'route')
       )
     })
-  }
+  },
+  assetPrefix: localEnv.BASENAME || ""
 })
