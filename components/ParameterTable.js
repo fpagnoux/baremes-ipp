@@ -28,8 +28,9 @@ function cellFormatter({value, metadata}) {
 }
 
 function buildSimpleColumn(parameter) {
+  const source = parameter.source.replace('openfisca_baremes_ipp/', '') // The structure of the repo is not the typical OF structure, so we monkey patch
   return {
-    Header: <span className="edit-link">{parameter.description || parameter.id}<br/><a target="_blank" href={parameter.source}>Edit</a></span>,
+    Header: <span className="edit-link">{parameter.description || parameter.id}<br/><a target="_blank" href={source}>Edit</a></span>,
     accessor: item => item[parameter.id],
     id: parameter.id,
     Cell: cellFormatter
