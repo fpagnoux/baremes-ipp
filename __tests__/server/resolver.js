@@ -2,13 +2,13 @@ import {resolveSection} from '../../server/resolver'
 
 it('should run', (done) => {
   resolveSection({
-    "children": {
+    "subparams": {
       "contributions": {
-        "subsection": "prelevements_sociaux.contributions"
+        "subsection": "prelevements_sociaux.contributions_sociales"
       }
     }
   }).then(section => {
-    expect(section.children.contributions.children).toBeTruthy()
+    expect(section.subparams.contributions.subparams).toBeTruthy()
     done()
   })
 });

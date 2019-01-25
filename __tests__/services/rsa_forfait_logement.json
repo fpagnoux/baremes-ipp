@@ -1,5 +1,5 @@
 {
-  "children": {
+  "subparams": {
     "taux_1_personne": {
       "description": "1 personne",
       "id": "prestations.minima_sociaux.rsa.forfait_logement.taux_1_personne",
@@ -24,5 +24,10 @@
     }
   },
   "description": "Forfait logement (en % du montant forfaitaire du RSA)",
-  "id": "prestations.minima_sociaux.rsa.forfait_logement"
+  "id": "prestations.minima_sociaux.rsa.forfait_logement",
+  "metadata": {
+    "date_parution_jo": {
+      "2009-06-01": "2009-05-01"
+    }
+  }
 }

@@ -1,19 +1,17 @@
 title: Prestations sociales
-children:
-  rsa:
-    title: Revenu de solidarité active
-    children:
-      rsa_montant:
-        table: prestations.minima_sociaux.rsa.montant_de_base_du_rsa
-      rsa_forfait_logement:
-        table: prestations.minima_sociaux.rsa.forfait_logement
-      rsa_majoration:
-        title: "Revenu de solidarité active (RSA) : majorations (montant de base et revenus) et montant minimum versé"
-        table:
-          "Majoration montant maximal (en % de la base RSA)":
-            "Couples ou célibataire avec un enfant": prestations.minima_sociaux.rsa.majoration_rsa.taux_deuxieme_personne
-            "Couple, 1 enfant - ou pour le deuxième enfant": prestations.minima_sociaux.rsa.majoration_rsa.taux_troisieme_personne
-            "Par enfant supplémentaire": prestations.minima_sociaux.rsa.majoration_rsa.taux_personne_supp
-          "Majoration isolement (en % de la base RSA) ":
-            "Femmes enceintes": prestations.minima_sociaux.rsa.majoration_parent_isole.femmes_enceintes
-            "Par enfant à charge": prestations.minima_sociaux.rsa.majoration_parent_isole.par_enfant_a_charge
+subparams:
+  - title: Prestations familiales
+    subparams:
+    - table: prestations_sociales.prestations_familiales.def_pac
+    - table: prestations_sociales.prestations_familiales.def_biactif
+    - table: prestations_sociales.prestations_familiales.bmaf
+    - subsection: prestations_sociales.prestations_familiales
+      depth: 1
+      flat: true
+      exclude:
+        - def_pac
+        - def_biactif
+        - bmaf
+  - subsection: prestations_sociales.allocations_logement
+  - subsection: prestations_sociales.solidarite_insertion
+    depth: 1

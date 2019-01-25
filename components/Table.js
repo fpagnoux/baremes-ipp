@@ -2,6 +2,7 @@ import sum from 'lodash.sum'
 import max from 'lodash.max'
 import map from 'lodash.map'
 import range from 'lodash.range'
+import isPlainObject from 'lodash.isplainobject'
 
 // Data and colmuns Preprocessing
 
@@ -58,7 +59,7 @@ function renderHeader(columns, index) {
         key={index2}
         colSpan={column.colSpan}
         rowSpan={column.rowSpan || 1}
-        style={{flex:`${column.colSpan * 100} 0 auto`, width:`${column.colSpan * 100}px`}}
+        style={{flex: `${column.width || 1} 0 auto`, 'width': `${(column.width || 1) * 100}px`}}
         >
         {column.Header}
       </th>
@@ -68,17 +69,28 @@ function renderHeader(columns, index) {
 
 function renderDatum(datum, column) {
   const value = column.accessor(datum)
-  if (column.Cell) {
-    return <column.Cell value={value}/>
+
+  if (! isPlainObject(value)) {
+    if (column.Cell) {
+      return <column.Cell value={value}/>
+    }
+    return value
   }
-  return value
+  if (column.Cell) {
+    return <column.Cell value={value.value} metadata={value}/>
+  }
+  return value.value
 }
 
 function renderData(data, dataColumns) {
   return data.map((datum, index) => {
     return <tr key={index}>
         {dataColumns.map((column, index2) => {
-          return <td key={index2} style={{flex: '100 0 auto', width:'100px'}}>
+          return <td
+            key={index2}
+            colSpan={column.colSpan}
+            style={{flex: `${column.width || 1} 0 auto`, 'width': `100px`}}
+            >
             <span>{renderDatum(datum, column)}</span>
           </td>
         })}

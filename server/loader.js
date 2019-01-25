@@ -29,13 +29,13 @@ function extractRoutes(desc, path) {
       query: desc.table,
       }]
   }
-  if (desc.children) {
+  if (desc.subparams) {
     const sectionRoute = {
       route: path,
       page: '/section',
       query: desc
     }
-    return [sectionRoute].concat(flatten(map(desc.children, (child, key) => {
+    return [sectionRoute].concat(flatten(map(desc.subparams, (child, key) => {
       return extractRoutes(child, `${path}/${key}`)
     })))
   }

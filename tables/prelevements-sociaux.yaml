@@ -1,9 +1,8 @@
 title: Prélèvements sociaux
-children:
-  plafond_securite_sociale:
-    table: cotsoc.gen.plafond_securite_sociale
-  contributions:
-    subsection: prelevements_sociaux.contributions
-  cositations_sociales:
-    subsection: prelevements_sociaux.cotisations_sociales
+subparams:
+  - table: prelevements_sociaux.pss
+  - subsection: prelevements_sociaux
     depth: 1
+    flat: true
+    exclude:
+      - pss

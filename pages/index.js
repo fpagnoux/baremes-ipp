@@ -9,10 +9,19 @@ const Index = () => (
       <ul>
         <li><a href="./prelevements-sociaux">Prélèvements sociaux</a></li>
         <li><a href="./impot-revenu">Impôt sur le revenu</a></li>
+        <li><a href="./taxation-capital">Taxation du capital</a></li>
+        <li><a href="./taxation-indirecte">Taxation indirecte</a></li>
       </ul>
       <h4>Transferts et prestations</h4>
       <ul>
         <li><a href="./prestations-sociales">Prestations sociales</a></li>
+        <li><a href="./chomage">Chômage</a></li>
+        <li><a href="./retraite">Retraite</a></li>
+      </ul>
+      <h4>Réglementations</h4>
+      <ul>
+        <li><a href="./marche-travail">Marché du travail</a></li>
+        <li><a href="./tarifs-energie">Tarifs réglementés de l’énergie</a></li>
       </ul>
     </div>
   </Layout>

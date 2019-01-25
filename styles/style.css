@@ -29,3 +29,8 @@ tr:nth-child(odd) {
 thead {
   border-bottom: 2px solid rgba(0,0,0,0.2);
 }
+
+.table-doc {
+  white-space: pre-line;
+  margin-top: 1em;
+}

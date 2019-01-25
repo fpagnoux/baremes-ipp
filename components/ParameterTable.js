@@ -1,7 +1,10 @@
 import map from 'lodash.map'
+import filter from 'lodash.filter'
 import range from 'lodash.range'
 import size from 'lodash.size'
 import isString from 'lodash.isstring'
+import sortBy from 'lodash.sortby'
+import flow from 'lodash.flow'
 import { FormattedDate, IntlProvider, addLocaleData, FormattedNumber} from 'react-intl'
 import fr from 'react-intl/locale-data/fr'
 
@@ -10,17 +13,27 @@ import Table from '../components/Table'
 
 addLocaleData(fr)
 
-const cellFormatter = {
-  '/1': props => props.value !== undefined && <FormattedNumber value={props.value} style="percent" maximumFractionDigits={3}/>,
-  'EUR': props => props.value !== undefined && <FormattedNumber value={props.value} style="currency" maximumFractionDigits={3} currency="EUR"/>,
+function cellFormatter({value, metadata}) {
+  if ((! value && ! value !== 0) || ! metadata || ! metadata.unit) {
+    return value
+  }
+  if (metadata.unit == '/1') {
+    return <FormattedNumber value={value} style="percent" maximumFractionDigits={3}/>
+  }
+  if (metadata.unit.startsWith('currency')) {
+    const currency = metadata.unit.split('-')[1]
+    return <FormattedNumber value={value} style="currency" maximumFractionDigits={3} currency={currency}/>
+  }
+  return value
 }
 
 function buildSimpleColumn(parameter) {
+  const source = parameter.source.replace('openfisca_baremes_ipp/', '') // The structure of the repo is not the typical OF structure, so we monkey patch
   return {
-    Header: <span className="edit-link">{parameter.description || parameter.id}<br/><a target="_blank" href={parameter.source}>Edit</a></span>,
+    Header: <span className="edit-link">{parameter.description || parameter.id}<br/><a target="_blank" href={source}>Edit</a></span>,
     accessor: item => item[parameter.id],
     id: parameter.id,
-    Cell: cellFormatter[parameter.unit]
+    Cell: cellFormatter
   }
 }
 
@@ -52,12 +65,35 @@ function buildColumn(parameter) {
   if (parameter.brackets) {
     return buildScaleColumn(parameter)
   }
-  if (parameter.children) {
+  if (parameter.subparams) {
     return {
       Header: parameter.description || parameter.id,
-      columns: map(parameter.children, buildColumn)
+      columns: flow([
+        x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
+        x => sortBy(x, subParam => parameter?.metadata?.order?.indexOf(subParam.name)),
+        x => map(x, buildColumn),
+        x => x.concat(buildMetaDataColumns(parameter))
+      ])(parameter.subparams)
     }
   }
+}
+
+function buildMetaDataColumns(parameter) {
+  const metadata = {
+    reference: {title: 'Références législatives', width: 1.8},
+    date_parution_jo: {title: 'Parution au JO', width: 0.7},
+    notes: {title: 'Notes', width: 2},
+  }
+
+  return flow([
+    x => filter(x, fieldName => parameter.metadata[fieldName]),
+    x => map(x, fieldName => ({
+      Header: metadata[fieldName].title,
+      accessor: item => item[fieldName],
+      id: fieldName,
+      width: metadata[fieldName].width
+    }))
+  ])(Object.keys(metadata))
 }
 
 const ParameterTable = ({parameter}) => {
@@ -71,10 +107,13 @@ const ParameterTable = ({parameter}) => {
   const columns = [dateColumn, buildColumn(parameter)]
   return (
     <IntlProvider locale="fr">
-      <Table
-        columns={columns}
-        data={data}
-      />
+      <div>
+        <Table
+          columns={columns}
+          data={data}
+        />
+        <p className="table-doc">{parameter.documentation}</p>
+      </div>
     </IntlProvider>
   )
 }
