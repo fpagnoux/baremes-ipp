@@ -7,9 +7,10 @@ import flow from 'lodash.flow';
 import sortBy from 'lodash.sortby';
 
 function renderSubParams(item, key, path) {
+  const shouldSort = ! isArray(item.subparams) // A specific order has been explicitly defined in the conf
   const subParams = flow([
     x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
-    x => isArray(x) ? x : sortBy(x, subParam => item?.metadata?.order.indexOf(subParam.name))
+    x => shouldSort ? sortBy(x, subParam => item?.metadata?.order.indexOf(subParam.name)) : x
   ])(item.subparams)
 
   return map(subParams, subParam => {
