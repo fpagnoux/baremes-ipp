@@ -11,6 +11,7 @@ const Index = () => (
         <li><a href="./impot-revenu">Impôt sur le revenu</a></li>
         <li><a href="./taxation-capital">Taxation du capital</a></li>
         <li><a href="./taxation-indirecte">Taxation indirecte</a></li>
+        <li><a href="./taxation-societes">Taxation des entreprises</a></li>
       </ul>
       <h4>Transferts et prestations</h4>
       <ul>
