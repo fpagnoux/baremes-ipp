@@ -5,24 +5,21 @@ import size from 'lodash.size'
 import isString from 'lodash.isstring'
 import sortBy from 'lodash.sortby'
 import flow from 'lodash.flow'
-import { FormattedDate, IntlProvider, addLocaleData, FormattedNumber} from 'react-intl'
-import fr from 'react-intl/locale-data/fr'
 
 import extractData from '../services/dataPreprocesser'
+import {formatNumber, formatDate} from '../services/formatter'
 import Table from '../components/Table'
-
-addLocaleData(fr)
 
 function cellFormatter({value, metadata}) {
   if ((! value && ! value !== 0) || ! metadata || ! metadata.unit) {
     return value
   }
   if (metadata.unit == '/1') {
-    return <FormattedNumber value={value} style="percent" maximumFractionDigits={3}/>
+    return formatNumber(value, { style: 'percent', maximumFractionDigits: 3 })
   }
   if (metadata.unit.startsWith('currency')) {
     const currency = metadata.unit.split('-')[1]
-    return <FormattedNumber value={value} style="currency" maximumFractionDigits={3} currency={currency}/>
+    return formatNumber(value, { style: 'currency', currency, maximumFractionDigits: 3 })
   }
   return value
 }
@@ -102,19 +99,17 @@ const ParameterTable = ({parameter}) => {
     Header: 'Date d’effet',
     accessor: item => item.date,
     id: 'date',
-    Cell: props => <FormattedDate value={props.value} timeZone="UTC"/> // Input is considered to be in UTC, so dates should be formatted for the same timezone.
+    Cell: props => formatDate(props.value)
   }
   const columns = [dateColumn, buildColumn(parameter)]
   return (
-    <IntlProvider locale="fr">
-      <div>
-        <Table
-          columns={columns}
-          data={data}
-        />
-        <p className="table-doc">{parameter.documentation}</p>
-      </div>
-    </IntlProvider>
+    <div>
+      <Table
+        columns={columns}
+        data={data}
+      />
+      <p className="table-doc">{parameter.documentation}</p>
+    </div>
   )
 }
 
