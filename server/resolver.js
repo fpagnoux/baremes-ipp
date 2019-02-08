@@ -60,7 +60,7 @@ async function fetchParam(key, previousTries = 0) {
     const response = await fetch(`http://localhost:2000/parameter/${key}`)
     return await response.json()
   } catch (error) { // Try again, to deal with Mac race-conditions
-    if (previousTries <= 2) {
+    if (previousTries <= 5) {
       return fetchParam(key, previousTries = previousTries + 1)
     } else {
       throw error
