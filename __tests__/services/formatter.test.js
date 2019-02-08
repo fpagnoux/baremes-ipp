@@ -8,6 +8,10 @@ it('formatNumber should format currencies in a French style', () => {
   expect(formatNumber(3000, {style: 'currency', currency: 'EUR'})).toEqual('3\xa0000,00\xa0€')
 });
 
+it('formatNumber should format anciens francs', () => {
+  expect(formatNumber(3000, {style: 'currency', currency: 'AFRF'})).toEqual('3\xa0000,00\xa0AF')
+});
+
 it('formatDate should format dates in a French style', () => {
   expect(formatDate('2019-02-01')).toEqual('01/02/2019')
 });
