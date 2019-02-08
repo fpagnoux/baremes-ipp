@@ -1,8 +1,9 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 
 const basename = process.env.BASENAME || ''
+const isProd = process.env.PRODUCTION
 
-export default class MyDocument extends Document {
+class StagingDocument extends Document {
   render() {
     return (
       <html>
@@ -18,3 +19,13 @@ export default class MyDocument extends Document {
     )
   }
 }
+
+class ProdDocument extends Document {
+  render() {
+    return <Main />
+  }
+}
+
+const MyDocument = isProd ? ProdDocument : StagingDocument
+
+export default MyDocument

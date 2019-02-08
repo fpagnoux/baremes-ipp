@@ -6,6 +6,9 @@ import includes from 'lodash.includes'
 import flow from 'lodash.flow';
 import sortBy from 'lodash.sortby';
 
+const isProd = process.env.PRODUCTION
+const basename = process.env.BASENAME || ''
+
 function renderSubParams(item, key, path) {
   const shouldSort = ! isArray(item.subparams) // A specific order has been explicitly defined in the conf
   const subParams = flow([
@@ -31,26 +34,37 @@ function renderItem(item, key, path) {
     </li>
   }
   if (item.table) {
-    return <li key={key}><a href={`${path}${key}`}>{item.title || item.table.description || item.table.id}</a></li>
+    return <li key={key}><a href={`/${path}${key}`}>{item.title || item.table.description || item.table.id}</a></li>
   }
+}
+
+function renderSectionContent(subParams, path) {
+  return (
+    <div>
+      <h4>Sommaire</h4>
+      <ol>
+        {map(subParams, subParam => renderItem(subParam, subParam.name, `${basename}${path}`))}
+      </ol>
+    </div>)
 }
 
 const Section = (props) => {
   const section = props.router.query
   const path = props.router.asPath.endsWith('/') ? props.router.asPath : props.router.asPath + '/'
-  const basename = process.env.BASENAME || ''
   const subParams = flow([
     x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
     x => sortBy(x, subParam => section?.metadata?.order.indexOf(subParam.name))
   ])(section.subparams)
 
+
+  if (isProd) {
+    return renderSectionContent(subParams, path)
+  }
+
   return <Layout>
     <h1 className="box"><span>{section.title}</span></h1>
     <div className="entry-content text">
-      <h4>Sommaire</h4>
-      <ol>
-        {map(subParams, subParam => renderItem(subParam, subParam.name, `${basename}${path}`))}
-      </ol>
+      {renderSectionContent(subParams, path)}
     </div>
     </Layout>
   }
