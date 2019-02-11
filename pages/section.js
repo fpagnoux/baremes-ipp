@@ -1,4 +1,3 @@
-import Layout from '../components/Layout'
 import { withRouter } from 'next/router'
 import map from 'lodash.map'
 import isArray from 'lodash.isarray'
@@ -6,8 +5,8 @@ import includes from 'lodash.includes'
 import flow from 'lodash.flow';
 import sortBy from 'lodash.sortby';
 
-const isProd = process.env.PRODUCTION
-const basename = process.env.BASENAME || ''
+import Layout from '../components/Layout'
+import {basename, isProd} from '../config'
 
 function renderSubParams(item, key, path) {
   const shouldSort = ! isArray(item.subparams) // A specific order has been explicitly defined in the conf
@@ -34,7 +33,7 @@ function renderItem(item, key, path) {
     </li>
   }
   if (item.table) {
-    return <li key={key}><a href={`/${path}${key}`}>{item.title || item.table.description || item.table.id}</a></li>
+    return <li key={key}><a href={`${path}${key}`}>{item.title || item.table.description || item.table.id}</a></li>
   }
 }
 

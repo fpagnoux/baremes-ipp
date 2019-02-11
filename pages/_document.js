@@ -1,7 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document'
-
-const basename = process.env.BASENAME || ''
-const isProd = process.env.PRODUCTION
+import {basename, isProd} from '../config'
 
 class StagingDocument extends Document {
   render() {
