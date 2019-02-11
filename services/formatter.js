@@ -1,7 +1,7 @@
 // Polyfill to be able to use french locale
 import IntlPolyfill from 'intl'
+import 'intl/locale-data/jsonp/fr.js';
 
-Intl.NumberFormat = IntlPolyfill.NumberFormat;
 Intl.DateTimeFormat = IntlPolyfill.DateTimeFormat;
 
 export function formatNumber(value, options) {
