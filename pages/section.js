@@ -7,7 +7,7 @@ import flow from 'lodash.flow';
 import sortBy from 'lodash.sortby';
 
 const isProd = process.env.PRODUCTION
-const basename = process.env.BASENAME || ''
+const basename = process.env.BASENAME || '.'
 
 function renderSubParams(item, key, path) {
   const shouldSort = ! isArray(item.subparams) // A specific order has been explicitly defined in the conf
