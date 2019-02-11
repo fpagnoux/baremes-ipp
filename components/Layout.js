@@ -1,5 +1,9 @@
 const isProd = process.env.PRODUCTION;
 
+if (! isProd) {
+  require('../styles/style.css')
+}
+
 const StagingLayout = ({children, fullWidth}) => (
   <div>
     <header id="main-header" className="main-header" role="banner">
