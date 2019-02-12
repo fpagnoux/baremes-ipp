@@ -5,7 +5,6 @@ const yaml = require('js-yaml');
 const map = require('lodash.map')
 const flatten = require('lodash.flatten')
 const fromPairs = require('lodash.frompairs')
-const get = require('lodash.get')
 
 
 const resolver = require('./resolver')
