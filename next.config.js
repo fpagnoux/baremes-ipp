@@ -25,5 +25,5 @@ module.exports = withCSS({
       )
     })
   },
-  assetPrefix: (localEnv && localEnv.BASENAME) || ""
+  assetPrefix: (localEnv && localEnv.BASENAME) || "."
 })

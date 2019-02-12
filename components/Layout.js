@@ -1,9 +1,11 @@
-import stylesheet from '../styles/style.css'
+const isProd = process.env.PRODUCTION;
 
+if (! isProd) {
+  require('../styles/style.css')
+}
 
-const Layout = ({children, fullWidth}) => (
+const StagingLayout = ({children, fullWidth}) => (
   <div>
-    <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
     <header id="main-header" className="main-header" role="banner">
       <div className="inner">
         <h1>
@@ -54,5 +56,9 @@ const Layout = ({children, fullWidth}) => (
     </div>
   </div>
 )
+
+const ProdLayout = ({children}) => (<div>{ children }</div>)
+
+const Layout = isProd ? ProdLayout : StagingLayout
 
 export default Layout
