@@ -1,4 +1,4 @@
-const isProd = process.env.PRODUCTION;
+const isProd = require('../config').isProd
 
 if (! isProd) {
   require('../styles/style.css')

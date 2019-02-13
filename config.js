@@ -1,2 +1,4 @@
-export const basename = process.env.BASENAME || ''
-export const isProd = process.env.PRODUCTION
+module.exports = {
+  basename: process.env.BASENAME || '',
+  isProd: process.env.PRODUCTION
+}

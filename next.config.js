@@ -3,6 +3,7 @@ const loader = require('./server/loader')
 const keyBy = require('lodash.keyby')
 const webpack = require('webpack')
 const { parsed: localEnv } = require('dotenv').config()
+const basename = require('./config').basename
 
 module.exports = withCSS({
   cssModules: false,
@@ -25,5 +26,5 @@ module.exports = withCSS({
       )
     })
   },
-  assetPrefix: (localEnv && localEnv.BASENAME) || "."
+  assetPrefix: basename
 })
