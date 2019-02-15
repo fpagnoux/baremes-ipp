@@ -1,44 +1,47 @@
 {
-  "Majoration montant maximal (en % de la base RSA)": {
-    "Couples ou célibataire avec un enfant": {
-      "description": "Taux pour une 2nde personne",
-      "id": "prestations.minima_sociaux.rsa.majoration_rsa.taux_deuxieme_personne",
-      "values": {
-        "2009-06-01": 0.5
+  "id": "prestations.minima_sociaux.rsa",
+  "subparams": {
+    "Majoration montant maximal (en % de la base RSA)": {
+      "Couples ou célibataire avec un enfant": {
+        "description": "Taux pour une 2nde personne",
+        "id": "prestations.minima_sociaux.rsa.majoration_rsa.taux_deuxieme_personne",
+        "values": {
+          "2009-06-01": 0.5
+        }
+      },
+      "Couple, 1 enfant - ou pour le deuxième enfant": {
+        "description": "Taux pour une 3e personne",
+        "id": "prestations.minima_sociaux.rsa.majoration_rsa.taux_troisieme_personne",
+        "values": {
+          "2009-06-01": 0.3
+        }
+      },
+      "Par enfant supplémentaire": {
+        "description": "Taux par personne supplémentaire",
+        "id": "prestations.minima_sociaux.rsa.majoration_rsa.taux_personne_supp",
+        "values": {
+          "2009-06-01": 0.4
+        }
       }
     },
-    "Couple, 1 enfant - ou pour le deuxième enfant": {
-      "description": "Taux pour une 3e personne",
-      "id": "prestations.minima_sociaux.rsa.majoration_rsa.taux_troisieme_personne",
-      "values": {
-        "2009-06-01": 0.3
-      }
-    },
-    "Par enfant supplémentaire": {
-      "description": "Taux par personne supplémentaire",
-      "id": "prestations.minima_sociaux.rsa.majoration_rsa.taux_personne_supp",
-      "values": {
-        "2009-06-01": 0.4
-      }
-    }
-  },
-  "Majoration isolement (en % de la base RSA) ": {
-    "Femmes enceintes": {
-      "description": "Taux de la majoration du RSA socle pour une femme enceinte sans enfant (en pourcentage du rsa de base pour un célibataire sans personne à charge)",
-      "id": "prestations.minima_sociaux.rsa.majoration_parent_isole.femmes_enceintes",
-      "values": {
-        "1997-01-01": 0,
-        "2009-06-01": 1.284,
-        "2009-06-20": 1.28412
-      }
-    },
-    "Par enfant à charge": {
-      "description": "Majoration du RSA socle par enfant supplémentaire (en pourcentage du rsa de base)",
-      "id": "prestations.minima_sociaux.rsa.majoration_parent_isole.par_enfant_a_charge",
-      "values": {
-        "1997-01-01": 0,
-        "2009-06-01": 0.428,
-        "2009-06-20": 0.42804
+    "Majoration isolement (en % de la base RSA) ": {
+      "Femmes enceintes": {
+        "description": "Taux de la majoration du RSA socle pour une femme enceinte sans enfant (en pourcentage du rsa de base pour un célibataire sans personne à charge)",
+        "id": "prestations.minima_sociaux.rsa.majoration_parent_isole.femmes_enceintes",
+        "values": {
+          "1997-01-01": 0,
+          "2009-06-01": 1.284,
+          "2009-06-20": 1.28412
+        }
+      },
+      "Par enfant à charge": {
+        "description": "Majoration du RSA socle par enfant supplémentaire (en pourcentage du rsa de base)",
+        "id": "prestations.minima_sociaux.rsa.majoration_parent_isole.par_enfant_a_charge",
+        "values": {
+          "1997-01-01": 0,
+          "2009-06-01": 0.428,
+          "2009-06-20": 0.42804
+        }
       }
     }
   }
