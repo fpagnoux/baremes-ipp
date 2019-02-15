@@ -7,8 +7,10 @@
     "@babel/plugin-proposal-optional-chaining": "^7.0.0-rc.2",
     "@zeit/next-css": "^0.2.0",
     "bluebird": "^3.5.1",
+    "d3-dsv": "^1.1.1",
     "dotenv": "^6.1.0",
     "express": "^4.16.3",
+    "fs-extra": "^7.0.1",
     "intl": "^1.2.5",
     "isomorphic-unfetch": "^2.0.0",
     "js-yaml-loader": "^0.1.0",
@@ -24,6 +26,7 @@
     "lodash.keys": "^4.2.0",
     "lodash.last": "^3.0.0",
     "lodash.map": "^4.6.0",
+    "lodash.mapkeys": "^4.6.0",
     "lodash.mapvalues": "^4.6.0",
     "lodash.max": "^4.0.1",
     "lodash.merge": "^4.6.1",
@@ -50,7 +53,7 @@
   "scripts": {
     "dev": "node server/index.js",
     "build": "next build",
-    "export": "next export",
+    "export": "next export && rsync --recursive --remove-source-files csv-out/ out/",
     "start": "next start",
     "test": "NODE_ENV=test jest"
   }

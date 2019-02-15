@@ -1,5 +1,4 @@
-import extractData from '../../services/dataPreprocesser'
-import {extractValues} from '../../services/dataPreprocesser'
+import {extractValues, extractData} from '../../services/dataPreprocesser'
 import rsaForFaitLogement from './rsa_forfait_logement.json'
 import rsaMajoration from './rsa_majoration.json'
 import bareme from './bareme.json'

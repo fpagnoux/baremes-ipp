@@ -1,23 +1,23 @@
 /** Process a parameterNode so that the data it contains are easily exploitable by React-Table */
 
-import includes from 'lodash.includes'
-import flatten from 'lodash.flatten';
-import flow from 'lodash.flow';
-import fromPairs from 'lodash.frompairs'
-import isPlainObject from 'lodash.isplainobject'
-import keys from 'lodash.keys'
-import last from 'lodash.last'
-import map from 'lodash.map';
-import mapValues from 'lodash.mapvalues';
-import merge from 'lodash.merge';
-import pick from 'lodash.pick'
-import pickBy from 'lodash.pickby'
-import union from 'lodash.union';
+const includes = require('lodash.includes')
+const flatten = require('lodash.flatten')
+const flow = require('lodash.flow')
+const fromPairs = require('lodash.frompairs')
+const isPlainObject = require('lodash.isplainobject')
+const keys = require('lodash.keys')
+const last = require('lodash.last')
+const map = require('lodash.map')
+const mapValues = require('lodash.mapvalues')
+const merge = require('lodash.merge')
+const pick = require('lodash.pick')
+const pickBy = require('lodash.pickby')
+const union = require('lodash.union')
 
 const METADATA_FIELD_NAMES = ['date_parution_jo', 'reference', 'notes']
 
 
-export default function extractData(parameterNode) {
+function extractData(parameterNode) {
   const values = extractValues(parameterNode)
   const dates = union(...map(values, keys)).sort()
   return dates.reduce((data, date) => {
@@ -34,7 +34,7 @@ export default function extractData(parameterNode) {
   }, []).reverse()
 }
 
-export function extractValuesFromScale(scale) {
+function extractValuesFromScale(scale) {
   const bracketsValues = flow([
     x => map(x, (scaleAtInstant, date) => {
       const thresolds = keys(scaleAtInstant).sort((x, y) => Number(x) - Number(y))
@@ -76,7 +76,7 @@ function getUnitAtDate(units, date) {
   ]
 }
 
-export function extractValues(parameterNode) {
+function extractValues(parameterNode) {
   if (parameterNode.values) {
     const data = {}
     const unit = parameterNode.metadata && parameterNode.metadata.unit
@@ -98,4 +98,10 @@ export function extractValues(parameterNode) {
     ])(parameterNode.metadata)
 
   return merge({}, data, metadata)
+}
+
+module.exports = {
+  extractData,
+  extractValuesFromScale,
+  extractValues
 }

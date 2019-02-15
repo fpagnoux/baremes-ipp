@@ -6,7 +6,7 @@ const map = require('lodash.map')
 const flatten = require('lodash.flatten')
 const fromPairs = require('lodash.frompairs')
 
-
+const {generateTables} = require('./csv')
 const resolver = require('./resolver')
 
 async function loadSectionFile(file) {
@@ -36,6 +36,7 @@ function addLeadingSlash(string) {
 function extractRoutes(desc, path, parametersTree, parents = []) {
   const isPage = ! parents.length
   if (desc.table) {
+    generateTables(desc.table, path)
     return [{
       route: addLeadingSlash(path),
       page: '/table',

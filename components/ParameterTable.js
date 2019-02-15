@@ -6,7 +6,7 @@ import isString from 'lodash.isstring'
 import sortBy from 'lodash.sortby'
 import flow from 'lodash.flow'
 
-import extractData from '../services/dataPreprocesser'
+import {extractData} from '../services/dataPreprocesser'
 import {formatNumber, formatDate} from '../services/formatter'
 import Table from '../components/Table'
 
