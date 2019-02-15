@@ -1,8 +1,13 @@
 import {withRouter} from 'next/router'
+import last from 'lodash.last'
 
 import ParameterTable from "../components/ParameterTable"
 import Layout from '../components/Layout'
-import {basename} from '../config'
+import {basename, csvPath} from '../config'
+
+function getLinkToCsv(parameter, path) {
+  return `${csvPath || basename}${path}/${last(parameter.id.split('.'))}.csv`
+}
 
 const BreadCrum = ({links}) => (
   <p><a href={basename + '/'}>Barèmes IPP</a>{links.map(({path, title}, index) => {
@@ -18,9 +23,11 @@ const BreadCrum = ({links}) => (
 
 const TablePage = (props) => {
   const {parameter, parents} = props.router.query
+  const path = props.router.asPath
   return <Layout fullWidth={ true }>
     <BreadCrum links={parents}/>
     <h1 className="box"><span>{parameter.description}</span></h1>
+    <a href={getLinkToCsv(parameter, path)}>Download CSV</a>
     <ParameterTable parameter={parameter}/>
   </Layout>
   }
