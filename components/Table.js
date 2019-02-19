@@ -4,6 +4,22 @@ import map from 'lodash.map'
 import range from 'lodash.range'
 import isPlainObject from 'lodash.isplainobject'
 
+import {formatNumber, formatDate} from '../services/formatter'
+
+function cellFormatter(value, metadata) {
+  if ((! value && value !== 0) || ! metadata || ! metadata.unit) {
+    return value
+  }
+  if (metadata.unit == '/1') {
+    return formatNumber(value, { style: 'percent', maximumFractionDigits: 3 })
+  }
+  if (metadata.unit.startsWith('currency')) {
+    const currency = metadata.unit.split('-')[1]
+    return formatNumber(value, { style: 'currency', currency, maximumFractionDigits: 3 })
+  }
+  return value
+}
+
 // Data and colmuns Preprocessing
 
 function computeColSpan(column) {
@@ -52,6 +68,7 @@ function buildHeaders(columns) {
 
 // Rendering
 
+//
 function renderHeader(columns, index) {
   return <tr key={index}>
     {columns.map((column, index2) => (
@@ -61,7 +78,10 @@ function renderHeader(columns, index) {
         rowSpan={column.rowSpan || 1}
         style={{flex: `${column.width || 1} 0 auto`, 'width': `${(column.width || 1) * 100}px`}}
         >
-        {column.Header}
+        {column.accessor // Add edition link only for leaf columns
+          ? <span className="edit-link">{column.Header}<br/><a target="_blank" href={column.source}>Edit</a></span>
+          : column.Header
+        }
       </th>
     ))}
   </tr>
@@ -69,17 +89,13 @@ function renderHeader(columns, index) {
 
 function renderDatum(datum, column) {
   const value = column.accessor(datum)
-
-  if (! isPlainObject(value)) {
-    if (column.Cell) {
-      return <column.Cell value={value}/>
-    }
-    return value
+  if (column.id == 'date') {
+    return formatDate(value)
   }
-  if (column.Cell) {
-    return <column.Cell value={value.value} metadata={value}/>
+  if (isPlainObject(value)) {
+    return cellFormatter(value.value, value)
   }
-  return value.value
+  return cellFormatter(value)
 }
 
 function renderData(data, dataColumns) {
