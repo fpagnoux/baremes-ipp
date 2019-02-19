@@ -1,0 +1,43 @@
+[{
+    "date": "2009-06-20",
+    "prestations.minima_sociaux.rsa.majoration_rsa.taux_deuxieme_personne": {
+        "value": 0.5
+    },
+    "prestations.minima_sociaux.rsa.majoration_rsa.taux_troisieme_personne": {
+        "value": 0.3
+    },
+    "prestations.minima_sociaux.rsa.majoration_rsa.taux_personne_supp": {
+        "value": 0.4
+    },
+    "prestations.minima_sociaux.rsa.majoration_parent_isole.femmes_enceintes": {
+        "value": 1.28412
+    },
+    "prestations.minima_sociaux.rsa.majoration_parent_isole.par_enfant_a_charge": {
+        "value": 0.42804
+    }
+}, {
+    "date": "2009-06-01",
+    "prestations.minima_sociaux.rsa.majoration_rsa.taux_deuxieme_personne": {
+        "value": 0.5
+    },
+    "prestations.minima_sociaux.rsa.majoration_rsa.taux_troisieme_personne": {
+        "value": 0.3
+    },
+    "prestations.minima_sociaux.rsa.majoration_rsa.taux_personne_supp": {
+        "value": 0.4
+    },
+    "prestations.minima_sociaux.rsa.majoration_parent_isole.femmes_enceintes": {
+        "value": 1.284
+    },
+    "prestations.minima_sociaux.rsa.majoration_parent_isole.par_enfant_a_charge": {
+        "value": 0.428
+    }
+}, {
+    "date": "1997-01-01",
+    "prestations.minima_sociaux.rsa.majoration_parent_isole.femmes_enceintes": {
+        "value": 0
+    },
+    "prestations.minima_sociaux.rsa.majoration_parent_isole.par_enfant_a_charge": {
+        "value": 0
+    }
+}]

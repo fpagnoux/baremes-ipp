@@ -1,27 +1,25 @@
-import {toCSV, cleanDatum, generateTables} from '../../server/csv'
-import rsaMajoration from '../services/rsa_majoration.json'
+import fs from 'fs-extra'
 
-const dirtyDatum = { date: '2009-06-20',
-  'prestations.minima_sociaux.rsa.majoration_rsa.taux_deuxieme_personne': { value: 0.5, unit: undefined },
-  'prestations.minima_sociaux.rsa.majoration_rsa.taux_troisieme_personne': { value: 0.3, unit: undefined },
-  'prestations.minima_sociaux.rsa.majoration_rsa.taux_personne_supp': { value: 0.4, unit: undefined },
-  'prestations.minima_sociaux.rsa.majoration_parent_isole.femmes_enceintes': { value: 1.28412, unit: undefined },
-  'prestations.minima_sociaux.rsa.majoration_parent_isole.par_enfant_a_charge': { value: 0.42804, unit: undefined },
-  'reference': 'Article X du 1er janvier 2019' }
+import {toCSV, toXLSX, cleanDatum, generateTables} from '../../server/csv'
+import rsaMajoration from './rsa_majoration_table.json'
+
+
+const rsaMajorationId = 'prestations.minima_sociaux.rsa'
 
 
 it('should clean a datum', () => {
-  const result = cleanDatum(dirtyDatum, rsaMajoration.id)
+  const result = cleanDatum(rsaMajoration[0], rsaMajorationId)
   expect(result['majoration_rsa.taux_personne_supp']).toEqual(0.4)
 });
 
 
 it('should convert to CSV', () => {
-  const result = toCSV(rsaMajoration)
-  // console.log(result)
+  const result = toCSV(rsaMajoration, rsaMajorationId)
+  expect(result).toContain('2009-06-20,0.5,0.3,0.4,1.28412,0.42804')
 });
 
-it('should create a CSV', () => {
-  const result = toCSV(generateTables, '')
-  // console.log(result)
-});
+it('should create a XLSX file', (done) => {
+  const result = toXLSX(rsaMajoration, rsaMajorationId)
+  result.xlsx.writeFile('/Users/florianpagnoux/Desktop/text.xlsx')
+    .then(() => done());
+})
