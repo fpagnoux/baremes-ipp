@@ -9,7 +9,7 @@ const keys = require('lodash.keys')
 const isPlainObject = require('lodash.isplainobject')
 const last = require('lodash.last')
 
-const extractData = require('../services/dataPreprocesser').extractData
+const {parameterTable} = require('../services/parameterTable')
 
 function writeFile(path, contents) {
   fs.ensureDirSync(getDirName(path))
@@ -40,24 +40,62 @@ function toCSV(tableData, parameterId) {
   return d3.csvFormat(data)
 }
 
-function toXLSX(tableData, parameterId) {
-  const data = tableData.map(datum => cleanDatum(datum, parameterId))
+function getCell(sheet, row, col) {
+  return sheet.getRow(row + 1).getCell(col + 1)
+}
+
+function getFreeCellCol(sheet, row, minCol) {
+  const cell = getCell(sheet, row, minCol)
+  if (! isMerged(cell)) {
+    return minCol
+  }
+  return getFreeCellCol(sheet, row, minCol + 1)
+}
+
+function isMerged(cell) {
+  return cell.master != cell
+}
+
+function toXLSX(table, tableName) {
   const workbook = new Excel.Workbook()
-  const sheet = workbook.addWorksheet(parameterId)
-  const headers = keys(data[0])
-  sheet.columns = headers.map(header => ({key: header}))
-  sheet.addRow(headers)
-  data.forEach(datum => sheet.addRow(datum))
+  const sheet = workbook.addWorksheet(tableName)
+  sheet.columns = table.columns.map(column => ({key: column.id, width: (column.width || 1) * 20}))
+
+
+  // Fill the header
+  table.headers.forEach((headerRow, row)=> {
+    let col = 0
+    for (const headerCell of headerRow) {
+      col = getFreeCellCol(sheet, row, col)
+      const cell = getCell(sheet, row, col)
+      cell.value = headerCell.Header
+      cell.alignment = {wrapText: true, vertical: 'middle', horizontal: 'center'}
+      sheet.mergeCells(row + 1, col + 1, row + (headerCell.rowSpan || 1), col + headerCell.colSpan)
+      col += headerCell.colSpan
+    }
+  })
+
+  // Fill the data
+  table.data.forEach(datum => sheet.addRow(cleanValues(datum)))
 
   return workbook
 }
 
 function generateTables(parameter, path) {
-  tableData = extractData(parameter)
-  const csv = toCSV(tableData, parameter.id)
+  const table = parameterTable(parameter)
   const tableName = last(parameter.id.split('.'))
-  const filePath = `csv-out/${path}/${tableName}.csv`
+
+  const csv = toCSV(table.data, parameter.id)
+  const filePath = `table-out/${path}/${tableName}.csv`
   writeFile(filePath, csv)
+
+  try {
+    const xlsx = toXLSX(table, tableName)
+    xlsx.xlsx.writeFile(`table-out/${path}/${tableName}.xlsx`)
+  }
+  catch(err) {
+    console.error(`Could not build XLSX for parameter ${parameter.id}`)
+  }
 }
 
 module.exports = {generateTables, toCSV, toXLSX, cleanDatum}

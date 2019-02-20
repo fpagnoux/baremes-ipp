@@ -1,36 +1,28 @@
-import map from 'lodash.map'
-import filter from 'lodash.filter'
-import range from 'lodash.range'
-import size from 'lodash.size'
-import isString from 'lodash.isstring'
-import sortBy from 'lodash.sortby'
-import flow from 'lodash.flow'
+// Build parameterTable columns
 
-import {extractData} from '../services/dataPreprocesser'
-import {formatNumber, formatDate} from '../services/formatter'
-import Table from '../components/Table'
+const map = require('lodash.map')
+const filter = require('lodash.filter')
+const range = require('lodash.range')
+const size = require('lodash.size')
+const sortBy = require('lodash.sortby')
+const flow = require('lodash.flow')
 
-function cellFormatter({value, metadata}) {
-  if ((! value && ! value !== 0) || ! metadata || ! metadata.unit) {
-    return value
+function buildColumns(parameter) {
+  const dateColumn = {
+    Header: 'Date d’effet',
+    accessor: item => item.date,
+    id: 'date',
   }
-  if (metadata.unit == '/1') {
-    return formatNumber(value, { style: 'percent', maximumFractionDigits: 3 })
-  }
-  if (metadata.unit.startsWith('currency')) {
-    const currency = metadata.unit.split('-')[1]
-    return formatNumber(value, { style: 'currency', currency, maximumFractionDigits: 3 })
-  }
-  return value
+  return [dateColumn, buildColumn(parameter)]
 }
 
 function buildSimpleColumn(parameter) {
   const source = parameter.source.replace('openfisca_baremes_ipp/', '') // The structure of the repo is not the typical OF structure, so we monkey patch
   return {
-    Header: <span className="edit-link">{parameter.description || parameter.id}<br/><a target="_blank" href={source}>Edit</a></span>,
+    Header: parameter.description || parameter.id,
+    source,
     accessor: item => item[parameter.id],
     id: parameter.id,
-    Cell: cellFormatter
   }
 }
 
@@ -67,7 +59,7 @@ function buildColumn(parameter) {
       Header: parameter.description || parameter.id,
       columns: flow([
         x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
-        x => sortBy(x, subParam => parameter?.metadata?.order?.indexOf(subParam.name)),
+        x => sortBy(x, subParam => parameter.metadata && parameter.metadata.order && parameter.metadata.order.indexOf(subParam.name)),
         x => map(x, buildColumn),
         x => x.concat(buildMetaDataColumns(parameter))
       ])(parameter.subparams)
@@ -81,7 +73,6 @@ function buildMetaDataColumns(parameter) {
     date_parution_jo: {title: 'Parution au JO', width: 0.7},
     notes: {title: 'Notes', width: 2},
   }
-
   return flow([
     x => filter(x, fieldName => parameter.metadata[fieldName]),
     x => map(x, fieldName => ({
@@ -93,24 +84,7 @@ function buildMetaDataColumns(parameter) {
   ])(Object.keys(metadata))
 }
 
-const ParameterTable = ({parameter}) => {
-  const data = extractData(parameter)
-  const dateColumn = {
-    Header: 'Date d’effet',
-    accessor: item => item.date,
-    id: 'date',
-    Cell: props => formatDate(props.value)
-  }
-  const columns = [dateColumn, buildColumn(parameter)]
-  return (
-    <div>
-      <Table
-        columns={columns}
-        data={data}
-      />
-      <p className="table-doc">{parameter.documentation}</p>
-    </div>
-  )
+module.exports = {
+  buildColumn,
+  buildColumns,
 }
-
-export default ParameterTable

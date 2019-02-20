@@ -1,0 +1,352 @@
+{
+  "columns": [{
+    "Header": "Date d’effet",
+    "id": "date",
+    "colSpan": 1,
+    "depth": 0,
+    "rowSpan": 3
+  }, {
+    "Header": "Couples ou célibataire avec un enfant",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couples_celibataire_avec_enfant",
+    "colSpan": 1,
+    "depth": 2,
+    "rowSpan": 1
+  }, {
+    "Header": "Couple, 1 enfant - ou pour le deuxième enfant (1)",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couple_1_enfant_deuxieme_enfant_1",
+    "colSpan": 1,
+    "depth": 2,
+    "rowSpan": 1
+  }, {
+    "Header": "Par enfant supplémentaire",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.par_enfant_supplementaire",
+    "colSpan": 1,
+    "depth": 2,
+    "rowSpan": 1
+  }, {
+    "Header": "Femmes enceintes",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.parents_isoles_2_femmes_enceintes",
+    "colSpan": 1,
+    "depth": 2,
+    "rowSpan": 1
+  }, {
+    "Header": "Par enfant à charge",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.par_enfant_charge",
+    "colSpan": 1,
+    "depth": 2,
+    "rowSpan": 1
+  }, {
+    "Header": "Majoration des ressources sur les revenus d'activité",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_ressources_revenus_activite",
+    "colSpan": 1,
+    "depth": 1,
+    "rowSpan": 2
+  }, {
+    "Header": "Montant minimum versé",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.montant_minimum_verse",
+    "colSpan": 1,
+    "depth": 1,
+    "rowSpan": 2
+  }, {
+    "Header": "Références législatives",
+    "id": "reference",
+    "width": 1.8,
+    "colSpan": 1,
+    "depth": 1,
+    "rowSpan": 2
+  }, {
+    "Header": "Parution au JO",
+    "id": "date_parution_jo",
+    "width": 0.7,
+    "colSpan": 1,
+    "depth": 1,
+    "rowSpan": 2
+  }, {
+    "Header": "Notes",
+    "id": "notes",
+    "width": 2,
+    "colSpan": 1,
+    "depth": 1,
+    "rowSpan": 2
+  }],
+  "headers": [[{
+    "Header": "Date d’effet",
+    "id": "date",
+    "colSpan": 1,
+    "depth": 0,
+    "rowSpan": 3
+  }, {
+    "Header": "Revenu de solidarité active (RSA) : majorations (montant de base et revenus) et montant minimum versé",
+    "columns": [{
+      "Header": "Majoration montant maximal (en % de la base RSA)",
+      "columns": [{
+        "Header": "Couples ou célibataire avec un enfant",
+        "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+        "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couples_celibataire_avec_enfant",
+        "colSpan": 1,
+        "depth": 2,
+        "rowSpan": 1
+      }, {
+        "Header": "Couple, 1 enfant - ou pour le deuxième enfant (1)",
+        "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+        "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couple_1_enfant_deuxieme_enfant_1",
+        "colSpan": 1,
+        "depth": 2,
+        "rowSpan": 1
+      }, {
+        "Header": "Par enfant supplémentaire",
+        "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+        "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.par_enfant_supplementaire",
+        "colSpan": 1,
+        "depth": 2,
+        "rowSpan": 1
+      }],
+      "colSpan": 3,
+      "depth": 1
+    }, {
+      "Header": "Majoration isolement (en % de la base RSA)",
+      "columns": [{
+        "Header": "Femmes enceintes",
+        "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+        "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.parents_isoles_2_femmes_enceintes",
+        "colSpan": 1,
+        "depth": 2,
+        "rowSpan": 1
+      }, {
+        "Header": "Par enfant à charge",
+        "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+        "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.par_enfant_charge",
+        "colSpan": 1,
+        "depth": 2,
+        "rowSpan": 1
+      }],
+      "colSpan": 2,
+      "depth": 1
+    }, {
+      "Header": "Majoration des ressources sur les revenus d'activité",
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+      "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_ressources_revenus_activite",
+      "colSpan": 1,
+      "depth": 1,
+      "rowSpan": 2
+    }, {
+      "Header": "Montant minimum versé",
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+      "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.montant_minimum_verse",
+      "colSpan": 1,
+      "depth": 1,
+      "rowSpan": 2
+    }, {
+      "Header": "Références législatives",
+      "id": "reference",
+      "width": 1.8,
+      "colSpan": 1,
+      "depth": 1,
+      "rowSpan": 2
+    }, {
+      "Header": "Parution au JO",
+      "id": "date_parution_jo",
+      "width": 0.7,
+      "colSpan": 1,
+      "depth": 1,
+      "rowSpan": 2
+    }, {
+      "Header": "Notes",
+      "id": "notes",
+      "width": 2,
+      "colSpan": 1,
+      "depth": 1,
+      "rowSpan": 2
+    }],
+    "colSpan": 10,
+    "depth": 0
+  }], [{
+    "Header": "Majoration montant maximal (en % de la base RSA)",
+    "columns": [{
+      "Header": "Couples ou célibataire avec un enfant",
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+      "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couples_celibataire_avec_enfant",
+      "colSpan": 1,
+      "depth": 2,
+      "rowSpan": 1
+    }, {
+      "Header": "Couple, 1 enfant - ou pour le deuxième enfant (1)",
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+      "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couple_1_enfant_deuxieme_enfant_1",
+      "colSpan": 1,
+      "depth": 2,
+      "rowSpan": 1
+    }, {
+      "Header": "Par enfant supplémentaire",
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+      "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.par_enfant_supplementaire",
+      "colSpan": 1,
+      "depth": 2,
+      "rowSpan": 1
+    }],
+    "colSpan": 3,
+    "depth": 1
+  }, {
+    "Header": "Majoration isolement (en % de la base RSA)",
+    "columns": [{
+      "Header": "Femmes enceintes",
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+      "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.parents_isoles_2_femmes_enceintes",
+      "colSpan": 1,
+      "depth": 2,
+      "rowSpan": 1
+    }, {
+      "Header": "Par enfant à charge",
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+      "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.par_enfant_charge",
+      "colSpan": 1,
+      "depth": 2,
+      "rowSpan": 1
+    }],
+    "colSpan": 2,
+    "depth": 1
+  }, {
+    "Header": "Majoration des ressources sur les revenus d'activité",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_ressources_revenus_activite",
+    "colSpan": 1,
+    "depth": 1,
+    "rowSpan": 2
+  }, {
+    "Header": "Montant minimum versé",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.montant_minimum_verse",
+    "colSpan": 1,
+    "depth": 1,
+    "rowSpan": 2
+  }, {
+    "Header": "Références législatives",
+    "id": "reference",
+    "width": 1.8,
+    "colSpan": 1,
+    "depth": 1,
+    "rowSpan": 2
+  }, {
+    "Header": "Parution au JO",
+    "id": "date_parution_jo",
+    "width": 0.7,
+    "colSpan": 1,
+    "depth": 1,
+    "rowSpan": 2
+  }, {
+    "Header": "Notes",
+    "id": "notes",
+    "width": 2,
+    "colSpan": 1,
+    "depth": 1,
+    "rowSpan": 2
+  }], [{
+    "Header": "Couples ou célibataire avec un enfant",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couples_celibataire_avec_enfant",
+    "colSpan": 1,
+    "depth": 2,
+    "rowSpan": 1
+  }, {
+    "Header": "Couple, 1 enfant - ou pour le deuxième enfant (1)",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couple_1_enfant_deuxieme_enfant_1",
+    "colSpan": 1,
+    "depth": 2,
+    "rowSpan": 1
+  }, {
+    "Header": "Par enfant supplémentaire",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.par_enfant_supplementaire",
+    "colSpan": 1,
+    "depth": 2,
+    "rowSpan": 1
+  }, {
+    "Header": "Femmes enceintes",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.parents_isoles_2_femmes_enceintes",
+    "colSpan": 1,
+    "depth": 2,
+    "rowSpan": 1
+  }, {
+    "Header": "Par enfant à charge",
+    "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+    "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.par_enfant_charge",
+    "colSpan": 1,
+    "depth": 2,
+    "rowSpan": 1
+  }]],
+  "data": [{
+    "date": "2016-01-01",
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couples_celibataire_avec_enfant": {
+      "value": 0.5,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couple_1_enfant_deuxieme_enfant_1": {
+      "value": 0.3,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.par_enfant_supplementaire": {
+      "value": 0.4,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.parents_isoles_2_femmes_enceintes": {
+      "value": 1.28412,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.par_enfant_charge": {
+      "value": 0.42804,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_ressources_revenus_activite": {
+      "value": null,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.montant_minimum_verse": {
+      "value": null,
+      "unit": "currency-EUR"
+    },
+    "date_parution_jo": "2015-12-22",
+    "reference": "Décret 2015-1710 du 21/12/2015, art. 2 (crée art. D843-1 du CSS)",
+    "notes": "Remplacement du RSA activité par la Prime d'activité"
+  }, {
+    "date": "2009-06-01",
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couples_celibataire_avec_enfant": {
+      "value": 0.5,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couple_1_enfant_deuxieme_enfant_1": {
+      "value": 0.3,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.par_enfant_supplementaire": {
+      "value": 0.4,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.parents_isoles_2_femmes_enceintes": {
+      "value": 1.284,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.par_enfant_charge": {
+      "value": 0.428,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_ressources_revenus_activite": {
+      "value": 0.62,
+      "unit": "/1"
+    },
+    "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.montant_minimum_verse": {
+      "value": 6,
+      "unit": "currency-EUR"
+    },
+    "date_parution_jo": "2009-04-16",
+    "reference": "Décret 2009-404 du 15/04/2009, art. 2 (modif art. R262-1 du CASF)"
+  }]
+}

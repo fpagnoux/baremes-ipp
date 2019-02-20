@@ -54,7 +54,7 @@
   "scripts": {
     "dev": "node server/index.js",
     "build": "next build",
-    "export": "next export && rsync --recursive --remove-source-files csv-out/ out/",
+    "export": "next export && rsync --recursive --remove-source-files table-out/ out/",
     "start": "next start",
     "test": "NODE_ENV=test jest"
   }

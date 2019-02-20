@@ -1,0 +1,130 @@
+{
+  "description": "Revenu de solidarité active (RSA) : majorations (montant de base et revenus) et montant minimum versé",
+  "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj",
+  "metadata": {
+    "order": ["majoration_montant_maximal_en_base_rsa", "majoration_isolement_en_base_rsa", "majoration_ressources_revenus_activite", "montant_minimum_verse"],
+    "reference": {
+      "2016-01-01": "Décret 2015-1710 du 21/12/2015, art. 2 (crée art. D843-1 du CSS)",
+      "2009-06-01": "Décret 2009-404 du 15/04/2009, art. 2 (modif art. R262-1 du CASF)"
+    },
+    "date_parution_jo": {
+      "2016-01-01": "2015-12-22",
+      "2009-06-01": "2009-04-16"
+    },
+    "notes": {
+      "2016-01-01": "Remplacement du RSA activité par la Prime d'activité"
+    }
+  },
+  "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+  "documentation": "Notes :\n(1) Quel que soit le type de ménage.\n(2) Le terme de \"parents isolés\" est défini dans l'article L. 842-7.",
+  "subparams": {
+    "majoration_montant_maximal_en_base_rsa": {
+      "description": "Majoration montant maximal (en % de la base RSA)",
+      "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa",
+      "metadata": {
+        "order": ["couples_celibataire_avec_enfant", "couple_1_enfant_deuxieme_enfant_1", "par_enfant_supplementaire"]
+      },
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+      "subparams": {
+        "couples_celibataire_avec_enfant": {
+          "description": "Couples ou célibataire avec un enfant",
+          "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couples_celibataire_avec_enfant",
+          "metadata": {
+            "ipp_csv_id": "rsa_rmi_coup",
+            "unit": "/1"
+          },
+          "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+          "values": {
+            "2009-06-01": 0.5
+          }
+        },
+        "couple_1_enfant_deuxieme_enfant_1": {
+          "description": "Couple, 1 enfant - ou pour le deuxième enfant (1)",
+          "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.couple_1_enfant_deuxieme_enfant_1",
+          "metadata": {
+            "ipp_csv_id": "rsa_rmi_enf2",
+            "unit": "/1"
+          },
+          "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+          "values": {
+            "2009-06-01": 0.3
+          }
+        },
+        "par_enfant_supplementaire": {
+          "description": "Par enfant supplémentaire",
+          "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_montant_maximal_en_base_rsa.par_enfant_supplementaire",
+          "metadata": {
+            "ipp_csv_id": "rsa_rmi_enf3",
+            "unit": "/1"
+          },
+          "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+          "values": {
+            "2009-06-01": 0.4
+          }
+        }
+      }
+    },
+    "majoration_isolement_en_base_rsa": {
+      "description": "Majoration isolement (en % de la base RSA)",
+      "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa",
+      "metadata": {
+        "order": ["parents_isoles_2_femmes_enceintes", "par_enfant_charge"]
+      },
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+      "subparams": {
+        "parents_isoles_2_femmes_enceintes": {
+          "description": "Femmes enceintes",
+          "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.parents_isoles_2_femmes_enceintes",
+          "metadata": {
+            "ipp_csv_id": "rsa_isole_enceinte",
+            "unit": "/1"
+          },
+          "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+          "values": {
+            "2016-01-01": 1.28412,
+            "2009-06-01": 1.284
+          }
+        },
+        "par_enfant_charge": {
+          "description": "Par enfant à charge",
+          "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_isolement_en_base_rsa.par_enfant_charge",
+          "metadata": {
+            "ipp_csv_id": "rsa_isole_enf",
+            "unit": "/1"
+          },
+          "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+          "values": {
+            "2016-01-01": 0.42804,
+            "2009-06-01": 0.428
+          }
+        }
+      }
+    },
+    "majoration_ressources_revenus_activite": {
+      "description": "Majoration des ressources sur les revenus d'activité",
+      "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.majoration_ressources_revenus_activite",
+      "metadata": {
+        "ipp_csv_id": "tx_rsa",
+        "unit": "/1"
+      },
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+      "values": {
+        "2016-01-01": null,
+        "2009-06-01": 0.62
+      }
+    },
+    "montant_minimum_verse": {
+      "description": "Montant minimum versé",
+      "id": "prestations_sociales.solidarite_insertion.minima_sociaux.rsa_maj.montant_minimum_verse",
+      "metadata": {
+        "ipp_csv_id": "min_rsa_rmi",
+        "unit": "currency-EUR"
+      },
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rsa_maj.yaml",
+      "values": {
+        "2016-01-01": null,
+        "2009-06-01": 6
+      }
+    }
+  }
+}
