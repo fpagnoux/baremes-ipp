@@ -1,7 +1,7 @@
 import {withRouter} from 'next/router'
 import last from 'lodash.last'
 
-import ParameterTable from "../components/ParameterTable"
+import Table from "../components/Table"
 import Layout from '../components/Layout'
 import {basename, csvPath} from '../config'
 
@@ -28,7 +28,8 @@ const TablePage = (props) => {
     <BreadCrum links={parents}/>
     <h1 className="box"><span>{parameter.description}</span></h1>
     <a href={getLinkToCsv(parameter, path)}>Download CSV</a>
-    <ParameterTable parameter={parameter}/>
+    <Table parameter={parameter}/>
+    <p className="table-doc">{parameter.documentation}</p>
   </Layout>
   }
 

@@ -1,9 +1,6 @@
-import sum from 'lodash.sum'
-import max from 'lodash.max'
-import map from 'lodash.map'
-import range from 'lodash.range'
 import isPlainObject from 'lodash.isplainobject'
 
+import {parameterTable} from '../services/parameterTable'
 import {formatNumber, formatDate} from '../services/formatter'
 
 function cellFormatter(value, metadata) {
@@ -20,55 +17,6 @@ function cellFormatter(value, metadata) {
   return value
 }
 
-// Data and colmuns Preprocessing
-
-function computeColSpan(column) {
-  if (! column.columns) {
-      column.colSpan = 1
-      return column.colSpan
-    }
-  column.colSpan = sum(column.columns.map(computeColSpan))
-  return column.colSpan
-}
-
-function computeDepth(columns) {
-  return max(columns.map(column => {
-    if (column.columns) {
-      return 1 + computeDepth(column.columns)
-    }
-    return 1
-  }))
-}
-
-function buildHeaders(columns) {
-  columns.forEach(computeColSpan)
-  const maxDepth = computeDepth(columns)
-  const headerRows = []
-  const dataColumns = []
-
-  for (const i of range(maxDepth)) {
-    headerRows[i] = []
-  }
-
-  function browse(columns, depth) {
-    for (const column of columns) {
-      column.depth = depth
-      headerRows[depth].push(column)
-      if (column.columns) {
-        browse(column.columns, depth + 1)
-      } else {
-        column.rowSpan = maxDepth - depth
-        dataColumns.push(column)
-      }
-    }
-  }
-  browse(columns, 0)
-  return {headerRows, dataColumns}
-}
-
-// Rendering
-
-//
 function renderHeader(columns, index) {
   return <tr key={index}>
     {columns.map((column, index2) => (
@@ -114,14 +62,14 @@ function renderData(data, dataColumns) {
   })
 }
 
-const Table = ({columns, data}) => {
-  const {headerRows, dataColumns} = buildHeaders(columns)
+const Table = ({parameter}) => {
+  const {data, columns, headers} = parameterTable(parameter)
   return <table>
     <thead>
-      {headerRows.map(renderHeader)}
+      {headers.map(renderHeader)}
     </thead>
     <tbody>
-      {renderData(data, dataColumns)}
+      {renderData(data, columns)}
     </tbody>
   </table>
 }

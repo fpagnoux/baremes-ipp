@@ -4,8 +4,6 @@ import rsaMajoration from './rsa_maj.json'
 const node = rsaMajoration.subparams.majoration_isolement_en_base_rsa
 const leaf = node.subparams.parents_isoles_2_femmes_enceintes
 
-
-
 it('should build a simple column', () => {
   const column = buildColumn(leaf)
   expect(column.Header).toBe(leaf.description)
