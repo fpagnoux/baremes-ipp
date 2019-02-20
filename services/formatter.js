@@ -3,6 +3,7 @@ import IntlPolyfill from 'intl'
 import 'intl/locale-data/jsonp/fr.js';
 
 Intl.DateTimeFormat = IntlPolyfill.DateTimeFormat;
+Intl.NumberFormat = IntlPolyfill.NumberFormat;
 
 export function formatNumber(value, options) {
   if (options && options.currency == 'AFRF') {
