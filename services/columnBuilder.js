@@ -59,7 +59,7 @@ function buildColumn(parameter) {
       Header: parameter.description || parameter.id,
       columns: flow([
         x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
-        x => sortBy(x, subParam => parameter?.metadata?.order?.indexOf(subParam.name)),
+        x => sortBy(x, subParam => parameter.metadata && parameter.metadata.order && parameter.metadata.order.indexOf(subParam.name)),
         x => map(x, buildColumn),
         x => x.concat(buildMetaDataColumns(parameter))
       ])(parameter.subparams)

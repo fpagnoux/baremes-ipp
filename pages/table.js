@@ -5,8 +5,8 @@ import Table from "../components/Table"
 import Layout from '../components/Layout'
 import {basename, csvPath} from '../config'
 
-function getLinkToCsv(parameter, path) {
-  return `${csvPath || basename}${path}/${last(parameter.id.split('.'))}.csv`
+function getLinkToTable(parameter, path, format) {
+  return `${csvPath || basename}${path}/${last(parameter.id.split('.'))}.${format}`
 }
 
 const BreadCrum = ({links}) => (
@@ -27,7 +27,7 @@ const TablePage = (props) => {
   return <Layout fullWidth={ true }>
     <BreadCrum links={parents}/>
     <h1 className="box"><span>{parameter.description}</span></h1>
-    <a href={getLinkToCsv(parameter, path)}>Download CSV</a>
+    <a href={getLinkToTable(parameter, path, 'csv')}>CSV</a> <a href={getLinkToTable(parameter, path, 'xlsx')}>XSLX</a>
     <Table parameter={parameter}/>
     <p className="table-doc">{parameter.documentation}</p>
   </Layout>
