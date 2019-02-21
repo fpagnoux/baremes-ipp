@@ -1,8 +1,10 @@
 import Layout from '../components/Layout'
+import LangToggle from '../components/LangToggle'
 
 
 const Index = () => (
   <Layout>
+    <LangToggle lang="fr" path="/"/>
     <h1 className="box"><span>Barèmes IPP</span></h1>
     <div className="entry-content text">
       <h4>Prélèvements obligatoires</h4>

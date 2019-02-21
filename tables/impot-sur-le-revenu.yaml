@@ -1,4 +1,6 @@
-title: Impôt sur le revenu
+title:
+  fr: Impôt sur le revenu
+  en: Income tax
 subparams:
   - table: impot_revenu.bareme_ir
   - table: impot_revenu.bareme_taux_neutre

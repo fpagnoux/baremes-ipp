@@ -62,8 +62,8 @@ function renderData(data, dataColumns) {
   })
 }
 
-const Table = ({parameter}) => {
-  const {data, columns, headers} = parameterTable(parameter)
+const Table = ({parameter, lang}) => {
+  const {data, columns, headers} = parameterTable(parameter, lang)
   return <table>
     <thead>
       {headers.map(renderHeader)}

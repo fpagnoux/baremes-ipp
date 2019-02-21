@@ -1,6 +1,10 @@
-title: Prestations sociales
+title:
+  fr: Prestations sociales
+  en: Social Benefits
 subparams:
-  - title: Prestations familiales
+  - title:
+      fr: Prestations familiales
+      en: Family allowances
     subparams:
     - table: prestations_sociales.prestations_familiales.def_pac
     - table: prestations_sociales.prestations_familiales.def_biactif

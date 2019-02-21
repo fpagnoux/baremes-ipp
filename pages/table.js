@@ -3,7 +3,9 @@ import last from 'lodash.last'
 
 import Table from "../components/Table"
 import Layout from '../components/Layout'
-import {basename, csvPath} from '../config'
+import LangToggle from '../components/LangToggle'
+import {basename, csvPath, isProd} from '../config'
+import {getTitle} from '../services/i18n'
 
 function getLinkToTable(parameter, path, format) {
   return `${csvPath || basename}${path}/${last(parameter.id.split('.'))}.${format}`
@@ -22,13 +24,14 @@ const BreadCrum = ({links}) => (
   )
 
 const TablePage = (props) => {
-  const {parameter, parents} = props.router.query
+  const {parameter, parents, lang} = props.router.query
   const path = props.router.asPath
   return <Layout fullWidth={ true }>
     <BreadCrum links={parents}/>
-    <h1 className="box"><span>{parameter.description}</span></h1>
+    {! isProd && <LangToggle lang={lang} path={path}/>}
+    <h1 className="box"><span>{getTitle(parameter, lang)}</span></h1>
     <a href={getLinkToTable(parameter, path, 'csv')}>CSV</a> <a href={getLinkToTable(parameter, path, 'xlsx')}>XSLX</a>
-    <Table parameter={parameter}/>
+    <Table parameter={parameter} lang={lang}/>
     <p className="table-doc">{parameter.documentation}</p>
   </Layout>
   }
