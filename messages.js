@@ -14,6 +14,10 @@ const messages = {
   date: {
     fr: 'Date d’effet',
     en: 'Effective Date',
+  },
+  baremesIPP: {
+    fr: 'Barèmes IPP',
+    en: 'IPP tax and benefit tables'
   }
 }
 

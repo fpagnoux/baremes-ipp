@@ -26,8 +26,9 @@ async function loadParametersTrees() {
 
 async function loadRoutes() {
   const parametersTrees = await loadParametersTrees()
-  const routes = map(parametersTrees, extractRoutes)
-  return flatten(routes)
+  const sectionRoutes = map(parametersTrees, buildSectionRoutes)
+  const tableRoutes = map(parametersTrees, buildTableRoutes)
+  return flatten(sectionRoutes.concat(tableRoutes))
 }
 
 function addLeadingSlash(string) {
@@ -42,7 +43,7 @@ function buildEnRoute(frRoute) {
   }
 }
 
-function buildSectionRoutes(path, parameter) {
+function buildSectionRoutes(parameter, path) {
   const frRoute = {
     route: addLeadingSlash(path),
     page: '/section',
@@ -60,28 +61,23 @@ function buildPageRoutes(path, parameter, parents) {
   return [frRoute, buildEnRoute(frRoute)]
 }
 
-function extractRoutes(parameter, path, parametersTree, parents = []) {
-  const isPage = ! parents.length
+function buildTableRoutes(parameter, path, _, parents = []) {
   if (parameter.table) {
     // generateTables(parameter.table, path)
     return buildPageRoutes(path, parameter, parents)
   }
   if (parameter.subparams) {
-    const subRoutes = flatten(map(parameter.subparams, (child, key) => {
-      return extractRoutes(
-        child,
+    const parentLink = {path, title: {en: getTitle(parameter, 'en'), fr: getTitle(parameter, 'fr')}}
+    return flatten(map(parameter.subparams, (child, key) =>
+      buildTableRoutes(child,
         `${path}/${key}`,
-        parametersTree,
-        parents.concat(
-          [{path: isPage && path, title: getTitle(parameter)}]
-          )
-        )
-    }))
-    return isPage ? buildSectionRoutes(path, parameter).concat(subRoutes) : subRoutes
+        _,
+        parents.concat([parentLink])
+    )))
   }
 }
 
 module.exports = {
-  extractRoutes,
+  buildTableRoutes,
   loadRoutes,
 }
