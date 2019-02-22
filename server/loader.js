@@ -8,6 +8,7 @@ const fromPairs = require('lodash.frompairs')
 
 const {generateTables} = require('./csv')
 const resolver = require('./resolver')
+const {getTitle} = require('../services/i18n')
 
 async function loadSectionFile(file) {
   const fileName = file.replace('.yaml', '')
@@ -17,53 +18,66 @@ async function loadSectionFile(file) {
   return [fileName, resolvedDesc]
 }
 
-async function loadParametersTree() {
+async function loadParametersTrees() {
   const sectionsFiles = fs.readdirSync('./tables')
   const resolvedFiles = await Promise.all(sectionsFiles.map(loadSectionFile))
   return fromPairs(resolvedFiles)
 }
 
 async function loadRoutes() {
-  const parametersTree = await loadParametersTree()
-  const routes = map(parametersTree, extractRoutes)
-  return flatten(routes)
+  const parametersTrees = await loadParametersTrees()
+  const sectionRoutes = map(parametersTrees, buildSectionRoutes)
+  const tableRoutes = map(parametersTrees, buildTableRoutes)
+  return flatten(sectionRoutes.concat(tableRoutes))
 }
 
 function addLeadingSlash(string) {
   return string.startsWith('/') ? string : `/${string}`
 }
 
-function extractRoutes(desc, path, parametersTree, parents = []) {
-  const isPage = ! parents.length
-  if (desc.table) {
-    generateTables(desc.table, path)
-    return [{
+function buildEnRoute(frRoute) {
+  return {
+    route: '/en' + frRoute.route,
+    page: frRoute.page,
+    query: Object.assign({}, frRoute.query, {lang: 'en'})
+  }
+}
+
+function buildSectionRoutes(parameter, path) {
+  const frRoute = {
+    route: addLeadingSlash(path),
+    page: '/section',
+    query: {section: parameter, lang: 'fr'}
+  }
+  return [frRoute, buildEnRoute(frRoute)]
+}
+
+function buildPageRoutes(path, parameter, parents) {
+  const frRoute = {
       route: addLeadingSlash(path),
       page: '/table',
-      query: {parameter: desc.table, parents}
-      }]
+      query: {parameter: parameter.table, parents, lang: 'fr'}
+      }
+  return [frRoute, buildEnRoute(frRoute)]
+}
+
+function buildTableRoutes(parameter, path, _, parents = []) {
+  if (parameter.table) {
+    generateTables(parameter.table, path)
+    return buildPageRoutes(path, parameter, parents)
   }
-  if (desc.subparams) {
-    const sectionRoute = {
-      route: addLeadingSlash(path),
-      page: '/section',
-      query: desc
-    }
-    const subRoutes = flatten(map(desc.subparams, (child, key) => {
-      return extractRoutes(
-        child,
+  if (parameter.subparams) {
+    const parentLink = {path, title: {en: getTitle(parameter, 'en'), fr: getTitle(parameter, 'fr')}}
+    return flatten(map(parameter.subparams, (child, key) =>
+      buildTableRoutes(child,
         `${path}/${key}`,
-        parametersTree,
-        parents.concat(
-          [{path: isPage && path, title: desc.title || desc.description}]
-          )
-        )
-    }))
-    return isPage ? [sectionRoute].concat(subRoutes) : subRoutes
+        _,
+        parents.concat([parentLink])
+    )))
   }
 }
 
 module.exports = {
-  extractRoutes,
+  buildTableRoutes,
   loadRoutes,
 }

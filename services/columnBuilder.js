@@ -7,19 +7,23 @@ const size = require('lodash.size')
 const sortBy = require('lodash.sortby')
 const flow = require('lodash.flow')
 
-function buildColumns(parameter) {
+const msg = require('../messages')
+const {getTitle} = require('./i18n')
+
+
+function buildColumns(parameter, lang) {
   const dateColumn = {
-    Header: 'Date d’effet',
+    Header: msg.date[lang],
     accessor: item => item.date,
     id: 'date',
   }
-  return [dateColumn, buildColumn(parameter)]
+  return [dateColumn, buildColumn(parameter, lang)]
 }
 
-function buildSimpleColumn(parameter) {
+function buildSimpleColumn(parameter, lang) {
   const source = parameter.source.replace('openfisca_baremes_ipp/', '') // The structure of the repo is not the typical OF structure, so we monkey patch
   return {
-    Header: parameter.description || parameter.id,
+    Header: getTitle(parameter, lang),
     source,
     accessor: item => item[parameter.id],
     id: parameter.id,
@@ -47,30 +51,30 @@ function buildScaleColumn(scale) {
   }
 }
 
-function buildColumn(parameter) {
+function buildColumn(parameter, lang) {
   if (parameter.values) {
-    return buildSimpleColumn(parameter)
+    return buildSimpleColumn(parameter, lang)
   }
   if (parameter.brackets) {
     return buildScaleColumn(parameter)
   }
   if (parameter.subparams) {
     return {
-      Header: parameter.description || parameter.id,
+      Header: getTitle(parameter, lang),
       columns: flow([
         x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
         x => sortBy(x, subParam => parameter.metadata && parameter.metadata.order && parameter.metadata.order.indexOf(subParam.name)),
-        x => map(x, buildColumn),
-        x => x.concat(buildMetaDataColumns(parameter))
+        x => map(x, param => buildColumn(param, lang)),
+        x => x.concat(buildMetaDataColumns(parameter, lang))
       ])(parameter.subparams)
     }
   }
 }
 
-function buildMetaDataColumns(parameter) {
+function buildMetaDataColumns(parameter, lang) {
   const metadata = {
-    reference: {title: 'Références législatives', width: 1.8},
-    date_parution_jo: {title: 'Parution au JO', width: 0.7},
+    reference: {title: msg.references[lang], width: 1.8},
+    date_parution_jo: {title: msg.parutionJO[lang], width: 0.7},
     notes: {title: 'Notes', width: 2},
   }
   return flow([

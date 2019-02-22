@@ -1,4 +1,6 @@
-title: Retraite
+title:
+  fr: Retraite
+  en: Pension
 subparams:
   - subsection: retraites.secteur_prive
     depth: 1

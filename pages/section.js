@@ -4,67 +4,93 @@ import isArray from 'lodash.isarray'
 import includes from 'lodash.includes'
 import flow from 'lodash.flow';
 import sortBy from 'lodash.sortby';
+import {Component} from 'react'
 
-import Layout from '../components/Layout'
 import {basename, isProd} from '../config'
+import msg from '../messages'
+import Layout from '../components/Layout'
+import LangToggle from '../components/LangToggle'
+import {getTitle} from '../services/i18n'
 
-function renderSubParams(item, key, path) {
-  const shouldSort = ! isArray(item.subparams) // A specific order has been explicitly defined in the conf
-  const subParams = flow([
-    x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
-    x => shouldSort ? sortBy(x, subParam => item?.metadata?.order.indexOf(subParam.name)) : x
-  ])(item.subparams)
+class Section extends Component {
 
-  return map(subParams, subParam => {
-    if (item.exclude && includes(item.exclude, subParam.name)) {
-      return
+  // Define computed properties
+
+  get section() {
+    return this.props.router.query.section
+  }
+
+  get path() {
+    const router = this.props.router
+    return router.asPath.endsWith('/') ? router.asPath : router.asPath + '/'
+  }
+
+  get subParams() {
+    return flow([
+      x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
+      x => sortBy(x, subParam => this.section?.metadata?.order.indexOf(subParam.name))
+    ])(this.section.subparams)
+  }
+
+  get lang() {
+    return this.props.router.query.lang || 'fr'
+  }
+
+  // Render
+
+  render() {
+    if (isProd) {
+      return this.renderSectionContent()
     }
-    return renderItem(subParam, subParam.name, `${path}${key}/`)
-  })
+    return <Layout>
+      <LangToggle lang={this.lang} path={this.path}/>
+      <h1 className="box"><span>{getTitle(this.section, this.lang)}</span></h1>
+      <div className="entry-content text">
+        {this.renderSectionContent()}
+      </div>
+      </Layout>
+  }
+
+  renderSectionContent() {
+    return (
+      <div>
+        <h4>{msg.sommaire[this.lang]}</h4>
+        <ol>
+          {map(this.subParams, subParam => this.renderItem(subParam, subParam.name, `${basename}${this.path}`))}
+        </ol>
+      </div>)
+  }
+
+  renderItem(item, key, path) {
+    if (item.subparams && item.flat) {
+      return this.renderSubParams(item, key, path)
+    }
+    if (item.subparams) {
+      return <li key={key}>{getTitle(item, this.lang)}
+        <ol>{this.renderSubParams(item, key, path)}</ol>
+      </li>
+    }
+    if (item.table) {
+      return <li key={key}>
+        <a href={`${path}${key}`}>{getTitle(item, this.lang) || getTitle(item.table, this.lang)}</a>
+      </li>
+    }
+  }
+
+  renderSubParams(item, key, path) {
+    const shouldSort = ! isArray(item.subparams) // A specific order has been explicitly defined in the conf
+    const subParams = flow([
+      x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
+      x => shouldSort ? sortBy(x, subParam => item?.metadata?.order.indexOf(subParam.name)) : x
+    ])(item.subparams)
+
+    return map(subParams, subParam => {
+      if (item.exclude && includes(item.exclude, subParam.name)) {
+        return
+      }
+      return this.renderItem(subParam, subParam.name, `${path}${key}/`)
+    })
+  }
 }
 
-function renderItem(item, key, path) {
-  if (item.subparams && item.flat) {
-    return renderSubParams(item, key, path)
-  }
-  if (item.subparams) {
-    return <li key={key}>{item.title || item.description || item.id}
-      <ol>{renderSubParams(item, key, path)}</ol>
-    </li>
-  }
-  if (item.table) {
-    return <li key={key}><a href={`${path}${key}`}>{item.title || item.table.description || item.table.id}</a></li>
-  }
-}
-
-function renderSectionContent(subParams, path) {
-  return (
-    <div>
-      <h4>Sommaire</h4>
-      <ol>
-        {map(subParams, subParam => renderItem(subParam, subParam.name, `${basename}${path}`))}
-      </ol>
-    </div>)
-}
-
-const Section = (props) => {
-  const section = props.router.query
-  const path = props.router.asPath.endsWith('/') ? props.router.asPath : props.router.asPath + '/'
-  const subParams = flow([
-    x => map(x, (subParam, name) => Object.assign({}, subParam, {name})),
-    x => sortBy(x, subParam => section?.metadata?.order.indexOf(subParam.name))
-  ])(section.subparams)
-
-
-  if (isProd) {
-    return renderSectionContent(subParams, path)
-  }
-
-  return <Layout>
-    <h1 className="box"><span>{section.title}</span></h1>
-    <div className="entry-content text">
-      {renderSectionContent(subParams, path)}
-    </div>
-    </Layout>
-  }
 export default withRouter(Section)

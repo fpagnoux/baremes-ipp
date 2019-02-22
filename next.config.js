@@ -22,6 +22,7 @@ module.exports = withCSS({
       return Object.assign(
         {},
         {'/': { page: '/' }},
+        {'/en': { page: '/en' }},
         keyBy(routes, 'route')
       )
     })

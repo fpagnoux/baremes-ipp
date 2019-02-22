@@ -1,4 +1,6 @@
-title: Prélèvements sociaux
+title:
+  fr: Prélèvements sociaux
+  en: Social Security contributions
 subparams:
   - table: prelevements_sociaux.pss
   - subsection: prelevements_sociaux
