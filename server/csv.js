@@ -82,20 +82,20 @@ function toXLSX(table, tableName) {
 }
 
 function generateTables(parameter, path) {
-  const table = parameterTable(parameter)
+  const tableFr = parameterTable(parameter, 'fr')
+  const tableEn = parameterTable(parameter, 'en')
   const tableName = last(parameter.id.split('.'))
 
-  const csv = toCSV(table.data, parameter.id)
-  const filePath = `table-out/${path}/${tableName}.csv`
-  writeFile(filePath, csv)
+  const csv = toCSV(tableFr.data, parameter.id)
+  const filePathFr = `table-out/${path}/${tableName}.csv`
+  const filePathEn = `table-out/en/${path}/${tableName}.csv`
+  writeFile(filePathFr, csv)
+  writeFile(filePathEn, csv)
 
-  try {
-    const xlsx = toXLSX(table, tableName)
-    xlsx.xlsx.writeFile(`table-out/${path}/${tableName}.xlsx`)
-  }
-  catch(err) {
-    console.error(`Could not build XLSX for parameter ${parameter.id}`)
-  }
+  const xlsxFr = toXLSX(tableFr, tableName)
+  const xlsxEn = toXLSX(tableEn, tableName)
+  xlsxFr.xlsx.writeFile(`table-out/${path}/${tableName}.xlsx`)
+  xlsxEn.xlsx.writeFile(`table-out/en/${path}/${tableName}.xlsx`)
 }
 
 module.exports = {generateTables, toCSV, toXLSX, cleanDatum}

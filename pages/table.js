@@ -13,7 +13,6 @@ function getLinkToTable(parameter, path, format) {
 }
 
 const BreadCrum = ({parents, lang}) => {
-  console.log(parents)
   return <p>
     <a href={basename + '/'}>{msg.baremesIPP[lang]}</a>
     {parents.map(({path, title}, index) => {

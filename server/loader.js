@@ -63,7 +63,7 @@ function buildPageRoutes(path, parameter, parents) {
 
 function buildTableRoutes(parameter, path, _, parents = []) {
   if (parameter.table) {
-    // generateTables(parameter.table, path)
+    generateTables(parameter.table, path)
     return buildPageRoutes(path, parameter, parents)
   }
   if (parameter.subparams) {
