@@ -47,11 +47,13 @@ const XSLXLink = ({path, parameter, table}) => {
 }
 
 const BreadCrum = ({parents, lang}) => {
+  const langPrefix = (lang == 'en') && '/en' || ''
+  const rootUrl = `${basename}${langPrefix}`
   return <p>
-    <a href={basename + '/'}>{msg.baremesIPP[lang]}</a>
+    <a href={rootUrl || '/'}>{msg.baremesIPP[lang]}</a>
     {parents.map(({path, title}, index) => {
       if (index === 0) { // Left-most parent is the primary section, add a link
-        return <span key={index}>  >> <a href={`${basename}/${path}`}>{title[lang]}</a></span>
+        return <span key={index}>  >> <a href={`${rootUrl}/${path}`}>{title[lang]}</a></span>
       }
       if (! title) {
         return
