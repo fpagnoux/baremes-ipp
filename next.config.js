@@ -15,6 +15,7 @@ module.exports = withCSS({
       },
     )
     config.plugins.push(new webpack.EnvironmentPlugin(localEnv))
+    config.node = {fs: "empty"}
     return config
   },
   exportPathMap: () => {

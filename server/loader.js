@@ -1,14 +1,15 @@
 /** Loads the yaml tables and sections conf and generates the routes */
 
-const fs = require('fs')
+const fs = require('fs-extra');
 const yaml = require('js-yaml');
 const map = require('lodash.map')
 const flatten = require('lodash.flatten')
 const fromPairs = require('lodash.frompairs')
 
-const {generateTables} = require('./csv')
+const {toXLSX, toCSV} = require('../services/csv')
 const resolver = require('./resolver')
 const {getTitle} = require('../services/i18n')
+const isProd = require('../config').isProd
 
 async function loadSectionFile(file) {
   const fileName = file.replace('.yaml', '')
@@ -63,7 +64,9 @@ function buildPageRoutes(path, parameter, parents) {
 
 function buildTableRoutes(parameter, path, _, parents = []) {
   if (parameter.table) {
-    generateTables(parameter.table, path)
+    if (isProd) {
+      generateStaticTables(parameter.table, path)
+    }
     return buildPageRoutes(path, parameter, parents)
   }
   if (parameter.subparams) {
@@ -75,6 +78,28 @@ function buildTableRoutes(parameter, path, _, parents = []) {
         parents.concat([parentLink])
     )))
   }
+}
+
+function writeFile(path, contents) {
+  fs.ensureDirSync(getDirName(path))
+  fs.writeFileSync(path, contents)
+}
+
+function generateStaticTables(parameter, path) {
+  const tableFr = parameterTable(parameter, 'fr')
+  const tableEn = parameterTable(parameter, 'en')
+  const tableName = last(parameter.id.split('.'))
+
+  const csv = toCSV(tableFr.data, parameter.id)
+  const filePathFr = `table-out/${path}/${tableName}.csv`
+  const filePathEn = `table-out/en/${path}/${tableName}.csv`
+  writeFile(filePathFr, csv)
+  writeFile(filePathEn, csv)
+
+  const xlsxFr = toXLSX(tableFr, tableName)
+  const xlsxEn = toXLSX(tableEn, tableName)
+  xlsxFr.xlsx.writeFile(`table-out/${path}/${tableName}.xlsx`)
+  xlsxEn.xlsx.writeFile(`table-out/en/${path}/${tableName}.xlsx`)
 }
 
 module.exports = {

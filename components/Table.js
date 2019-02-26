@@ -1,6 +1,5 @@
 import isPlainObject from 'lodash.isplainobject'
 
-import {parameterTable} from '../services/parameterTable'
 import {formatNumber, formatDate} from '../services/formatter'
 
 function cellFormatter(value, metadata) {
@@ -62,8 +61,8 @@ function renderData(data, dataColumns) {
   })
 }
 
-const Table = ({parameter, lang}) => {
-  const {data, columns, headers} = parameterTable(parameter, lang)
+const Table = ({table}) => {
+  const {headers, data, columns} = table
   return <table>
     <thead>
       {headers.map(renderHeader)}

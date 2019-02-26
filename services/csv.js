@@ -1,8 +1,8 @@
 const getDirName = require('path').dirname;
 
-const fs = require('fs-extra');
 const d3 = require('d3-dsv')
-const Excel = require('exceljs');
+const isServerSide = (typeof window === 'undefined')
+const Excel = isServerSide ? require('exceljs') : require('exceljs/dist/es5/exceljs.browser')
 const mapValues = require('lodash.mapvalues')
 const mapKeys = require('lodash.mapkeys')
 const keys = require('lodash.keys')
@@ -10,11 +10,6 @@ const isPlainObject = require('lodash.isplainobject')
 const last = require('lodash.last')
 
 const {parameterTable} = require('../services/parameterTable')
-
-function writeFile(path, contents) {
-  fs.ensureDirSync(getDirName(path))
-  fs.writeFileSync(path, contents)
-}
 
 function cleanValues(datum) {
   return mapValues(datum, value => {
@@ -27,7 +22,7 @@ function cleanValues(datum) {
 
 function cleanKeys(datum, path) {
   return mapKeys(datum, (value, key) => {
-    return key.replace(new RegExp('^'+ path + '\\.'), '');
+    return key.replace(new RegExp('^'+ path + '\\.'), '')
   })
 }
 
@@ -81,21 +76,4 @@ function toXLSX(table, tableName) {
   return workbook
 }
 
-function generateTables(parameter, path) {
-  const tableFr = parameterTable(parameter, 'fr')
-  const tableEn = parameterTable(parameter, 'en')
-  const tableName = last(parameter.id.split('.'))
-
-  const csv = toCSV(tableFr.data, parameter.id)
-  const filePathFr = `table-out/${path}/${tableName}.csv`
-  const filePathEn = `table-out/en/${path}/${tableName}.csv`
-  writeFile(filePathFr, csv)
-  writeFile(filePathEn, csv)
-
-  const xlsxFr = toXLSX(tableFr, tableName)
-  const xlsxEn = toXLSX(tableEn, tableName)
-  xlsxFr.xlsx.writeFile(`table-out/${path}/${tableName}.xlsx`)
-  xlsxEn.xlsx.writeFile(`table-out/en/${path}/${tableName}.xlsx`)
-}
-
-module.exports = {generateTables, toCSV, toXLSX, cleanDatum}
+module.exports = {toCSV, toXLSX, cleanDatum}
