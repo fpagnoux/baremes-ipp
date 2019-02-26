@@ -1,11 +1,13 @@
 /** Loads the yaml tables and sections conf and generates the routes */
-
+const getDirName = require('path').dirname;
 const fs = require('fs-extra');
 const yaml = require('js-yaml');
 const map = require('lodash.map')
 const flatten = require('lodash.flatten')
 const fromPairs = require('lodash.frompairs')
+const last = require('lodash.last')
 
+const {parameterTable} = require('../services/parameterTable')
 const {toXLSX, toCSV} = require('../services/csv')
 const resolver = require('./resolver')
 const {getTitle} = require('../services/i18n')

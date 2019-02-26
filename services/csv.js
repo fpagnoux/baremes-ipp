@@ -1,5 +1,3 @@
-const getDirName = require('path').dirname;
-
 const d3 = require('d3-dsv')
 const isServerSide = (typeof window === 'undefined')
 const Excel = isServerSide ? require('exceljs') : require('exceljs/dist/es5/exceljs.browser')
@@ -9,7 +7,6 @@ const keys = require('lodash.keys')
 const isPlainObject = require('lodash.isplainobject')
 const last = require('lodash.last')
 
-const {parameterTable} = require('../services/parameterTable')
 
 function cleanValues(datum) {
   return mapValues(datum, value => {
