@@ -3,7 +3,7 @@ import last from 'lodash.last'
 import FileSaver from 'file-saver'
 
 import msg from '../messages'
-import {basename, csvPath, isProd} from '../config'
+import {basename, csvPath, isProd, basenameEnSections} from '../config'
 import Table from "../components/Table"
 import Layout from '../components/Layout'
 import LangToggle from '../components/LangToggle'
@@ -47,13 +47,13 @@ const XSLXLink = ({path, parameter, table}) => {
 }
 
 const BreadCrum = ({parents, lang}) => {
-  const langPrefix = (lang == 'en') && '/en' || ''
-  const rootUrl = `${basename}${langPrefix}`
+  const i18nBasename = (this.lang == 'fr') ? basename : basenameEnSections
   return <p>
-    <a href={rootUrl || '/'}>{msg.baremesIPP[lang]}</a>
+    <a href={i18nBasename || '/'}>{msg.baremesIPP[lang]}</a>
     {parents.map(({path, title}, index) => {
       if (index === 0) { // Left-most parent is the primary section, add a link
-        return <span key={index}>  >> <a href={`${basename}${path}`}>{title}</a></span>
+        const target = isProd ? path.replace(/^\/en/, '') : path
+        return <span key={index}>  >> <a href={`${i18nBasename}${target}`}>{title}</a></span>
       }
       if (! title) {
         return

@@ -6,7 +6,7 @@ import flow from 'lodash.flow';
 import sortBy from 'lodash.sortby';
 import {Component} from 'react'
 
-import {basename, isProd} from '../config'
+import {basename, basenameEnTables, isProd} from '../config'
 import msg from '../messages'
 import Layout from '../components/Layout'
 import LangToggle from '../components/LangToggle'
@@ -52,11 +52,12 @@ class Section extends Component {
   }
 
   renderSectionContent() {
+    const i18nBasename = (this.lang == 'fr') ? basename : basenameEnTables
     return (
       <div>
         <h4>{msg.sommaire[this.lang]}</h4>
         <ol>
-          {map(this.subParams, subParam => this.renderItem(subParam, subParam.name, `${basename}${this.path}`))}
+          {map(this.subParams, subParam => this.renderItem(subParam, subParam.name, `${i18nBasename}${this.path}`))}
         </ol>
       </div>)
   }
