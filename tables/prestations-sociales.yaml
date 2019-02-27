@@ -19,3 +19,4 @@ subparams:
   - subsection: prestations_sociales.allocations_logement
   - subsection: prestations_sociales.solidarite_insertion
     depth: 1
+name_en: social-benefits

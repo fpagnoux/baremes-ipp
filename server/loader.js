@@ -1,4 +1,5 @@
 /** Loads the yaml tables and sections conf and generates the routes */
+
 const getDirName = require('path').dirname;
 const fs = require('fs-extra');
 const yaml = require('js-yaml');
@@ -10,7 +11,7 @@ const last = require('lodash.last')
 const {parameterTable} = require('../services/parameterTable')
 const {toXLSX, toCSV} = require('../services/csv')
 const resolver = require('./resolver')
-const {getTitle} = require('../services/i18n')
+const {getRoutes} = require('./routes')
 const isProd = require('../config').isProd
 
 async function loadSectionFile(file) {
@@ -21,65 +22,16 @@ async function loadSectionFile(file) {
   return [fileName, resolvedDesc]
 }
 
-async function loadParametersTrees() {
+async function loadParametersTree() {
   const sectionsFiles = fs.readdirSync('./tables')
   const resolvedFiles = await Promise.all(sectionsFiles.map(loadSectionFile))
   return fromPairs(resolvedFiles)
 }
 
 async function loadRoutes() {
-  const parametersTrees = await loadParametersTrees()
-  const sectionRoutes = map(parametersTrees, buildSectionRoutes)
-  const tableRoutes = map(parametersTrees, buildTableRoutes)
-  return flatten(sectionRoutes.concat(tableRoutes))
-}
-
-function addLeadingSlash(string) {
-  return string.startsWith('/') ? string : `/${string}`
-}
-
-function buildEnRoute(frRoute) {
-  return {
-    route: '/en' + frRoute.route,
-    page: frRoute.page,
-    query: Object.assign({}, frRoute.query, {lang: 'en'})
-  }
-}
-
-function buildSectionRoutes(parameter, path) {
-  const frRoute = {
-    route: addLeadingSlash(path),
-    page: '/section',
-    query: {section: parameter, lang: 'fr'}
-  }
-  return [frRoute, buildEnRoute(frRoute)]
-}
-
-function buildPageRoutes(path, parameter, parents) {
-  const frRoute = {
-      route: addLeadingSlash(path),
-      page: '/table',
-      query: {parameter: parameter.table, parents, lang: 'fr'}
-      }
-  return [frRoute, buildEnRoute(frRoute)]
-}
-
-function buildTableRoutes(parameter, path, _, parents = []) {
-  if (parameter.table) {
-    if (isProd) {
-      generateStaticTables(parameter.table, path)
-    }
-    return buildPageRoutes(path, parameter, parents)
-  }
-  if (parameter.subparams) {
-    const parentLink = {path, title: {en: getTitle(parameter, 'en'), fr: getTitle(parameter, 'fr')}}
-    return flatten(map(parameter.subparams, (child, key) =>
-      buildTableRoutes(child,
-        `${path}/${key}`,
-        _,
-        parents.concat([parentLink])
-    )))
-  }
+  const parametersTree = await loadParametersTree()
+  return getRoutes(parametersTree)
+  // Generate static tables
 }
 
 function writeFile(path, contents) {
@@ -105,6 +57,5 @@ function generateStaticTables(parameter, path) {
 }
 
 module.exports = {
-  buildTableRoutes,
   loadRoutes,
 }

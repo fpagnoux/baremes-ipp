@@ -9,7 +9,7 @@ const Index = () => (
       <h4>Taxes</h4>
       <ul>
         <li><a href="./prelevements-sociaux">Social security contributions</a></li>
-        <li><a href="./impot-sur-le-revenu">Income tax</a></li>
+        <li><a href="./income-tax">Income tax</a></li>
         <li><a href="./taxation-du-capital">Capital taxation</a></li>
         <li><a href="./taxation-indirecte">Indirect taxation</a></li>
         <li><a href="./taxation-societes">Business taxation</a></li>

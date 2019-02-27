@@ -8,3 +8,4 @@ subparams:
     flat: true
     exclude:
       - pss
+name_en: social-security-contributions

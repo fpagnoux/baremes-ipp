@@ -1,4 +1,4 @@
-import {basename, isProd} from '../config'
+import {isProd} from '../config'
 
 const LangToggle = ({path, lang}) => {
   const toEn = lang == 'fr'
