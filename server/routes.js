@@ -23,6 +23,8 @@ function buildSectionRoutes(parameter, path) {
     page: frRoute.page,
     query: Object.assign({}, frRoute.query, {lang: 'en'})
   }
+  frRoute.query.translationPage = enRoute.route
+  enRoute.query.translationPage = frRoute.route
   return [frRoute, enRoute]
 }
 
@@ -37,6 +39,8 @@ function buildOneTableRoutes(parameter, paths, parents) {
     page: frRoute.page,
     query: {parameter: parameter.table, parents: parents.en, lang: 'en'}
   }
+  frRoute.query.translationPage = enRoute.route
+  enRoute.query.translationPage = frRoute.route
   return [frRoute, enRoute]
 }
 
@@ -45,8 +49,8 @@ function buildTableRoutesRec(parameter, paths, parents = {en: [], fr: []}) {
     return buildOneTableRoutes(parameter, paths, parents)
   }
   if (parameter.subparams) {
-    const parentLinkFr = {path: paths.fr, title: getTitle(parameter, 'fr')}
-    const parentLinkEn = {path: paths.en, title: getTitle(parameter, 'en')}
+    const parentLinkFr = {path: paths.fr, title: getTitle(parameter, 'fr', false)}
+    const parentLinkEn = {path: paths.en, title: getTitle(parameter, 'en', false)}
     return flatten(map(parameter.subparams, (child, key) => {
       const childPaths = {en: `${paths.en}/${key}`, fr: `${paths.fr}/${key}`}  // TODO: Allow to specify a English keys
       return buildTableRoutesRec(child,

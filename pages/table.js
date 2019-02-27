@@ -53,22 +53,22 @@ const BreadCrum = ({parents, lang}) => {
     <a href={rootUrl || '/'}>{msg.baremesIPP[lang]}</a>
     {parents.map(({path, title}, index) => {
       if (index === 0) { // Left-most parent is the primary section, add a link
-        return <span key={index}>  >> <a href={`${rootUrl}/${path}`}>{title[lang]}</a></span>
+        return <span key={index}>  >> <a href={`${basename}${path}`}>{title}</a></span>
       }
       if (! title) {
         return
       }
-      return <span key={index}> >> {title[lang]}</span>
+      return <span key={index}> >> {title}</span>
   })}</p>
   }
 
 const TablePage = (props) => {
-  const {parameter, parents, lang} = props.router.query
+  const {parameter, parents, lang, translationPage} = props.router.query
   const path = props.router.asPath
   const table = parameterTable(parameter, lang)
   return <Layout fullWidth={ true }>
     <BreadCrum parents={parents} lang={lang}/>
-    {! isProd && <LangToggle lang={lang} path={path}/>}
+    {! isProd && <LangToggle lang={lang} target={translationPage}/>}
     <h1 className="box"><span>{getTitle(parameter, lang)}</span></h1>
     <CSVLink path={path} parameter={parameter} table={table}/> <XSLXLink path={path} parameter={parameter} table={table}/>
     <Table table={table}/>

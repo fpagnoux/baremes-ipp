@@ -43,7 +43,7 @@ class Section extends Component {
       return this.renderSectionContent()
     }
     return <Layout>
-      <LangToggle lang={this.lang} path={this.path}/>
+      <LangToggle lang={this.lang} target={this.props.router.query.translationPage}/>
       <h1 className="box"><span>{getTitle(this.section, this.lang)}</span></h1>
       <div className="entry-content text">
         {this.renderSectionContent()}

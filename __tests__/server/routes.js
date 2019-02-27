@@ -6,6 +6,8 @@ it('Should use a french path if no english is specified', () => {
   const sectionRoutes = buildSectionRoutes(param, 'impot-revenu')
   expect(sectionRoutes[0].route).toEqual('/impot-revenu')
   expect(sectionRoutes[1].route).toEqual('/en/impot-revenu')
+  expect(sectionRoutes[0].query.enPage).toEqual('/en/impot-revenu')
+  expect(sectionRoutes[1].query.frPage).toEqual('/impot-revenu')
 });
 
 it('Should use the english path if section english name if specified', () => {
