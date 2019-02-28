@@ -49,8 +49,8 @@ function buildTableRoutesRec(parameter, paths, parents = {en: [], fr: []}) {
     return buildOneTableRoutes(parameter, paths, parents)
   }
   if (parameter.subparams) {
-    const parentLinkFr = {path: paths.fr, title: getTitle(parameter, 'fr', false)}
-    const parentLinkEn = {path: paths.en, title: getTitle(parameter, 'en', false)}
+    const parentLinkFr = (! parameter.flat) && {path: paths.fr, title: getTitle(parameter, 'fr', false)}
+    const parentLinkEn = (! parameter.flat) && {path: paths.en, title: getTitle(parameter, 'en', false)}
     return flatten(map(parameter.subparams, (child, key) => {
       const childPaths = {en: `${paths.en}/${key}`, fr: `${paths.fr}/${key}`}  // TODO: Allow to specify a English keys
       return buildTableRoutesRec(child,
