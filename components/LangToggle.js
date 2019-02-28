@@ -1,9 +1,7 @@
-import {basename, isProd} from '../config'
+import {isProd} from '../config'
 
-const LangToggle = ({path, lang}) => {
-  const toEn = lang == 'fr'
-  const target = toEn ? `${basename}/en${path}`: `${basename}${path.replace(/^\/en/, '')}` || '/'
-  const text = toEn ? 'EN' : 'FR'
+const LangToggle = ({target, lang}) => {
+  const text = (lang == 'fr') ? 'EN' : 'FR'
   return <div><a href={target} style={{float: 'right'}}>{text}</a></div>
 }
 

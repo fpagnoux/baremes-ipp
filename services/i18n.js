@@ -1,6 +1,6 @@
 const isString = require('lodash.isstring')
 
-function getTitle(parameter, lang) {
+function getTitle(parameter, lang, defaultToId = true) {
   if (isString(parameter.title)) {
     return parameter.title
   }
@@ -10,7 +10,7 @@ function getTitle(parameter, lang) {
   if (! lang) {
     return parameter.description
   }
-  return (parameter.metadata && parameter.metadata[`description_${lang}`]) || parameter.description || parameter.id
+  return (parameter.metadata && parameter.metadata[`description_${lang}`]) || parameter.description || (defaultToId && parameter.id)
 }
 
 module.exports = {getTitle}

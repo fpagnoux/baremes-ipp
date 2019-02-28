@@ -3,19 +3,13 @@ import last from 'lodash.last'
 import FileSaver from 'file-saver'
 
 import msg from '../messages'
-import {basename, csvPath, isProd} from '../config'
+import {basename, csvPath, isProd, basenameEnSections} from '../config'
 import Table from "../components/Table"
 import Layout from '../components/Layout'
 import LangToggle from '../components/LangToggle'
 import {getTitle} from '../services/i18n'
 import {parameterTable} from '../services/parameterTable'
 import {toCSV, toXLSX} from '../services/csv'
-
-function getLinkToTable(parameter, path, format) {
-  if (isProd) { // In prod, tables are statically generated
-    return `${csvPath || basename}${path}/${last(parameter.id.split('.'))}.${format}`
-  }
-}
 
 const CSVLink = ({path, parameter, table}) => {
   const fileName = `${last(parameter.id.split('.'))}.csv`
@@ -47,28 +41,29 @@ const XSLXLink = ({path, parameter, table}) => {
 }
 
 const BreadCrum = ({parents, lang}) => {
-  const langPrefix = (lang == 'en') && '/en' || ''
-  const rootUrl = `${basename}${langPrefix}`
+  const i18nBasename = (lang == 'fr') ? basename : (basenameEnSections || basename)
+  const i18nRoot = (lang == 'fr') ? basename : (basenameEnSections || basename + '/en')
   return <p>
-    <a href={rootUrl || '/'}>{msg.baremesIPP[lang]}</a>
+    <a href={i18nRoot + '/'}>{msg.baremesIPP[lang]}</a>
     {parents.map(({path, title}, index) => {
       if (index === 0) { // Left-most parent is the primary section, add a link
-        return <span key={index}>  >> <a href={`${rootUrl}/${path}`}>{title[lang]}</a></span>
+        const target = isProd ? path.replace(/^\/en/, '') : path // Hack to deal with WordPress complex route handling
+        return <span key={index}>  >> <a href={i18nBasename + target}>{title}</a></span>
       }
       if (! title) {
         return
       }
-      return <span key={index}> >> {title[lang]}</span>
+      return <span key={index}> >> {title}</span>
   })}</p>
   }
 
 const TablePage = (props) => {
-  const {parameter, parents, lang} = props.router.query
+  const {parameter, parents, lang, translationPage} = props.router.query
   const path = props.router.asPath
   const table = parameterTable(parameter, lang)
   return <Layout fullWidth={ true }>
     <BreadCrum parents={parents} lang={lang}/>
-    {! isProd && <LangToggle lang={lang} path={path}/>}
+    {! isProd && <LangToggle lang={lang} target={basename + props.router.query.translationPage}/>}
     <h1 className="box"><span>{getTitle(parameter, lang)}</span></h1>
     <CSVLink path={path} parameter={parameter} table={table}/> <XSLXLink path={path} parameter={parameter} table={table}/>
     <Table table={table}/>

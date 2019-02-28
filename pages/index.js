@@ -4,7 +4,7 @@ import LangToggle from '../components/LangToggle'
 
 const Index = () => (
   <Layout>
-    <LangToggle lang="fr" path="/"/>
+    <LangToggle lang="fr" target="./en/"/>
     <h1 className="box"><span>Barèmes IPP</span></h1>
     <div className="entry-content text">
       <h4>Prélèvements obligatoires</h4>

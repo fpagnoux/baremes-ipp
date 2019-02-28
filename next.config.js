@@ -1,9 +1,9 @@
 const withCSS = require('@zeit/next-css')
-const loader = require('./server/loader')
+const {loadRoutes, generateStaticTables} = require('./server/loader')
 const keyBy = require('lodash.keyby')
 const webpack = require('webpack')
 const { parsed: localEnv } = require('dotenv').config()
-const basename = require('./config').basename
+const {basename, isProd} = require('./config')
 
 module.exports = withCSS({
   cssModules: false,
@@ -19,7 +19,10 @@ module.exports = withCSS({
     return config
   },
   exportPathMap: () => {
-    return loader.loadRoutes().then(routes => {
+    return loadRoutes().then(routes => {
+      if (isProd) {
+        routes.map(generateStaticTables)
+      }
       return Object.assign(
         {},
         {'/': { page: '/' }},

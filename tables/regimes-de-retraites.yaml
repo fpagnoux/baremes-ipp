@@ -6,3 +6,4 @@ subparams:
     depth: 1
   - subsection: retraites.secteur_public
   - subsection: retraites.independants
+name_en: pension
