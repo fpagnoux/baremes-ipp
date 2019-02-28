@@ -1,4 +1,4 @@
-Notes sur la structure du répertoire:
+# Notes sur la structure du répertoire:
 
 - `__tests__`: tests unitaires
 - `components`: composantss React qui peuvent s'intégrer dans les pages
