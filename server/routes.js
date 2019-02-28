@@ -63,7 +63,7 @@ function buildTableRoutesRec(parameter, paths, parents = {en: [], fr: []}) {
 
 function buildTableRoutes(parameter, path) {
   const enPath = '/en/' + (parameter.name_en || path)
-  return buildTableRoutesRec(parameter, {fr: path, en: enPath || path})
+  return buildTableRoutesRec(parameter, {fr: '/' + path, en: enPath})
 }
 
 function addLeadingSlash(string) {

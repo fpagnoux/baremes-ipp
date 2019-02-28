@@ -6,8 +6,8 @@ it('Should use a french path if no english is specified', () => {
   const sectionRoutes = buildSectionRoutes(param, 'impot-revenu')
   expect(sectionRoutes[0].route).toEqual('/impot-revenu')
   expect(sectionRoutes[1].route).toEqual('/en/impot-revenu')
-  expect(sectionRoutes[0].query.enPage).toEqual('/en/impot-revenu')
-  expect(sectionRoutes[1].query.frPage).toEqual('/impot-revenu')
+  expect(sectionRoutes[0].query.translationPage).toEqual('/en/impot-revenu')
+  expect(sectionRoutes[1].query.translationPage).toEqual('/impot-revenu')
 });
 
 it('Should use the english path if section english name if specified', () => {
@@ -23,7 +23,7 @@ it('Should build a french and english page for a table', () => {
     name_en: 'income-tax',
     subparams: {plafond: {table:{}}}
   }
-  const tableRoutes = buildTableRoutes(param, '/impot-revenu')
+  const tableRoutes = buildTableRoutes(param, 'impot-revenu')
   expect(tableRoutes[0].route).toEqual('/impot-revenu/plafond')
   expect(tableRoutes[1].route).toEqual('/en/income-tax/plafond')
   expect(tableRoutes[0].query.parents[0]).toEqual({ path: '/impot-revenu', title: 'Impôt sur le revenu' })

@@ -52,7 +52,7 @@ class Section extends Component {
   }
 
   renderSectionContent() {
-    const i18nBasename = (this.lang == 'fr') ? basename : basenameEnTables
+    const i18nBasename = (this.lang == 'fr') ? basename : basenameEnTables  // In WP mode, the basename for English tables pages is specific
     return (
       <div>
         <h4>{msg.sommaire[this.lang]}</h4>

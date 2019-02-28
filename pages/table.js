@@ -11,12 +11,6 @@ import {getTitle} from '../services/i18n'
 import {parameterTable} from '../services/parameterTable'
 import {toCSV, toXLSX} from '../services/csv'
 
-function getLinkToTable(parameter, path, format) {
-  if (isProd) { // In prod, tables are statically generated
-    return `${csvPath || basename}${path}/${last(parameter.id.split('.'))}.${format}`
-  }
-}
-
 const CSVLink = ({path, parameter, table}) => {
   const fileName = `${last(parameter.id.split('.'))}.csv`
   if (isProd) { // In prod, tables are statically generated
