@@ -1,4 +1,4 @@
-import {isProd} from '../config'
+import {isWP} from '../config'
 
 const LangToggle = ({target, lang}) => {
   const text = (lang == 'fr') ? 'EN' : 'FR'

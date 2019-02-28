@@ -6,7 +6,7 @@ import flow from 'lodash.flow';
 import sortBy from 'lodash.sortby';
 import {Component} from 'react'
 
-import {basename, basenameEnTables, isProd} from '../config'
+import {basename, basenameEnTables, isWP} from '../config'
 import msg from '../messages'
 import Layout from '../components/Layout'
 import LangToggle from '../components/LangToggle'
@@ -39,7 +39,7 @@ class Section extends Component {
   // Render
 
   render() {
-    if (isProd) {
+    if (isWP) {
       return this.renderSectionContent()
     }
     return <Layout>

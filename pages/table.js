@@ -3,7 +3,7 @@ import last from 'lodash.last'
 import FileSaver from 'file-saver'
 
 import msg from '../messages'
-import {basename, csvPath, isProd, basenameEnSections} from '../config'
+import {basename, csvPath, isWP, basenameEnSections} from '../config'
 import Table from "../components/Table"
 import Layout from '../components/Layout'
 import LangToggle from '../components/LangToggle'
@@ -13,7 +13,7 @@ import {toCSV, toXLSX} from '../services/csv'
 
 const CSVLink = ({path, parameter, table}) => {
   const fileName = `${last(parameter.id.split('.'))}.csv`
-  if (isProd) { // In prod, tables are statically generated
+  if (isWP) { // In prod, tables are statically generated
     const target = `${csvPath || basename}${path}/${fileName}`
     return <a href={target}>CSV</a>
   }
@@ -27,7 +27,7 @@ const CSVLink = ({path, parameter, table}) => {
 const XSLXLink = ({path, parameter, table}) => {
   const tableName = last(parameter.id.split('.'))
   const fileName = `${tableName}.xlsx`
-  if (isProd) { // In prod, tables are statically generated
+  if (isWP) { // In prod, tables are statically generated
     const target = `${csvPath || basename}${path}/${fileName}`
     return <a href={target}>XSLX</a>
   }
@@ -47,7 +47,7 @@ const BreadCrum = ({parents, lang}) => {
     <a href={i18nRoot + '/'}>{msg.baremesIPP[lang]}</a>
     {parents.map(({path, title}, index) => {
       if (index === 0) { // Left-most parent is the primary section, add a link
-        const target = isProd ? path.replace(/^\/en/, '') : path // Hack to deal with WordPress complex route handling
+        const target = isWP ? path.replace(/^\/en/, '') : path // Hack to deal with WordPress complex route handling
         return <span key={index}>  >> <a href={i18nBasename + target}>{title}</a></span>
       }
       if (! title) {
@@ -62,7 +62,7 @@ const TablePage = (props) => {
   const path = props.router.asPath
   const table = parameterTable(parameter, lang)
   return <Layout fullWidth={ true }>
-    {! isProd && <LangToggle lang={lang} target={basename + props.router.query.translationPage}/>}
+    {! isWP && <LangToggle lang={lang} target={basename + props.router.query.translationPage}/>}
     <BreadCrum parents={parents} lang={lang}/>
     <div className="table-exports-links">
       <CSVLink path={path} parameter={parameter} table={table}/> <XSLXLink path={path} parameter={parameter} table={table}/>

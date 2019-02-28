@@ -3,7 +3,7 @@ const {loadRoutes, generateStaticTables} = require('./server/loader')
 const keyBy = require('lodash.keyby')
 const webpack = require('webpack')
 const { parsed: localEnv } = require('dotenv').config()
-const {basename, isProd} = require('./config')
+const {basename, isWP} = require('./config')
 
 module.exports = withCSS({
   cssModules: false,
@@ -20,7 +20,7 @@ module.exports = withCSS({
   },
   exportPathMap: () => {
     return loadRoutes().then(routes => {
-      if (isProd) {
+      if (isWP) {
         routes.map(generateStaticTables)
       }
       return Object.assign(

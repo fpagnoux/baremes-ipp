@@ -1,5 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document'
-import {basename, isProd} from '../config'
+import {basename, isWP} from '../config'
 
 class StagingDocument extends Document {
   render() {
@@ -24,6 +24,6 @@ class ProdDocument extends Document {
   }
 }
 
-const MyDocument = isProd ? ProdDocument : StagingDocument
+const MyDocument = isWP ? ProdDocument : StagingDocument
 
 export default MyDocument

@@ -1,6 +1,6 @@
-const isProd = require('../config').isProd
+const isWP = require('../config').isWP
 
-if (! isProd) {
+if (! isWP) {
   require('../styles/style.css')
 }
 
@@ -59,6 +59,6 @@ const StagingLayout = ({children, fullWidth}) => (
 
 const ProdLayout = ({children}) => (<div>{ children }</div>)
 
-const Layout = isProd ? ProdLayout : StagingLayout
+const Layout = isWP ? ProdLayout : StagingLayout
 
 export default Layout
