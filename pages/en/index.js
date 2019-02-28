@@ -3,7 +3,7 @@ import LangToggle from '../../components/LangToggle'
 
 const Index = () => (
   <Layout>
-    <LangToggle lang="en" target="/"/>
+    <LangToggle lang="en" target=".."/>
     <h1 className="box"><span>IPP tax and benefit tables</span></h1>
     <div className="entry-content text">
       <h4>Taxes</h4>

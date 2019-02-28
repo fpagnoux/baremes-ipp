@@ -43,7 +43,7 @@ class Section extends Component {
       return this.renderSectionContent()
     }
     return <Layout>
-      <LangToggle lang={this.lang} target={this.props.router.query.translationPage}/>
+      <LangToggle lang={this.lang} target={basename + this.props.router.query.translationPage}/>
       <h1 className="box"><span>{getTitle(this.section, this.lang)}</span></h1>
       <div className="entry-content text">
         {this.renderSectionContent()}
@@ -52,7 +52,7 @@ class Section extends Component {
   }
 
   renderSectionContent() {
-    const i18nBasename = (this.lang == 'fr') ? basename : basenameEnTables  // In WP mode, the basename for English tables pages is specific
+    const i18nBasename = (this.lang == 'fr') ? basename : (basenameEnTables || basename)  // In WP mode, the basename for English tables pages is specific
     return (
       <div>
         <h4>{msg.sommaire[this.lang]}</h4>

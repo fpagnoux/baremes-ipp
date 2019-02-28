@@ -41,13 +41,14 @@ const XSLXLink = ({path, parameter, table}) => {
 }
 
 const BreadCrum = ({parents, lang}) => {
-  const i18nBasename = (this.lang == 'fr') ? basename : basenameEnSections
+  const i18nBasename = (lang == 'fr') ? basename : (basenameEnSections || basename)
+  const i18nRoot = (lang == 'fr') ? basename : (basenameEnSections || basename + '/en')
   return <p>
-    <a href={i18nBasename || '/'}>{msg.baremesIPP[lang]}</a>
+    <a href={i18nRoot + '/'}>{msg.baremesIPP[lang]}</a>
     {parents.map(({path, title}, index) => {
       if (index === 0) { // Left-most parent is the primary section, add a link
-        const target = isProd ? path.replace(/^\/en/, '') : path
-        return <span key={index}>  >> <a href={`${i18nBasename}${target}`}>{title}</a></span>
+        const target = isProd ? path.replace(/^\/en/, '') : path // Hack to deal with WordPress complex route handling
+        return <span key={index}>  >> <a href={i18nBasename + target}>{title}</a></span>
       }
       if (! title) {
         return
@@ -62,7 +63,7 @@ const TablePage = (props) => {
   const table = parameterTable(parameter, lang)
   return <Layout fullWidth={ true }>
     <BreadCrum parents={parents} lang={lang}/>
-    {! isProd && <LangToggle lang={lang} target={translationPage}/>}
+    {! isProd && <LangToggle lang={lang} target={basename + props.router.query.translationPage}/>}
     <h1 className="box"><span>{getTitle(parameter, lang)}</span></h1>
     <CSVLink path={path} parameter={parameter} table={table}/> <XSLXLink path={path} parameter={parameter} table={table}/>
     <Table table={table}/>
