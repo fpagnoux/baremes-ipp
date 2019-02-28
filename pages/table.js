@@ -43,7 +43,7 @@ const XSLXLink = ({path, parameter, table}) => {
 const BreadCrum = ({parents, lang}) => {
   const i18nBasename = (lang == 'fr') ? basename : (basenameEnSections || basename)
   const i18nRoot = (lang == 'fr') ? basename : (basenameEnSections || basename + '/en')
-  return <p>
+  return <p className="breadcrum">
     <a href={i18nRoot + '/'}>{msg.baremesIPP[lang]}</a>
     {parents.map(({path, title}, index) => {
       if (index === 0) { // Left-most parent is the primary section, add a link
@@ -62,10 +62,12 @@ const TablePage = (props) => {
   const path = props.router.asPath
   const table = parameterTable(parameter, lang)
   return <Layout fullWidth={ true }>
-    <BreadCrum parents={parents} lang={lang}/>
     {! isProd && <LangToggle lang={lang} target={basename + props.router.query.translationPage}/>}
+    <BreadCrum parents={parents} lang={lang}/>
+    <div className="table-exports-links">
+      <CSVLink path={path} parameter={parameter} table={table}/> <XSLXLink path={path} parameter={parameter} table={table}/>
+    </div>
     <h1 className="box"><span>{getTitle(parameter, lang)}</span></h1>
-    <CSVLink path={path} parameter={parameter} table={table}/> <XSLXLink path={path} parameter={parameter} table={table}/>
     <Table table={table}/>
     <p className="table-doc">{parameter.documentation}</p>
   </Layout>

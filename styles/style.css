@@ -34,3 +34,11 @@ thead {
   white-space: pre-line;
   margin-top: 1em;
 }
+
+.breadcrum {
+  margin-bottom: 1em;
+}
+
+.table-exports-links {
+  float: right;
+}
