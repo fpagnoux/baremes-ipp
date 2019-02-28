@@ -28,7 +28,7 @@
           }
         }
       },
-      "source:" "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rmi_maj.yaml"
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rmi_maj.yaml"
     },
     "Majoration isolement (en % de la base RSA) ": {
       "subparams": {
@@ -53,7 +53,7 @@
           "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rmi_maj.yaml"
         }
       },
-      "source:" "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rmi_maj.yaml"
+      "source": "https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-yaml/blob/master/openfisca_baremes_ipp/parameters/prestations_sociales/solidarite_insertion/minima_sociaux/rmi_maj.yaml"
     }
   },
   "metadata": {}

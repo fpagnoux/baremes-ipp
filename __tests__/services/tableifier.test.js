@@ -1,7 +1,8 @@
-import {extractValues, extractData} from '../../services/dataPreprocesser'
-import rsaForFaitLogement from './rsa_forfait_logement.json'
-import rsaMajoration from './rsa_majoration.json'
-import bareme from './bareme.json'
+import {extractValues, extractData} from '../../services/tableifier'
+
+import rsaForFaitLogement from '../assets/rsa_forfait_logement.json'
+import rsaMajoration from '../assets/rsa_majoration.json'
+import bareme from '../assets/bareme.json'
 
 it('extractValues can extract dates from a simple parameter', () => {
   const parameter = {

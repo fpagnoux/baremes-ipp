@@ -1,4 +1,4 @@
-const extractData = require('./dataPreprocesser').extractData
+const extractData = require('./tableifier').extractData
 const {buildColumns} = require('./columnBuilder')
 const {buildHeaders} = require('./headerBuilder')
 

@@ -1,6 +1,6 @@
 import {parameterTable} from '../../services/parameterTable'
 
-import rsaMajoration from './rsa_maj.json'
+import rsaMajoration from '../assets/rsa_maj.json'
 
 it('should build a parameterTable', () => {
   const result = parameterTable(rsaMajoration)

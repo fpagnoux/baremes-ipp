@@ -1,4 +1,4 @@
-/** Process a parameterNode so that the data it contains are easily exploitable by React-Table */
+/** Process a parameterNode so that to build a table structure from the data it contains */
 
 const includes = require('lodash.includes')
 const flatten = require('lodash.flatten')

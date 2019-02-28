@@ -1,5 +1,5 @@
 import {buildColumn, buildColumns} from '../../services/columnBuilder'
-import rsaMajoration from './rsa_maj.json'
+import rsaMajoration from '../assets/rsa_maj.json'
 
 const node = rsaMajoration.subparams.majoration_isolement_en_base_rsa
 const leaf = node.subparams.parents_isoles_2_femmes_enceintes
