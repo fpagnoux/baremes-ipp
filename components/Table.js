@@ -39,6 +39,9 @@ function renderDatum(datum, column) {
   if (column.id == 'date') {
     return formatDate(value)
   }
+  if (column.id == 'reference' && isPlainObject(value)) {
+    return <a href={value.href} target="_blank">{value.title}</a>
+  }
   if (isPlainObject(value)) {
     return cellFormatter(value.value, value)
   }
