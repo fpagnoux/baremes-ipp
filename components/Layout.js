@@ -4,7 +4,7 @@ if (! isWP) {
   require('../styles/style.css')
 }
 
-const StagingLayout = ({children, fullWidth}) => (
+const StagingLayout = ({children}) => (
   <div>
     <header id="main-header" className="main-header" role="banner">
       <div className="inner">
@@ -51,8 +51,8 @@ const StagingLayout = ({children, fullWidth}) => (
         </div>
       </nav>
     </header>
-    <div id="content" className={"inner col-content" + (fullWidth ? " full-width": "")}>
-      <div id="main-col" className={"main-col" + (fullWidth ? " full-width": "")}>{ children }</div>
+    <div id="content" className="inner col-content">
+      <div id="main-col" className="main-col">{ children }</div>
     </div>
   </div>
 )
