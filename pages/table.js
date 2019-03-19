@@ -19,7 +19,7 @@ const CSVLink = ({path, parameter, table}) => {
   }
   return <a href="#" onClick={() => {
     const csv = toCSV(table.data, parameter.id)
-    const blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+    const blob = new Blob([csv], {type: "text/plain;charset=utf-8"});
     FileSaver.saveAs(blob, fileName)
   }}>CSV</a>
 }

@@ -25,7 +25,7 @@ function renderHeader(columns, index) {
         rowSpan={column.rowSpan || 1}
         style={{flex: `${column.width || 1} 0 auto`, 'width': `${(column.width || 1) * 100}px`}}
         >
-        {column.accessor // Add edition link only for leaf columns
+        {column.source // Add edition link only for leaf columns
           ? <span className="edit-link">{column.Header}<br/><a target="_blank" href={column.source}>Edit</a></span>
           : column.Header
         }
