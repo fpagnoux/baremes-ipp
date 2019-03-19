@@ -2,11 +2,9 @@
   max-width: none;
 }
 
-#main-col {
-  overflow-x: scroll;
-}
-
 table {
+  display: block;
+  overflow: auto;
   width: 100%;
   border-collapse: collapse;
 }
