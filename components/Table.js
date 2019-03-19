@@ -66,14 +66,14 @@ function renderData(data, dataColumns) {
 
 const Table = ({table}) => {
   const {headers, data, columns} = table
-  return <table>
+  return <div id="table-container"><table>
     <thead>
       {headers.map(renderHeader)}
     </thead>
     <tbody>
       {renderData(data, columns)}
     </tbody>
-  </table>
+  </table></div>
 }
 
 export default Table
