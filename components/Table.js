@@ -2,6 +2,14 @@ import isPlainObject from 'lodash.isplainobject'
 
 import {formatNumber, formatDate} from '../services/formatter'
 
+function getCellStyle(column) {
+  return {
+    flex: `${column.width || 1} 0 auto`,
+    'min-width': `${(column.width || 1) * 100}px`,
+    'max-width': `${(column.width || 1) * 100}px`,
+  }
+}
+
 function cellFormatter(value, metadata) {
   if ((! value && value !== 0) || ! metadata || ! metadata.unit) {
     return value
@@ -23,7 +31,7 @@ function renderHeader(columns, index) {
         key={index2}
         colSpan={column.colSpan}
         rowSpan={column.rowSpan || 1}
-        style={{flex: `${column.width || 1} 0 auto`, 'min-width': `${(column.width || 1) * 100}px`}}
+        style={getCellStyle(column)}
         >
         {column.source // Add edition link only for leaf columns
           ? <span className="edit-link">{column.Header}<br/><a target="_blank" href={column.source}>Edit</a></span>
@@ -55,7 +63,7 @@ function renderData(data, dataColumns) {
           return <td
             key={index2}
             colSpan={column.colSpan}
-            style={{flex: `${column.width || 1} 0 auto`, 'width': `100px`}}
+            style={getCellStyle(column)}
             >
             <span>{renderDatum(datum, column)}</span>
           </td>

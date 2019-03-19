@@ -1,5 +1,5 @@
 #table-container {
-  overflow: auto;
+  overflow-x: auto;
 }
 
 table {
@@ -7,15 +7,9 @@ table {
   width: 100%;
 }
 
-#table-container, #table-container table
-{
-    transform:rotateX(180deg);
-    -ms-transform:rotateX(180deg); /* IE 9 */
-    -webkit-transform:rotateX(180deg); /* Safari and Chrome */
-}
-
 th {
   text-align: center;
+  word-break: break-all;
 }
 
 
@@ -31,6 +25,16 @@ tr:nth-child(odd) {
 
 thead {
   border-bottom: 2px solid rgba(0,0,0,0.2);
+  display: block;
+  position: -webkit-sticky; /* for Safari */
+  position: sticky;
+  top: 0;
+}
+
+tbody {
+  display: block;
+  height: 600px;
+  overflow: auto;
 }
 
 .table-doc {
