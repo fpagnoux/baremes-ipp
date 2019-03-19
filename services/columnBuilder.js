@@ -74,8 +74,8 @@ function buildColumn(parameter, lang) {
 function buildMetaDataColumns(parameter, lang) {
   const metadata = {
     reference: {title: msg.references[lang], width: 1.8},
-    date_parution_jo: {title: msg.parutionJO[lang], width: 0.7},
-    notes: {title: 'Notes', width: 2},
+    date_parution_jo: {title: msg.parutionJO[lang], width: 1},
+    notes: {title: 'Notes', width: 3.5},
   }
   return flow([
     x => filter(x, fieldName => parameter.metadata[fieldName]),
