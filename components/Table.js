@@ -1,4 +1,5 @@
 import isPlainObject from 'lodash.isplainobject'
+import isArray from 'lodash.isarray'
 
 import {formatNumber, formatDate} from '../services/formatter'
 
@@ -34,13 +35,23 @@ function renderHeader(columns, index) {
   </tr>
 }
 
+function renderReference(reference) {
+  if (isPlainObject(reference)) {
+    return <a href={reference.href} target="_blank">{reference.title}</a>
+  }
+  if (isArray(reference)) {
+    return reference.map((item, idx) => <span key={idx}>{renderReference(item)}<br/></span>)
+  }
+  return reference
+}
+
 function renderDatum(datum, column) {
   const value = column.accessor(datum)
   if (column.id == 'date') {
     return formatDate(value)
   }
-  if (column.id == 'reference' && isPlainObject(value)) {
-    return <a href={value.href} target="_blank">{value.title}</a>
+  if (column.id == 'reference') {
+    return renderReference(value)
   }
   if (isPlainObject(value)) {
     return cellFormatter(value.value, value)
