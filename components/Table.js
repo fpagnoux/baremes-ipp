@@ -24,7 +24,7 @@ function renderHeader(columns, index) {
         key={index2}
         colSpan={column.colSpan}
         rowSpan={column.rowSpan || 1}
-        style={{flex: `${column.width || 1} 0 auto`, 'min-width': `${(column.width || 1) * 100}px`}}
+        style={{flex: `${column.width || 1} 0 auto`, 'minWidth': `${(column.width || 1) * 100}px`}}
         >
         {column.source // Add edition link only for leaf columns
           ? <span className="edit-link">{column.Header}<br/><a target="_blank" href={column.source}>Edit</a></span>
@@ -77,14 +77,14 @@ function renderData(data, dataColumns) {
 
 const Table = ({table}) => {
   const {headers, data, columns} = table
-  return <table>
+  return <div id="table-container"><table>
     <thead>
       {headers.map(renderHeader)}
     </thead>
     <tbody>
       {renderData(data, columns)}
     </tbody>
-  </table>
+  </table></div>
 }
 
 export default Table

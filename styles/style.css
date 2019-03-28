@@ -1,9 +1,11 @@
-table {
-  display: block;
+#table-container {
   overflow: auto;
-  width: 100%;
-  border-collapse: collapse;
   max-height: 600px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
 }
 
 th {
