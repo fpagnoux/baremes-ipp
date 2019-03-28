@@ -12,17 +12,18 @@ const {parameterTable} = require('../services/parameterTable')
 const {toXLSX, toCSV} = require('../services/csv')
 const resolver = require('./resolver')
 const {getRoutes} = require('./routes')
+const {tablesDir} = require('../config')
 
 async function loadSectionFile(file) {
   const fileName = file.replace('.yaml', '')
-  const textContent = fs.readFileSync(`./tables/${file}`, 'utf8')
+  const textContent = fs.readFileSync(`${tablesDir}/${file}`, 'utf8')
   const yamlContent = yaml.safeLoad(textContent)
   const resolvedDesc = await resolver.resolveSection(yamlContent)
   return [fileName, resolvedDesc]
 }
 
 async function loadParametersTree() {
-  const sectionsFiles = fs.readdirSync('./tables')
+  const sectionsFiles = fs.readdirSync(tablesDir)
   const resolvedFiles = await Promise.all(sectionsFiles.map(loadSectionFile))
   return fromPairs(resolvedFiles)
 }

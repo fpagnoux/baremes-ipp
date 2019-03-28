@@ -10,4 +10,5 @@ module.exports = {
   csvPath: env.CSV_PATH || '',
   basenameEnSections: env.BASENAME_EN_SECTIONS,
   basenameEnTables: env.BASENAME_EN_TABLES,
+  tablesDir: env.TABLES_DIR || './tables'
 }
