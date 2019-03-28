@@ -61,7 +61,7 @@ const TablePage = (props) => {
   const {parameter, parents, lang, translationPage} = props.router.query
   const path = props.router.asPath
   const table = parameterTable(parameter, lang)
-  return <Layout fullWidth={ true }>
+  return <Layout>
     {! isWP && <LangToggle lang={lang} target={basename + props.router.query.translationPage}/>}
     <BreadCrum parents={parents} lang={lang}/>
     <div className="table-exports-links">
