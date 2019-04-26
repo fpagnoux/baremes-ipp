@@ -9,7 +9,7 @@ export function formatNumber(value, options) {
   if (options && options.currency == 'AFRF') {
     return formatAFRF(value, options)
   }
-  return (new Intl.NumberFormat('fr', options)).format(value)
+  return (new Intl.NumberFormat('fr', Object.assign({}, {maximumFractionDigits: 10}, options))).format(value)
 }
 
 export function formatDate(value) {

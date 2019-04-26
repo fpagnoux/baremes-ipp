@@ -8,11 +8,11 @@ function cellFormatter(value, metadata) {
     return value
   }
   if (metadata.unit == '/1') {
-    return formatNumber(value, { style: 'percent', maximumFractionDigits: 3 })
+    return formatNumber(value, { style: 'percent'})
   }
   if (metadata.unit.startsWith('currency')) {
     const currency = metadata.unit.split('-')[1]
-    return formatNumber(value, { style: 'currency', currency, maximumFractionDigits: 3 })
+    return formatNumber(value, { style: 'currency', currency})
   }
   return value
 }
