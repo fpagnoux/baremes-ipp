@@ -1,12 +1,13 @@
 /** Loads the yaml tables and sections conf and generates the routes */
 
 const getDirName = require('path').dirname;
-const fs = require('fs-extra');
-const yaml = require('js-yaml');
+const fs = require('fs-extra')
+const yaml = require('js-yaml')
 const map = require('lodash.map')
 const flatten = require('lodash.flatten')
 const fromPairs = require('lodash.frompairs')
 const last = require('lodash.last')
+const path = require('path')
 
 const {parameterTable} = require('../services/parameterTable')
 const {toXLSX, toCSV} = require('../services/csv')
@@ -24,6 +25,7 @@ async function loadSectionFile(file) {
 
 async function loadParametersTree() {
   const sectionsFiles = fs.readdirSync(tablesDir)
+    .filter(fileName => path.extname(fileName) == '.yaml')
   const resolvedFiles = await Promise.all(sectionsFiles.map(loadSectionFile))
   return fromPairs(resolvedFiles)
 }
