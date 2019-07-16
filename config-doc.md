@@ -1,8 +1,8 @@
 # Configuration des tables
 
-À l'exception de la page d'accueil, qui est définie dans le fichier [`pages/index.js`](./pages/index.js), toutes les pages sont générées à partir des fichiers de configuration au format YAML situés dans le dossier [`tables`](./tables/).
+À l'exception de la page d'accueil, qui est définie dans le fichier [`pages/index.js`](./pages/index.js), toutes les pages sont générées à partir des fichiers de configuration au format YAML situés dans le répertoire défini par la variable d'environement `TABLES_DIR`.
 
-Chaque fichier représente une section des paramètres (qui correspond à un fichier Excel dans la version actuelle des paramètres).
+Chaque fichier représente une section des paramètres sur https://www.ipp.eu/
 
 ## Structure d'un fichier de configuration YAML
 
