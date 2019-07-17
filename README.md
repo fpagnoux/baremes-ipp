@@ -1,3 +1,5 @@
+# **⚠⚠Ce dépôt a été déplacé vers https://framagit.org/french-tax-and-benefit-tables/baremes-ipp-views⚠⚠**
+
 # [Barèmes IPP](http://baremes-ipp.pagnoux.eu/)
 
 Application web permettant de générer des tables de paramètres à partir d'[OpenFisca-France](https://github.com/openfisca/openfisca-france).
